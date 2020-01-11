@@ -9,16 +9,17 @@
 
 	let canvasWidth
 	let canvasHeight
-	let backgroundHue = tweened(50, {
-		duration: 5000,
+	let backgroundHue = tweened(180, {
+		duration: 50000,
 		easing: cubicOut
 	})
-	let forgroundHue = tweened(50, {
-		duration: 5000,
+	let forgroundHue = tweened(180, {
+		duration: 1000,
 		easing: cubicOut
 	})
 
 	const hueMaxValue = 360
+	const lightness = "90%"
 
 	const handleMouseMove = (e) => {
 		mouse.set({ x: e.clientX, y: e.clientY })
@@ -30,8 +31,8 @@
 
 <style>
 	div { width: 100%; height: 100% }
-	svg { width: 100%; height: 100%; background-color: hsl(var(--backgroundHue), 50%, 50%); }
-	circle { fill: hsl(var(--forgroundHue), 50%, 50%); }
+	svg { width: 100%; height: 100%; background-color: hsl(var(--backgroundHue), 50%, var(--lightness)); }
+	circle { fill: hsl(var(--forgroundHue), 50%, var(--lightness)); }
 </style>
 
 <div
@@ -39,9 +40,9 @@
 	bind:clientWidth={canvasWidth}
 >
 	<svg
-		style="--backgroundHue:{$backgroundHue}"
+		style="--backgroundHue:{$backgroundHue}; --lightness:{lightness}"
 		on:mousemove="{handleMouseMove}"
 	>
-		<circle style="--forgroundHue:{$forgroundHue}" cx={$mouse.x} cy={$mouse.y} r={500} fill-opacity="50%" />
+		<circle style="--forgroundHue:{$forgroundHue}; --lightness:{lightness}" cx={$mouse.x} cy={$mouse.y} r={1000} />
 	</svg>
 </div>
