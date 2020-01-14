@@ -11,19 +11,20 @@
 		damping: .001
   })
 
-  let backgroundHue = tweened(180, {
+  let backgroundHue = tweened(0, {
     duration: 1000,
     easing: cubicOut
   })
 
-  let forgroundHue = tweened(180, {
+  let forgroundHue = tweened(0, {
     duration: 1000,
     easing: cubicOut
   })
 
-  const circleSize = 1000
+  const circleSize = 2000
   const hueMaxValue = 360
-  const lightness = "90%"
+  const lightness = 85
+  const saturation = 50
   const circles = []
 
   const handleMouseMove = (e) => {
@@ -37,28 +38,34 @@
 	  }
 
 	  p5.draw = () => {
-      p5.colorMode(p5.HSL)
-	    p5.background($backgroundHue, 50, 85)
+      p5.colorMode(p5.HSL, 360, 100, 100, 100)
+	    p5.background($backgroundHue, saturation, lightness)
       p5.noStroke()
-      circles.forEach(circle => {
-        p5.fill(circle.hue, 50, 85)
+      circles.forEach((circle) => {
+        p5.fill(circle.hue, saturation, lightness, circle.alpha)
         p5.ellipse(circle.x, circle.y, circleSize, circleSize)
+        if (circle.alpha <= 50 && circle.fadeOut == false) {
+          circle.alpha += 1
+        } else {
+          circle.fadeOut = true
+          circle.alpha -= 0.3
+        }
       })
-      p5.fill($forgroundHue, 50, 85)
+      p5.fill($forgroundHue, saturation, lightness, 50)
       p5.ellipse($mouse.x, $mouse.y, circleSize, circleSize)
     }
   }
 
   const updateCircles = () => {
-    circles.push({x: $mouse.x, y: $mouse.y, hue: $forgroundHue})
-    if (circles.length > 10 ) { circles.shift() }
+    circles.push({x: $mouse.x, y: $mouse.y, hue: $forgroundHue, alpha: 0, fadeOut: false})
+    if (circles.length > 13 ) { circles.shift() }
   }
 
   setInterval(() => {
     backgroundHue.set(hueMaxValue * $mouse.x / canvasWidth)
-		forgroundHue.set(hueMaxValue * $mouse.y / canvasHeight)
+    forgroundHue.set(hueMaxValue * $mouse.y / canvasHeight)
     updateCircles()
-  }, 500)
+  }, 800)
 </script>
 
 <style>       
