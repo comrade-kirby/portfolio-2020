@@ -12,12 +12,6 @@
     damping: .001
   })
 
-  onMount(() => {
-    circle1.set({ x: (canvasWidth / 3) * 1, y: (canvasHeight / 3) * 2 }, {
-      hard: true
-    })
-  })
-
   let circle1Hue = tweened(90, {
     duration: 1000,
     easing: cubicOut
@@ -27,7 +21,7 @@
     duration: 1000,
     easing: cubicOut
   })
-
+ 
   const hueMaxValue = 360
   const lightness = 90
   const saturation = 100
@@ -54,6 +48,12 @@
     circle1Hue.set(hueMaxValue * $circle1.x / canvasWidth)
     circle1.set({ x: canvasWidth / 2, y: canvasHeight / 2 })
   }, 1000)
+
+  onMount(() => {
+    circle1.set({ x: (canvasWidth / 3) * 1, y: (canvasHeight / 3) * 2 }, {
+      hard: true
+    })
+  })
 </script>
 
 <style>       
