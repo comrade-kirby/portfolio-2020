@@ -32,8 +32,7 @@
 		forgroundHue.set(hueMaxValue * $mouse.y / canvasHeight)
   }
   
-  const sketch = function(p5) {
-
+  const sketch = (p5) => {
 	  p5.setup = () => {
       const canvas = p5.createCanvas(canvasWidth, canvasHeight);
       canvas.parent('background-holder');
