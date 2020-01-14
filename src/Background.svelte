@@ -27,9 +27,7 @@
   const circles = []
 
   const handleMouseMove = (e) => {
-		mouse.set({ x: e.clientX, y: e.clientY })
-		backgroundHue.set(hueMaxValue * $mouse.x / canvasWidth)
-		forgroundHue.set(hueMaxValue * $mouse.y / canvasHeight)
+    mouse.set({ x: e.clientX, y: e.clientY })
   }
   
   const sketch = (p5) => {
@@ -57,6 +55,8 @@
   }
 
   setInterval(() => {
+    backgroundHue.set(hueMaxValue * $mouse.x / canvasWidth)
+		forgroundHue.set(hueMaxValue * $mouse.y / canvasHeight)
     updateCircles()
   }, 500)
 
@@ -71,6 +71,6 @@
 	on:mousemove={handleMouseMove}
 	bind:clientHeight={canvasHeight}
 	bind:clientWidth={canvasWidth}
->
+>˝
 </div>
 <P5Canvas sketch={sketch} />
