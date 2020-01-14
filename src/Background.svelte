@@ -59,10 +59,9 @@
 		forgroundHue.set(hueMaxValue * $mouse.y / canvasHeight)
     updateCircles()
   }, 500)
-
 </script>
 
-<style>
+<style>       
   div { height: 100%; width: 100% }
 </style>
 
@@ -71,6 +70,6 @@
 	on:mousemove={handleMouseMove}
 	bind:clientHeight={canvasHeight}
 	bind:clientWidth={canvasWidth}
->˝
+>
 </div>
 <P5Canvas sketch={sketch} />
