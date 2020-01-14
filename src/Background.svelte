@@ -12,8 +12,8 @@
   const lightness = 95
 
   let circle = spring({ x: 0, y: 0 }, {
-    stiffness: 0.00001,
-    damping: .0001
+    stiffness: 0.0001,
+    damping: .001
   })
 
   let circleHue = tweened(90, {
