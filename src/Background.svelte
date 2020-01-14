@@ -3,34 +3,36 @@
   import { cubicOut } from 'svelte/easing'
   import { onMount } from 'svelte'
 
-  import P5Canvas from "./P5Canvas.svelte"
+  import P5Canvas from './P5Canvas.svelte'
 
   let canvasWidth
-	let canvasHeight
-  let circle1 = spring({ x: 0, y: 0 }, {
-    stiffness: 0.00001,
+  let canvasHeight
+  
+  let circle = spring({ x: 0, y: 0 }, {
+    stiffness: 0.0001,
     damping: .001
   })
 
-  let circle1Hue = tweened(90, {
+  let circleHue = tweened(90, {
     duration: 1000,
     easing: cubicOut
   })
 
-  let backgroundColor = tweened(270, {
+  let backgroundHue = tweened(270, {
     duration: 1000,
     easing: cubicOut
   })
  
   const hueMaxValue = 360
-  const lightness = 90
   const saturation = 100
+  const lightness = 95
 
   const handleMouseMove = (e) => {
-    circle1.set({ x: e.clientX, y: e.clientY })
+    circle.set({ x: e.clientX, y: e.clientY })
   }
   
   const sketch = (p5) => {
+    const alpha = 7
 	  p5.setup = () => {
       const canvas = p5.createCanvas(canvasWidth, canvasHeight);
       canvas.parent('background-holder');
@@ -39,29 +41,39 @@
 
 	  p5.draw = () => {
       p5.noStroke()
-      p5.fill($circle1Hue, saturation, lightness, 10)
-      p5.ellipse($circle1.x, $circle1.y, 1000, 1000)
+      p5.fill($circleHue, saturation, lightness, alpha)
+      p5.ellipse($circle.x, $circle.y, 1000, 1000)
     }
   }
 
+  const setRandomCircleLocation = (divisions) => {
+    const randomNumber = () => { return Math.random() * divisions }
+    const xPosition = canvasWidth / divisions * randomNumber()
+    const yPosition = canvasHeight / divisions * randomNumber()
+
+    circle.set({ x: xPosition, y: yPosition })
+  }
+  
   setInterval(() => {
-    circle1Hue.set(hueMaxValue * $circle1.x / canvasWidth)
-    circle1.set({ x: canvasWidth / 2, y: canvasHeight / 2 })
+    circleHue.set(hueMaxValue * $circle.x / canvasWidth)
+    backgroundHue.set(hueMaxValue * $circle.y / canvasHeight)
+    setRandomCircleLocation(5)
   }, 1000)
 
   onMount(() => {
-    circle1.set({ x: (canvasWidth / 3) * 1, y: (canvasHeight / 3) * 2 }, {
+    circle.set({ x: canvasWidth / 2, y: canvasHeight / 2 }, {
       hard: true
     })
   })
 </script>
 
 <style>       
-  div { height: 100%; width: 100%; background-color: red;}
+  div { height: 100%; width: 100%; background-color: hsl(var(--backgroundHue), var(--saturation), var(--lightness));}
 </style>
 
 <div
   id='background-holder'
+  style='--backgroundHue:{$backgroundHue}; --saturation:{`${saturation}%`}; --lightness:{`${lightness}%`}'
 	on:mousemove={handleMouseMove}
 	bind:clientHeight={canvasHeight}
 	bind:clientWidth={canvasWidth}
