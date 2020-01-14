@@ -7,10 +7,13 @@
 
   let canvasWidth
   let canvasHeight
-  
+  const hueMaxValue = 360
+  const saturation = 100
+  const lightness = 95
+
   let circle = spring({ x: 0, y: 0 }, {
-    stiffness: 0.0001,
-    damping: .001
+    stiffness: 0.00001,
+    damping: .0001
   })
 
   let circleHue = tweened(90, {
@@ -22,10 +25,6 @@
     duration: 1000,
     easing: cubicOut
   })
- 
-  const hueMaxValue = 360
-  const saturation = 100
-  const lightness = 95
 
   const handleMouseMove = (e) => {
     circle.set({ x: e.clientX, y: e.clientY })
@@ -34,8 +33,8 @@
   const sketch = (p5) => {
     const alpha = 7
 	  p5.setup = () => {
-      const canvas = p5.createCanvas(canvasWidth, canvasHeight);
-      canvas.parent('background-holder');
+      const canvas = p5.createCanvas(canvasWidth, canvasHeight)
+      canvas.parent('background-holder')
       p5.colorMode(p5.HSL, 360, 100, 100, 100)
 	  }
 
@@ -68,7 +67,11 @@
 </script>
 
 <style>       
-  div { height: 100%; width: 100%; background-color: hsl(var(--backgroundHue), var(--saturation), var(--lightness));}
+  div { 
+    height: 100%;
+    width: 100%;
+    background-color: hsl(var(--backgroundHue), var(--saturation), var(--lightness));
+  }
 </style>
 
 <div
