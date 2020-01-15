@@ -9,10 +9,10 @@
   let canvasHeight
   const hueMaxValue = 360
   const saturation = 100
-  const lightness = 95
+  const lightness = 93
 
   let circle = spring({ x: 0, y: 0 }, {
-    stiffness: 0.0001,
+    stiffness: 0.00001,
     damping: .001
   })
 
@@ -31,17 +31,19 @@
   }
   
   const sketch = (p5) => {
-    const alpha = 7
+    const alpha = 10
 	  p5.setup = () => {
       const canvas = p5.createCanvas(canvasWidth, canvasHeight)
       canvas.parent('background-holder')
       p5.colorMode(p5.HSL, 360, 100, 100, 100)
+      p5.frameRate(10)
 	  }
 
 	  p5.draw = () => {
-      p5.noStroke()
+      p5.stroke($backgroundHue, saturation, 97, 100);
+      p5.strokeWeight(1)
       p5.fill($circleHue, saturation, lightness, alpha)
-      p5.ellipse($circle.x, $circle.y, 1000, 1000)
+      p5.ellipse($circle.x, $circle.y, 1500, 1500)
     }
   }
 
