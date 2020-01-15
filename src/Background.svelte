@@ -7,6 +7,7 @@
 
   let canvasWidth
   let canvasHeight
+  let circleSize
   const hueMaxValue = 360
   const saturation = 100
   const lightness = 93
@@ -40,10 +41,11 @@
 	  }
 
 	  p5.draw = () => {
+      console.log(circleSize)
       p5.stroke($backgroundHue, saturation, 97, 100);
       p5.strokeWeight(1)
       p5.fill($circleHue, saturation, lightness, alpha)
-      p5.ellipse($circle.x, $circle.y, 1500, 1500)
+      p5.ellipse($circle.x, $circle.y, circleSize, circleSize)
     }
 
     p5.windowResized = () => {
@@ -66,6 +68,8 @@
   }, 1000)
 
   onMount(() => {
+    const longestDimension = canvasHeight >= canvasWidth ? canvasHeight : canvasWidth
+    circleSize = longestDimension * .75
     circle.set({ x: canvasWidth / 2, y: canvasHeight / 2 }, {
       hard: true
     })
