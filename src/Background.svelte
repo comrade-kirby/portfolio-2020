@@ -45,6 +45,10 @@
       p5.fill($circleHue, saturation, lightness, alpha)
       p5.ellipse($circle.x, $circle.y, 1500, 1500)
     }
+
+    p5.windowResized = () => {
+      p5.resizeCanvas(canvasWidth, canvasHeight)
+    }
   }
 
   const setRandomCircleLocation = (divisions) => {
