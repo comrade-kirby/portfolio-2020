@@ -2,10 +2,12 @@
   import { writable } from 'svelte/store'
   import { onMount } from 'svelte'
 
-  import { screenHeight, screenWidth } from './stores.js'
+  import { longestScreenDimension } from './stores.js'
   import P5Canvas from './P5Canvas.svelte'
 
   let cubeSize = writable(0)
+  let isOpen = false
+  let sizeChanged = writable(false)
 
   const sketch = (p5) => {
 	  p5.setup = () => {
@@ -15,6 +17,10 @@
 	  }
 
 	  p5.draw = () => {
+      if ($sizeChanged) {
+        p5.resizeCanvas($cubeSize, $cubeSize)
+        sizeChanged.set(false)
+      }
       p5.background(360, 100, 0, 0)
       p5.rotateX(p5.frameCount * .01)
       p5.rotateY(p5.frameCount * .02)
@@ -28,11 +34,21 @@
     }
   }
 
-  onMount(async () => {
-    await $screenHeight && $screenWidth
+  const open = () => {
+    resize(0.40)
+    isOpen = true
+  }
 
-    let longestDimension = $screenHeight >= $screenWidth ? $screenHeight : $screenWidth
-    cubeSize.set(longestDimension * .15)
+  const resize = (size) => {
+    if (!isOpen) {
+      sizeChanged.set(true)
+      cubeSize.set($longestScreenDimension * size)
+    }
+  }
+
+  onMount(async () => {
+    await $longestScreenDimension
+    cubeSize.set($longestScreenDimension * .15)
   })
 </script> 
 
@@ -47,7 +63,11 @@
 
 <div 
   id='index-holder'
-  style='() => `${$cubeSize}px`'
+  style='--cubeSize:{`${$cubeSize}px`}'
+  on:mousedown={() => {resize(.14)}}
+  on:mouseup={open}
+  on:mouseover={() => resize(.16)}
+  on:mouseout={() => resize(.15)}
 >
+  <P5Canvas sketch={sketch} />
 </div>
-<P5Canvas sketch={sketch} />

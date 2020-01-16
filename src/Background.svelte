@@ -25,7 +25,6 @@
   })
 
   const handleMouseMove = (e) => {
-    console.log("move")
     circle.set({ x: e.clientX, y: e.clientY })
   }
   
@@ -92,5 +91,5 @@
   style='--backgroundHue:{$backgroundHue};'
 	on:mousemove={handleMouseMove}
 >
+  <P5Canvas sketch={sketch} />
 </div>
-<P5Canvas sketch={sketch} />
