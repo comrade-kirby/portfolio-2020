@@ -10,21 +10,22 @@
   
   let circleSize
   let circle = spring({ x: $screenWidth / 2, y: $screenHeight / 2 }, {
-      stiffness: 0.0001,
-      damping: .01
+      stiffness: 0.00001,
+      damping: .001
     })
 
   let circleHue = tweened(90, {
-    duration: 1500,
+    duration: 3000,
     easing: cubicOut
   })
 
   let backgroundHue = tweened(270, {
-    duration: 1500,
+    duration: 3000,
     easing: cubicOut
   })
 
   const handleMouseMove = (e) => {
+    console.log("move")
     circle.set({ x: e.clientX, y: e.clientY })
   }
   
@@ -41,7 +42,7 @@
       const strokeLightness = 97
       const strokeAlpha = 100
       const fillLightness = 85
-      const fillAlpha = 10
+      const fillAlpha = 7
 
       p5.stroke($backgroundHue, saturation, strokeLightness, strokeAlpha);
       p5.strokeWeight(1)
@@ -66,12 +67,12 @@
     circleHue.set(hueMaxValue * $circle.x / $screenWidth)
     backgroundHue.set(hueMaxValue * $circle.y / $screenHeight)
     setRandomCircleLocation(5)
-  }, 1500)
+  }, 3000)
 
   onMount(async () => {
     await $screenWidth && $screenHeight
 
-    circleSize = $longestScreenDimension * 0.50
+    circleSize = $longestScreenDimension * 1.25
     circle.set({ x: $screenWidth / 2, y: $screenHeight / 2 }, {
       hard: true
     })
