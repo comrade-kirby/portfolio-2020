@@ -7,12 +7,12 @@
   import P5Canvas from './P5Canvas.svelte'
 
   let cubeSize = tweened(0, {
-    duration: 1000,
+    duration: 500,
     easing: cubicOut
   })
 
   let canvasSize = tweened(0, {
-    duration: 100,
+    duration: 50,
     easing: cubicOut
   })
 
@@ -34,7 +34,8 @@
       p5.background(360, 100, 0, 0)
       p5.rotateX(p5.frameCount * .01)
       p5.rotateY(p5.frameCount * .02)
-      p5.fill(0, 0, 0, 50)
+      p5.directionalLight(0, 100, 100, -1, 1, -1);
+      p5.specularMaterial(20, 100, 50, 85);
       p5.stroke('white')
       p5.box($cubeSize / 2)
     }
@@ -69,7 +70,7 @@
 
   onMount(async () => {
     await $longestScreenDimension
-    const initialSize = calculateCubeSize(0.15)
+    const initialSize = calculateCubeSize(0.10)
     cubeSize.set(initialSize, {
       duration: 0
     })
@@ -91,10 +92,10 @@
 <div 
   id='index-holder'
   style='--cubeSize:{`${canvasSize}px`}'
-  on:mousedown={() => {setCubeSize(.10)}}
+  on:mousedown={() => {setCubeSize(.08)}}
   on:mouseup={open}
-  on:mouseover={() => setCubeSize(.20)}
-  on:mouseout={() => setCubeSize(.15)}
+  on:mouseover={() => setCubeSize(.12)}
+  on:mouseout={() => setCubeSize(.10)}
 >
   <P5Canvas sketch={sketch} />
 </div>
