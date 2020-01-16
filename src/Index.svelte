@@ -1,54 +1,81 @@
 <script>
-  import { spring, tweened } from 'svelte/motion'
+  import { tweened } from 'svelte/motion'
+  import { cubicOut } from 'svelte/easing'
   import { onMount } from 'svelte'
 
   import { longestScreenDimension } from './stores.js'
   import P5Canvas from './P5Canvas.svelte'
 
-  let cubeSize = 0
+  let cubeSize = tweened(0, {
+    duration: 1000,
+    easing: cubicOut
+  })
+
+  let canvasSize = tweened(0, {
+    duration: 100,
+    easing: cubicOut
+  })
+
   let isOpen = false
   let sizeChanged = false
 
   const sketch = (p5) => {
 	  p5.setup = () => {
-      const canvas = p5.createCanvas(cubeSize, cubeSize, p5.WEBGL)
+      const canvas = p5.createCanvas($cubeSize, $cubeSize, p5.WEBGL)
       canvas.parent('index-holder')
       p5.colorMode(p5.HSL, 360, 100, 100, 100)
 	  }
 
 	  p5.draw = () => {
       if (sizeChanged) {
-        p5.resizeCanvas(cubeSize, cubeSize)
-        sizeChanged = false
+        p5.background(360, 100, 0, 0)
+        p5.resizeCanvas($canvasSize, $canvasSize)
       }
       p5.background(360, 100, 0, 0)
       p5.rotateX(p5.frameCount * .01)
       p5.rotateY(p5.frameCount * .02)
       p5.fill(0, 0, 0, 50)
       p5.stroke('white')
-      p5.box(cubeSize / 2)
+      p5.box($cubeSize / 2)
     }
 
     p5.windowResized = () => {
-      p5.resizeCanvas(cubeSize, cubeSize)
+      p5.resizeCanvas($cubeSize, $cubeSize)
     }
   }
 
   const open = () => {
-    resize(0.40)
+    setCubeSize(0.40)
     isOpen = true
   }
 
-  const resize = (size) => {
+  const calculateCubeSize = (multiplier) => $longestScreenDimension * multiplier
+
+  const setCubeSize = async (multiplier) => {
+    const newCubeSize = calculateCubeSize(multiplier)
     if (!isOpen) {
-      sizeChanged = true
-      cubeSize = $longestScreenDimension * size
+      if (newCubeSize > $cubeSize) {
+        sizeChanged = true
+        await canvasSize.set(newCubeSize)
+        cubeSize.set(newCubeSize)
+      } else {
+        await cubeSize.set(newCubeSize)
+        sizeChanged = true
+        await canvasSize.set(newCubeSize)
+      }
+      sizeChanged = false
     }
   }
 
   onMount(async () => {
     await $longestScreenDimension
-    cubeSize = $longestScreenDimension * .15
+    const initialSize = calculateCubeSize(0.15)
+    cubeSize.set(initialSize, {
+      duration: 0
+    })
+    canvasSize.set(initialSize, {
+      duration: 0
+    })
   })
 </script> 
 
@@ -63,11 +90,11 @@
 
 <div 
   id='index-holder'
-  style='--cubeSize:{`${cubeSize}px`}'
-  on:mousedown={() => {resize(.14)}}
+  style='--cubeSize:{`${canvasSize}px`}'
+  on:mousedown={() => {setCubeSize(.10)}}
   on:mouseup={open}
-  on:mouseover={() => resize(.16)}
-  on:mouseout={() => resize(.15)}
+  on:mouseover={() => setCubeSize(.20)}
+  on:mouseout={() => setCubeSize(.15)}
 >
   <P5Canvas sketch={sketch} />
 </div>
