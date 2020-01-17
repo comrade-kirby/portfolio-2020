@@ -1,32 +1,19 @@
 <script>
-  import { spring, tweened } from 'svelte/motion'
-  import { cubicOut } from 'svelte/easing'
   import { onMount } from 'svelte'
 
   import P5Canvas from './P5Canvas.svelte'
-  import { screenHeight, screenWidth, longestScreenDimension } from './stores.js'
+  import { 
+    screenHeight,
+    screenWidth,
+    longestScreenDimension,
+    circleLocation,
+    backgroundHue,
+    circleHue 
+  } from './stores.js'
 
   const hueMaxValue = 360
   
   let circleSize
-  let circle = spring({ x: $screenWidth / 2, y: $screenHeight / 2 }, {
-      stiffness: 0.00001,
-      damping: .001
-    })
-
-  let circleHue = tweened(90, {
-    duration: 3000,
-    easing: cubicOut
-  })
-
-  let backgroundHue = tweened(270, {
-    duration: 3000,
-    easing: cubicOut
-  })
-
-  const handleMouseMove = (e) => {
-    circle.set({ x: e.clientX, y: e.clientY })
-  }
   
   const sketch = (p5) => {
 	  p5.setup = () => {
@@ -46,7 +33,7 @@
       p5.stroke($backgroundHue, saturation, strokeLightness, strokeAlpha);
       p5.strokeWeight(1)
       p5.fill($circleHue, saturation, fillLightness, fillAlpha)
-      p5.ellipse($circle.x, $circle.y, circleSize, circleSize)
+      p5.ellipse($circleLocation.x, $circleLocation.y, circleSize, circleSize)
     }
 
     p5.windowResized = () => {
@@ -59,12 +46,12 @@
     const xPosition = $screenWidth / divisions * randomNumber()
     const yPosition = $screenHeight / divisions * randomNumber()
 
-    circle.set({ x: xPosition, y: yPosition })
+    circleLocation.set({ x: xPosition, y: yPosition })
   }
   
   setInterval(() => {
-    circleHue.set(hueMaxValue * $circle.x / $screenWidth)
-    backgroundHue.set(hueMaxValue * $circle.y / $screenHeight)
+    circleHue.set(hueMaxValue * $circleLocation.x / $screenWidth)
+    backgroundHue.set(hueMaxValue * $circleLocation.y / $screenHeight)
     setRandomCircleLocation(5)
   }, 3000)
 
@@ -72,7 +59,7 @@
     await $screenWidth && $screenHeight
 
     circleSize = $longestScreenDimension * 1.25
-    circle.set({ x: $screenWidth / 2, y: $screenHeight / 2 }, {
+    circleLocation.set({ x: $screenWidth / 2, y: $screenHeight / 2 }, {
       hard: true
     })
   })
@@ -89,7 +76,6 @@
 <div
   id='background-holder'
   style='--backgroundHue:{$backgroundHue};'
-	on:mousemove={handleMouseMove}
 >
   <P5Canvas sketch={sketch} />
-</div>
+</div>/

@@ -3,7 +3,7 @@
   import { cubicOut } from 'svelte/easing'
   import { onMount } from 'svelte'
 
-  import { longestScreenDimension } from './stores.js'
+  import { longestScreenDimension, backgroundHue, circleHue } from './stores.js'
   import P5Canvas from './P5Canvas.svelte'
 
   let cubeSize = tweened(0, {
@@ -34,9 +34,9 @@
       p5.background(360, 100, 0, 0)
       p5.rotateX(p5.frameCount * .01)
       p5.rotateY(p5.frameCount * .02)
-      p5.directionalLight(0, 100, 100, -1, 1, -1);
-      p5.specularMaterial(20, 100, 50, 85);
-      p5.stroke('white')
+      p5.directionalLight($circleHue, 100, 50, -1, 1, -1);
+      p5.specularMaterial($backgroundHue, 100, 90, 50);
+      p5.stroke($backgroundHue, 100, 90)
       p5.box($cubeSize / 2)
     }
 

@@ -3,11 +3,14 @@
 
 	import Background from './Background.svelte'
 	import Index from './Index.svelte'
-
-	import { screenHeight, screenWidth, longestScreenDimension } from './stores.js'
+	import { screenHeight, screenWidth, longestScreenDimension, circleLocation } from './stores.js'
 
 	let canvasHeight
 	let canvasWidth
+
+	const handleMouseMove = (e) => {
+    circleLocation.set({ x: e.clientX, y: e.clientY })
+  }
 
 	afterUpdate(() => {
 		screenHeight.set(canvasHeight)	 
@@ -32,6 +35,7 @@
 	class='index-container'
 	bind:clientHeight={canvasHeight}
 	bind:clientWidth={canvasWidth}
+	on:mousemove={handleMouseMove}
 >
 	<Index />
 	<Background />
