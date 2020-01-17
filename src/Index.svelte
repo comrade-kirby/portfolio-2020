@@ -6,7 +6,7 @@
   import { longestScreenDimension, backgroundHue, circleHue, screenHeight, screenWidth } from './stores.js'
   import P5Canvas from './P5Canvas.svelte'
 
-  let cubeSize = tweened(0, {
+  let boxDimensions = tweened([0, 0, 0], {
     duration: 500,
     easing: cubicOut
   })
@@ -43,7 +43,7 @@
       p5.directionalLight($circleHue, 100, 50, -1, 1, -1);
       p5.specularMaterial($backgroundHue, 100, 90, 50);
       p5.stroke($backgroundHue, 100, 90)
-      p5.box($cubeSize / 2)
+      p5.box(...$boxDimensions)
     }
 
     p5.windowResized = () => {
@@ -54,30 +54,35 @@
   const alignBox = () => {
     const xRadians = $xRotation / Math.PI
     const yRadians = $yRotation / Math.PI
-    const roundedX = Math.round(xRadians * 2) / 2 // to nearest .5
-    const roundedY = Math.round(yRadians * 2) / 2 // to nearest .5
-
+    const roundedX = Math.round(xRadians / 2) * 2 // to nearest 2
+    const roundedY = Math.round(yRadians / 2) * 2 // to nearest 2
     xRotation.set(roundedX * Math.PI, { duration: 500 })
     yRotation.set(roundedY * Math.PI, { duration: 500 })
   }
 
   const open = () => {
-    setCubeSize(0.40)
     isOpen = true
+    setBoxDimensions(.90, .90, 0.01)
   }
 
-  const calculateCubeSize = (multiplier) => $longestScreenDimension * multiplier
+  const calculateSideLength = (multiplier) => $longestScreenDimension * multiplier
 
-  const setCubeSize = async (multiplier) => {
+  const setBoxDimensions = (xMultiplier, yMultiplier = null, zMultiplier = null) => {
     if (!isOpen) {
-      cubeSize.set(calculateCubeSize(multiplier))
+      const newSideLength = calculateSideLength(xMultiplier)
+      boxDimensions.set([newSideLength, newSideLength, newSideLength])
+    } else {
+      const x = $screenWidth * xMultiplier
+      const y = $screenHeight * yMultiplier
+      const z = calculateSideLength(zMultiplier)
+      boxDimensions.set([x, y, z])
     }
   }
 
   onMount(async () => {
     await $longestScreenDimension
-    const initialSize = calculateCubeSize(0.10)
-    cubeSize.set(initialSize, {
+    const initialSize = calculateSideLength(0.05)
+    boxDimensions.set([initialSize, initialSize, initialSize], {
       duration: 0
     })
   })
@@ -99,17 +104,17 @@
     width: var(--cubeSize);
   }
 </style>
-
+<!-- need to disable mouse events when box is open -->
 <div 
   id='index-holder'
 >
   <div 
     class='mouse-capture'
-    style='--cubeSize:{`${$cubeSize}px`}'
-    on:mousedown={() => {setCubeSize(.08)}}
+    style='--cubeSize:{`${$boxDimensions[0] * 2}px`}'
+    on:mousedown={() => {setBoxDimensions(.04)}}
     on:mouseup={open}
-    on:mouseover={() => setCubeSize(.12)}
-    on:mouseout={() => setCubeSize(.10)}
+    on:mouseover={() => setBoxDimensions(.06)}
+    on:mouseout={() => setBoxDimensions(.05)}
   >
   </div>
   <P5Canvas sketch={sketch} />
