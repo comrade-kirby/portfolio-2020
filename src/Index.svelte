@@ -13,6 +13,16 @@
 
   let isOpen = false
 
+  const xRotation = tweened(0, {
+    duration: 0,
+    easing: cubicOut
+  })
+  
+  const yRotation = tweened(0, {
+    duration: 0,
+    easing: cubicOut
+  })
+
   const sketch = (p5) => {
 	  p5.setup = () => {
       const canvas = p5.createCanvas($screenWidth, $screenHeight, p5.WEBGL)
@@ -22,8 +32,14 @@
 
 	  p5.draw = () => {
       p5.background(360, 100, 0, 0)
-      p5.rotateX(p5.frameCount * .01)
-      p5.rotateY(p5.frameCount * .02)
+      if (isOpen) {
+        alignBox()
+      } else {
+        xRotation.set(p5.frameCount * 0.01)
+        yRotation.set(p5.frameCount * 0.02)
+      }
+      p5.rotateX($xRotation)
+      p5.rotateY($yRotation)
       p5.directionalLight($circleHue, 100, 50, -1, 1, -1);
       p5.specularMaterial($backgroundHue, 100, 90, 50);
       p5.stroke($backgroundHue, 100, 90)
@@ -33,6 +49,16 @@
     p5.windowResized = () => {
       p5.resizeCanvas($screenWidth, $screenHeight)
     }
+  }
+
+  const alignBox = () => {
+    const xRadians = $xRotation / Math.PI
+    const yRadians = $yRotation / Math.PI
+    const roundedX = Math.round(xRadians * 2) / 2 // to nearest .5
+    const roundedY = Math.round(yRadians * 2) / 2 // to nearest .5
+
+    xRotation.set(roundedX * Math.PI, { duration: 500 })
+    yRotation.set(roundedY * Math.PI, { duration: 500 })
   }
 
   const open = () => {
