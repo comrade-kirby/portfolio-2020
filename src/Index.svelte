@@ -3,7 +3,7 @@
   import { cubicOut } from 'svelte/easing'
   import { onMount } from 'svelte'
 
-  import { longestScreenDimension, backgroundHue, circleHue } from './stores.js'
+  import { longestScreenDimension, backgroundHue, circleHue, screenHeight, screenWidth } from './stores.js'
   import P5Canvas from './P5Canvas.svelte'
 
   let cubeSize = tweened(0, {
@@ -11,26 +11,16 @@
     easing: cubicOut
   })
 
-  let canvasSize = tweened(0, {
-    duration: 50,
-    easing: cubicOut
-  })
-
   let isOpen = false
-  let sizeChanged = false
 
   const sketch = (p5) => {
 	  p5.setup = () => {
-      const canvas = p5.createCanvas($cubeSize, $cubeSize, p5.WEBGL)
+      const canvas = p5.createCanvas($screenWidth, $screenHeight, p5.WEBGL)
       canvas.parent('index-holder')
       p5.colorMode(p5.HSL, 360, 100, 100, 100)
 	  }
 
 	  p5.draw = () => {
-      if (sizeChanged) {
-        p5.background(360, 100, 0, 0)
-        p5.resizeCanvas($canvasSize, $canvasSize)
-      }
       p5.background(360, 100, 0, 0)
       p5.rotateX(p5.frameCount * .01)
       p5.rotateY(p5.frameCount * .02)
@@ -41,7 +31,7 @@
     }
 
     p5.windowResized = () => {
-      p5.resizeCanvas($cubeSize, $cubeSize)
+      p5.resizeCanvas($screenWidth, $screenHeight)
     }
   }
 
@@ -53,18 +43,8 @@
   const calculateCubeSize = (multiplier) => $longestScreenDimension * multiplier
 
   const setCubeSize = async (multiplier) => {
-    const newCubeSize = calculateCubeSize(multiplier)
     if (!isOpen) {
-      if (newCubeSize > $cubeSize) {
-        sizeChanged = true
-        await canvasSize.set(newCubeSize)
-        cubeSize.set(newCubeSize)
-      } else {
-        await cubeSize.set(newCubeSize)
-        sizeChanged = true
-        await canvasSize.set(newCubeSize)
-      }
-      sizeChanged = false
+      cubeSize.set(calculateCubeSize(multiplier))
     }
   }
 
@@ -74,28 +54,37 @@
     cubeSize.set(initialSize, {
       duration: 0
     })
-    canvasSize.set(initialSize, {
-      duration: 0
-    })
   })
 </script> 
 
 <style>
   div { 
-    height: var(--cubeSize);
-    width: var(--cubeSize);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     z-index: 1;
+  }
+
+  .mouse-capture {
+    height: var(--cubeSize);
+    width: var(--cubeSize);
   }
 </style>
 
 <div 
   id='index-holder'
-  style='--cubeSize:{`${canvasSize}px`}'
-  on:mousedown={() => {setCubeSize(.08)}}
-  on:mouseup={open}
-  on:mouseover={() => setCubeSize(.12)}
-  on:mouseout={() => setCubeSize(.10)}
 >
+  <div 
+    class='mouse-capture'
+    style='--cubeSize:{`${$cubeSize}px`}'
+    on:mousedown={() => {setCubeSize(.08)}}
+    on:mouseup={open}
+    on:mouseover={() => setCubeSize(.12)}
+    on:mouseout={() => setCubeSize(.10)}
+  >
+  </div>
   <P5Canvas sketch={sketch} />
 </div>
