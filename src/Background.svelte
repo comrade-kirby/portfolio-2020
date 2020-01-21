@@ -58,7 +58,7 @@
   onMount(async () => {
     await $screenWidth && $screenHeight
 
-    circleSize = $longestScreenDimension * 1.25
+    circleSize = $longestScreenDimension * 1
     circleLocation.set({ x: $screenWidth / 2, y: $screenHeight / 2 }, {
       hard: true
     })
