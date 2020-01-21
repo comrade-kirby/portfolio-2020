@@ -2,7 +2,7 @@
 	import { afterUpdate } from 'svelte'
 
 	import Background from './Background.svelte'
-	import Index from './Index.svelte'
+	import Home from './Home.svelte'
 	import { screenHeight, screenWidth, longestScreenDimension, circleLocation } from './stores.js'
 
 	let canvasHeight
@@ -37,6 +37,6 @@
 	bind:clientWidth={canvasWidth}
 	on:mousemove={handleMouseMove}
 >
-	<Index />
+	<Home />
 	<Background />
 </div>

@@ -78,4 +78,4 @@
   style='--backgroundHue:{$backgroundHue};'
 >
   <P5Canvas sketch={sketch} />
-</div>/
+</div>

@@ -32,6 +32,8 @@
 
 	  p5.draw = () => {
       p5.background(360, 100, 0, 0)
+      p5.blendMode(p5.DIFFERENCE);
+
       if (isOpen) {
         alignBox()
       } else {
@@ -40,8 +42,10 @@
       }
       p5.rotateX($xRotation)
       p5.rotateY($yRotation)
-      p5.directionalLight($circleHue, 100, 50, -1, 1, -1);
-      p5.specularMaterial($backgroundHue, 100, 90, 50);
+      p5.ambientLight(100, 0, 80)
+      p5.directionalLight($circleHue, 100, 80, -1, 1, -1);
+      
+      p5.ambientMaterial($backgroundHue, 50, 90, 90);
       p5.stroke($backgroundHue, 100, 90)
       p5.box(...$boxDimensions)
     }
@@ -62,7 +66,7 @@
 
   const open = () => {
     isOpen = true
-    setBoxDimensions(.90, .90, 0.01)
+    setBoxDimensions(.50, .50, 0.01)
   }
 
   const calculateSideLength = (multiplier) => $longestScreenDimension * multiplier
@@ -72,8 +76,8 @@
       const newSideLength = calculateSideLength(xMultiplier)
       boxDimensions.set([newSideLength, newSideLength, newSideLength])
     } else {
-      const x = $screenWidth * xMultiplier
-      const y = $screenHeight * yMultiplier
+      const y = $screenWidth * xMultiplier
+      const x = $screenHeight * yMultiplier
       const z = calculateSideLength(zMultiplier)
       boxDimensions.set([x, y, z])
     }
