@@ -3,6 +3,7 @@
 
 	import Background from './Background.svelte'
 	import Home from './Home.svelte'
+	import About from './About.svelte'
 	import { screenHeight, screenWidth, longestScreenDimension, circleLocation } from './stores.js'
 
 	let canvasHeight
@@ -23,9 +24,6 @@
 
 <style>
 	div {
-		display: flex;
-		justify-content: center;
-		align-items: center;
 		height: 100%;
 		width: 100%;
 	}
@@ -38,5 +36,6 @@
 	on:mousemove={handleMouseMove}
 >
 	<Home />
+	<About />
 	<Background />
 </div>

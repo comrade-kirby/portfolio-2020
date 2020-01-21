@@ -67,9 +67,11 @@
 
 <style>       
   div { 
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
     background-color: hsl(var(--backgroundHue), 50%, 95%);
+    position: fixed;
+    top: 0;
   }
 </style>
 

@@ -2,13 +2,17 @@
 </script>
 <style>
   div { 
-    height: 50%;
-    width: 50%;
-    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
   }
   .knockout-box {
-    width: 100%;
-    height: 100%;
+    width: 50%;
+    height: 50%;
   }
   svg #overlay {
     fill: white;
@@ -37,10 +41,10 @@
         <text id="text" text-anchor="end" x="100%" y="100%" dx="-20" dy="-20">oppenheimer</text>
         <text id="text" dx="20" dy="50">creative</text>
         <text id="text" dx="20" dy="90">web</text>
-        <svg viewBox="0 0 36 36" height="36" width="100%" preserveAspectRatio="xMaxYMin meet">
+        <!-- <svg viewBox="0 0 36 36" height="36" width="100%" preserveAspectRatio="xMaxYMin meet">
           <path d="M6 19h12v2H6z" />
           <path fill="none" d="M0 0h24v24H0V0z"/>
-        </svg>
+        </svg> -->
       </mask>
     </defs>
     <rect id="text-darken" x="0" y="0" width="100%" height="100%" />
