@@ -8,7 +8,7 @@
 
 	let canvasHeight
 	let canvasWidth
-
+	// let scroll
 	const handleMouseMove = (e) => {
     circleLocation.set({ x: e.clientX, y: e.clientY })
   }
@@ -29,13 +29,16 @@
 	}
 </style>
 
+<!-- <svelte:window bind:scrollY={scroll}/> -->
 <div 
 	class='index-container'
 	bind:clientHeight={canvasHeight}
 	bind:clientWidth={canvasWidth}
 	on:mousemove={handleMouseMove}
 >
+	<!-- {#if scroll / $screenHeight <= 0.25 } -->
 	<Home />
+	<!-- {/if} -->
 	<About />
 	<Background />
 </div>

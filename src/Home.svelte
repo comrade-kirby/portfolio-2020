@@ -1,4 +1,8 @@
 <script>
+  import { fade } from 'svelte/transition'
+  import { screenHeight } from './stores.js'
+
+  let scroll
 </script>
 <style>
   div { 
@@ -31,8 +35,11 @@
     opacity: .1;
   }
 </style>
+
+<svelte:window bind:scrollY={scroll}/>
 <div>
-  <svg class="knockout-box" >
+  {#if scroll / $screenHeight <= 0.25 }
+  <svg transition:fade class="knockout-box">
     <defs>
       <mask id="mask" x="0" y="0" width="100%" height="100%">
         <rect id="overlay" x="0" y="0" width="100%" height="100%" />
@@ -50,4 +57,5 @@
     <rect id="text-darken" x="0" y="0" width="100%" height="100%" />
     <rect id="mask-container" x="0" y="0" width="100%" height="100%" />
   </svg>
+  {/if}
 </div>
