@@ -9,7 +9,7 @@
       const canvas = p5.createCanvas($screenWidth, $screenHeight)
       canvas.parent('about-background')
       p5.colorMode(p5.HSL, 360, 100, 100, 100)
-      p5.frameRate(10)
+      // p5.frameRate(10)
 	  }
 
 	  p5.draw = () => {
@@ -18,12 +18,23 @@
         const size = Math.random() * 1000
         const xCoordinate = Math.random() * $screenWidth - size / 2
         const yCoordinate = Math.random() * $screenHeight
-        const opacity = 10000 / size
-        console.log(size)
+        const opacity = (5000 / size) / 3
         const lightness = 115 - scrollProgress * 100
-        p5.noStroke()
-        p5.fill($backgroundHue, 50, lightness, opacity)
-        p5.rect(xCoordinate, yCoordinate, size, size, 20)
+        const newShape = {
+          hue: $backgroundHue,
+          lightness: lightness,
+          opacity: opacity,
+          x: xCoordinate,
+          y: yCoordinate,
+          size: size,
+        }
+        backgroundShapes.push(newShape)
+        if (backgroundShapes.length > 3) { backgroundShapes.shift() }
+        backgroundShapes.forEach(shape => {
+          p5.noStroke()
+          p5.fill(shape.hue, 50, shape.lightness, shape.opacity)
+          p5.rect(shape.x, shape.y, shape.size, shape.size, 20)
+        })
       } else {
         p5.clear()
       }
