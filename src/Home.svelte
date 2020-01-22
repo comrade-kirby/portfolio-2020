@@ -17,6 +17,7 @@
   .knockout-box {
     width: 50%;
     height: 50%;
+    min-width: 300px;
   }
   svg #overlay {
     fill: white;
@@ -28,7 +29,7 @@
 
   svg #mask-container {
     fill: white;
-    mask: url(#mask);
+    mask: url(#box-mask);
   }
   svg #text-darken {
     fill: black;
@@ -41,7 +42,7 @@
   {#if scroll / $screenHeight <= 0.25 }
   <svg transition:fade class="knockout-box">
     <defs>
-      <mask id="mask" x="0" y="0" width="100%" height="100%">
+      <mask id="box-mask" x="0" y="0" width="100%" height="100%">
         <rect id="overlay" x="0" y="0" width="100%" height="100%" />
         <text id="text" text-anchor="end" x="100%" y="100%" dx="-20" dy="-100" >max</text>
         <text id="text" text-anchor="end" x="100%" y="100%" dx="-20" dy="-60" >houston</text>
