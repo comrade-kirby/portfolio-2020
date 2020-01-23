@@ -1,47 +1,70 @@
 <script>
   import { fade } from 'svelte/transition'
+  import P5Canvas from './P5Canvas.svelte'
+  
+  let homeHeight
+  let homeWidth
+
+  const drawContainer = (p5) => {
+    p5.fill(0, 0, 100, 90)
+    p5.noStroke()
+    p5.rect(0, 0, homeWidth, homeHeight);
+  }
+
+  const drawName = (p5) => {
+    p5.textAlign(p5.RIGHT)
+    p5.text('max', homeWidth - 20, homeHeight - 100)
+    p5.text('houston', homeWidth - 20, homeHeight - 60)
+    p5.text('oppenheimer', homeWidth - 20, homeHeight - 20)
+  }
+
+  const drawTitle = (p5) => {
+    p5.textAlign(p5.LEFT)
+    p5.text('creative', 20, 60)
+    p5.text('web', 20, 100)
+  }
+
+  const drawText = (p5) => {
+    p5.textSize(40)
+    p5.erase()
+    drawName(p5)
+    drawTitle(p5)
+    p5.noErase()
+    p5.fill(0, 0, 0, 10)
+    drawName(p5)
+    drawTitle(p5)
+  }
+
+  const sketch = (p5) => {
+	  p5.setup = () => {
+      const canvas = p5.createCanvas(homeWidth, homeHeight)
+      canvas.parent('home-holder')
+      p5.colorMode(p5.HSL, 360, 100, 100, 100)
+      p5.frameRate(10)
+      drawContainer(p5)
+      drawText(p5)
+	  }
+
+    p5.windowResized = () => {
+      p5.resizeCanvas(homeWidth, homeHeight)
+      drawContainer(p5)
+      drawText(p5)
+    }
+  }
 </script>
-
+  
 <style>
-  .knockout-box {
-    width: 50%;
+  #home-holder {
     height: 50%;
+    width: 50%;
     min-width: 300px;
-  }
-
-  svg #overlay {
-    fill: white;
-    opacity: .9;
-  }
-  svg #text {
-    font-size: 40px;
-  }
-
-  svg #mask-container {
-    fill: white;
-    mask: url(#box-mask);
-  }
-  svg #text-darken {
-    fill: black;
-    opacity: .1;
   }
 </style>
 
-<svg transition:fade class='knockout-box'>
-  <defs>
-    <mask id='box-mask' x='0' y='0' width='100%' height='100%'>
-      <rect id='overlay' x='0' y='0' width='100%' height='100%' />
-      <text id='text' text-anchor='end' x='100%' y='100%' dx='-20' dy='-100' >max</text>
-      <text id='text' text-anchor='end' x='100%' y='100%' dx='-20' dy='-60' >houston</text>
-      <text id='text' text-anchor='end' x='100%' y='100%' dx='-20' dy='-20'>oppenheimer</text>
-      <text id='text' dx='20' dy='50'>creative</text>
-      <text id='text' dx='20' dy='90'>web</text>
-      <!-- <svg viewBox='0 0 36 36' height='36' width='100%' preserveAspectRatio='xMaxYMin meet'>
-        <path d='M6 19h12v2H6z' />
-        <path fill='none' d='M0 0h24v24H0V0z'/>
-      </svg> -->
-    </mask>
-  </defs>
-  <rect id='text-darken' x='0' y='0' width='100%' height='100%' />
-  <rect id='mask-container' x='0' y='0' width='100%' height='100%' />
-</svg>
+<div 
+  id='home-holder'
+  bind:clientHeight={homeHeight}
+	bind:clientWidth={homeWidth}
+  >
+  <P5Canvas sketch={sketch} />
+</div>
