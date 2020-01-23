@@ -1,93 +1,43 @@
 <script>
-  import { scrollPosition, screenHeight, screenWidth, backgroundHue } from './stores.js'
-  import P5Canvas from './P5Canvas.svelte'
-
-  let backgroundShapes = []
-
-  const sketch = (p5) => {
-	  p5.setup = () => {
-      const canvas = p5.createCanvas($screenWidth, $screenHeight)
-      canvas.parent('about-background')
-      p5.colorMode(p5.HSL, 360, 100, 100, 100)
-      // p5.frameRate(10)
-	  }
-
-	  p5.draw = () => {
-      let scrollProgress = $scrollPosition / $screenHeight
-      if (scrollProgress > 0) {
-        const size = Math.random() * 1000
-        const xCoordinate = Math.random() * $screenWidth - size / 2
-        const yCoordinate = Math.random() * $screenHeight
-        const opacity = (5000 / size) / 3
-        const lightness = 115 - scrollProgress * 100
-        const newShape = {
-          hue: $backgroundHue,
-          lightness: lightness,
-          opacity: opacity,
-          x: xCoordinate,
-          y: yCoordinate,
-          size: size,
-        }
-        backgroundShapes.push(newShape)
-        if (backgroundShapes.length > 3) { backgroundShapes.shift() }
-        backgroundShapes.forEach(shape => {
-          p5.noStroke()
-          p5.fill(shape.hue, 50, shape.lightness, shape.opacity)
-          p5.rect(shape.x, shape.y, shape.size, shape.size, 20)
-        })
-      } else {
-        p5.clear()
-      }
-    }
-
-    p5.windowResized = () => {
-      p5.resizeCanvas($screenWidth, $screenHeight)
-    }
-  }
-
+  import { fade } from 'svelte/transition'
 </script>
+
 <style>
-  .about {
-    position: relative;
-    height: 100%;
-    width: 100%;
-  }
-
-  #about-background {
-    position: relative;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 1;
-  }
-  
-  .content {
-    position: absolute;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-    height: 100%;
-    width: 100%;
-  }
-
-  h1 {
-    color: white;
-  }
-
-  p { 
-    color: white;
+  .knockout-box {
     width: 50%;
+    height: 50%;
+    min-width: 300px;
+  }
+
+  svg #overlay {
+    fill: white;
+    opacity: .9;
+  }
+  svg #text {
+    font-size: 40px;
+  }
+
+  svg #mask-container {
+    fill: white;
+    mask: url(#box-mask);
+  }
+  svg #text-darken {
+    fill: black;
+    opacity: .1;
   }
 </style>
-<div class='about'>
-  <div class='content'>
-    <h1>who we are</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo aliquam tempora excepturi qui. Cum autem magni voluptate assumenda cumque vitae porro, pariatur eos fugiat, tempore dolorum delectus, blanditiis illum numquam?</p>
-  </div>
-  <div id='about-background'>
-    <P5Canvas sketch={sketch} />
-  </div>
-</div>
+
+<svg transition:fade class='knockout-box'>
+  <defs>
+    <mask id='box-mask' x='0' y='0' width='100%' height='100%'>
+      <rect id='overlay' x='0' y='0' width='100%' height='100%' />
+      <text id='text' text-anchor='end' x='100%' y='100%' dx='-20' dy='-100' >Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi fugiat totam esse nulla aspernatur facere ex, quaerat tenetur repellat, sequi fuga libero. Deleniti exercitationem facilis repellendus quas ipsa? Alias, modi.</text>
+      <!-- <svg viewBox='0 0 36 36' height='36' width='100%' preserveAspectRatio='xMaxYMin meet'>
+        <path d='M6 19h12v2H6z' />
+        <path fill='none' d='M0 0h24v24H0V0z'/>
+      </svg> -->
+    </mask>
+  </defs>
+  <rect id='text-darken' x='0' y='0' width='100%' height='100%' />
+  <rect id='mask-container' x='0' y='0' width='100%' height='100%' />
+</svg>

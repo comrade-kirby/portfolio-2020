@@ -2,7 +2,7 @@
 	import { afterUpdate } from 'svelte'
 
 	import Background from './Background.svelte'
-	import Home from './Home.svelte'
+	import Main from './Main.svelte'
 	import About from './About.svelte'
 	import Header from './Header.svelte'
 	import { screenHeight, screenWidth, longestScreenDimension, circleLocation, scrollPosition } from './stores.js'
@@ -25,6 +25,9 @@
 </script>
 
 <style>
+	:global(body) {
+		padding: 0;
+	}
 	div {
 		height: 100%;
 		width: 100%;
@@ -38,8 +41,6 @@
 	bind:clientWidth={canvasWidth}
 	on:mousemove={handleMouseMove}
 >
-	<Header />
-	<Home />
-	<About />
+	<Main />
 	<Background />
 </div>
