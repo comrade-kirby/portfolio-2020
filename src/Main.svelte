@@ -22,6 +22,13 @@
     z-index: 1;
   }
 
+  .content {
+    position: relative;
+    height: 50%;
+    width: 50%;
+    min-width: 300px;
+  }
+
   .buttons {
     display: flex;
     justify-content: space-evenly;
@@ -37,11 +44,13 @@
 </style>
 
 <div class='main'>
-  {#if display == 'home'}
-  <Home />
-  {:else if display == 'about'}
-  <About />
-  {/if}
+  <div class='content'>
+    {#if display == 'home'}
+      <Home />
+    {:else if display == 'about'}
+      <About />
+    {/if}
+  </div>
   <div class='buttons'>
     <button on:click={() => display = 'home'}>HOME</button>
     <button on:click={() => display = 'about'}>ABOUT</button>

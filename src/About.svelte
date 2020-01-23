@@ -39,7 +39,7 @@
   const sketch = (p5) => {
 	  p5.setup = () => {
       const canvas = p5.createCanvas(aboutWidth, aboutHeight)
-      canvas.parent('about-holder')
+      canvas.parent('about')
       p5.colorMode(p5.HSL, 360, 100, 100, 100)
       drawContainer(p5)
       drawText(p5)
@@ -54,17 +54,18 @@
 </script>
   
 <style>
-  #about-holder {
-    height: 50%;
-    width: 50%;
-    min-width: 300px;
+ #about {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
   }
 </style>
 
-<div 
-  id='about-holder'
+<div id='about'
+  transition:fade
   bind:clientHeight={aboutHeight}
 	bind:clientWidth={aboutWidth}
-  >
+>
   <P5Canvas sketch={sketch} />
 </div>

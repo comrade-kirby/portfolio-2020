@@ -39,7 +39,7 @@
   const sketch = (p5) => {
 	  p5.setup = () => {
       const canvas = p5.createCanvas(homeWidth, homeHeight)
-      canvas.parent('home-holder')
+      canvas.parent('home')
       p5.colorMode(p5.HSL, 360, 100, 100, 100)
       p5.frameRate(10)
       drawContainer(p5)
@@ -55,17 +55,19 @@
 </script>
   
 <style>
-  #home-holder {
-    height: 50%;
-    width: 50%;
-    min-width: 300px;
+  #home {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
   }
 </style>
 
 <div 
-  id='home-holder'
+  id='home'
+  transition:fade
   bind:clientHeight={homeHeight}
 	bind:clientWidth={homeWidth}
-  >
+>
   <P5Canvas sketch={sketch} />
 </div>
