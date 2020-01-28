@@ -37,6 +37,48 @@
     drawTitle(p5)
   }
 
+  const drawLabels = (p5) => {
+    const xPosition = 0
+    const textWidth = aboutWidth * 0.30 - 20
+    const textHeight = 20
+
+    const namePosition = aboutHeight - 240
+    const emailPosition = aboutHeight - 198
+    const messagePosition = aboutHeight - 158
+
+    p5.textSize(20)
+    p5.textAlign(p5.RIGHT, p5.CENTER)
+    
+    p5.erase()
+    p5.text('name', xPosition, namePosition, textWidth, textHeight)
+    p5.text('email', xPosition, emailPosition, textWidth, textHeight)
+    p5.text('message', xPosition, messagePosition, textWidth, textHeight)
+    p5.noErase()
+
+    p5.fill(0, 0, 0, 15)
+    p5.text('name', xPosition, namePosition, textWidth, textHeight)
+    p5.text('email', xPosition, emailPosition, textWidth, textHeight)
+    p5.text('message', xPosition, messagePosition, textWidth, textHeight)
+  }
+  
+  const drawSubmitButton = (p5) => {
+    const rectWidth = aboutWidth * 0.70
+    const rectHeight = 32
+    const xPosition = aboutWidth - rectWidth - 20
+    const yPosition = aboutHeight - 54
+    p5.erase()
+    p5.rect(xPosition, yPosition, rectWidth, rectHeight)
+    p5.noErase()
+    p5.fill(0, 0, 0, 15)
+    p5.rect(xPosition, yPosition, rectWidth, rectHeight)
+
+
+    p5.fill(50, 50, 100)
+    p5.textSize(20)
+    p5.textAlign(p5.CENTER, p5.CENTER)
+    p5.text('submit', xPosition, yPosition, rectWidth, rectHeight)
+  }
+
   const sketch = (p5) => {
 	  p5.setup = () => {
       const canvas = p5.createCanvas(aboutWidth, aboutHeight)
@@ -44,12 +86,17 @@
       p5.colorMode(p5.HSL, 360, 100, 100, 100)
       drawContainer(p5)
       drawText(p5)
+      drawSubmitButton(p5)
+      drawLabels(p5)
+
 	  }
 
     p5.windowResized = () => {
       p5.resizeCanvas(aboutWidth, aboutHeight)
       drawContainer(p5)
       drawText(p5)
+      drawSubmitButton(p5)
+      drawLabels(p5)
     }
   }
 
@@ -79,28 +126,27 @@
   form {
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
     position: absolute;
-    width: 90%;
+    width: 100%;
     bottom: 0;
     right: 0;
-    margin: 20px
-  }
-
-  .input-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
   }
 
   input, textarea {
-    width: 75%;
-    margin-left: 8px;
+    width: 70%;
+    margin-right: 20px;
+  }
+
+  textarea {
+    height: 100px;
   }
 
   button {
-    margin: 0;
-    width: 75%;
+    margin: 0 20px 20px 0;
+    width: 70%;
     align-self: flex-end;
+    opacity: 0;
   }
 </style>
 
@@ -110,18 +156,9 @@
 	bind:clientWidth={aboutWidth}
 >
   <form>
-    <div class='input-container'>
-      <label>name</label>
       <input bind:value={name} type='text' name='name'>
-    </div>
-    <div class='input-container'>
-      <label>email</label>
       <input bind:value={email} type='text' name='email'>
-    </div>
-    <div class='input-container'>
-      <label>message</label>
       <textarea bind:value={message} name='message'></textarea>
-    </div>
     <button on:click|preventDefault={submitForm}>submit</button>
   </form>
   <P5Canvas sketch={sketch} />
