@@ -77,10 +77,30 @@
   }
   
   form {
+    display: flex;
+    flex-direction: column;
     position: absolute;
+    width: 90%;
     bottom: 0;
     right: 0;
     margin: 20px
+  }
+
+  .input-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  input, textarea {
+    width: 75%;
+    margin-left: 8px;
+  }
+
+  button {
+    margin: 0;
+    width: 75%;
+    align-self: flex-end;
   }
 </style>
 
@@ -89,13 +109,19 @@
   bind:clientHeight={aboutHeight}
 	bind:clientWidth={aboutWidth}
 >
-  <form class='gform'>
-    <label>name</label>
-    <input bind:value={name} type='text' name='name' placeholder='firstname lastname'>
-    <label>email</label>
-    <input bind:value={email} type='text' name='email' placeholder='example@mail.com'>
-    <label>message</label>
-    <textarea bind:value={message} name='message'></textarea>
+  <form>
+    <div class='input-container'>
+      <label>name</label>
+      <input bind:value={name} type='text' name='name'>
+    </div>
+    <div class='input-container'>
+      <label>email</label>
+      <input bind:value={email} type='text' name='email'>
+    </div>
+    <div class='input-container'>
+      <label>message</label>
+      <textarea bind:value={message} name='message'></textarea>
+    </div>
     <button on:click|preventDefault={submitForm}>submit</button>
   </form>
   <P5Canvas sketch={sketch} />
