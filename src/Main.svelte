@@ -4,10 +4,11 @@
 
   import Home from './Home.svelte'
   import About from './About.svelte'
+  import Contact from './Contact.svelte'
 
   import { screenHeight, scrollPosition } from './stores.js'
 
-  let display = 'about'
+  let display = 'contact'
 </script>
 
 <style>
@@ -49,6 +50,8 @@
       <Home />
     {:else if display == 'about'}
       <About />
+    {:else }
+      <Contact />
     {/if}
   </div>
   <div class='buttons'>

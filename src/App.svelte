@@ -4,7 +4,6 @@
 	import Background from './Background.svelte'
 	import Main from './Main.svelte'
 	import About from './About.svelte'
-	import Header from './Header.svelte'
 	import { screenHeight, screenWidth, longestScreenDimension, circleLocation, scrollPosition } from './stores.js'
 
 	let canvasHeight
