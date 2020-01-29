@@ -1,6 +1,7 @@
 <script>
   import { fade } from 'svelte/transition'
   import P5Canvas from './P5Canvas.svelte'
+  import { transparentText, transparentTitle } from './helpers.js'
   
   let homeHeight, homeWidth
 
@@ -13,26 +14,9 @@
   const drawName = (p5) => {
     p5.textSize(40)
     p5.textAlign(p5.RIGHT, p5.BOTTOM)
-    p5.text('max', homeWidth - 20, homeHeight - 100)
-    p5.text('houston', homeWidth - 20, homeHeight - 60)
-    p5.text('oppenheimer', homeWidth - 20, homeHeight - 20)
-  }
-
-  const drawTitle = (p5) => {
-    p5.textSize(24)
-    p5.textAlign(p5.LEFT, p5.TOP)
-    p5.text('home', 20, 20)
-    // p5.text('web', 20, 44)
-  }
-
-  const drawText = (p5) => {
-    p5.erase()
-    drawName(p5)
-    drawTitle(p5)
-    p5.noErase()
-    p5.fill(0, 0, 0, 15)
-    drawName(p5)
-    drawTitle(p5)
+    transparentText(p5, { text: 'max', xPosition: homeWidth - 20, yPosition: homeHeight - 100 })
+    transparentText(p5, { text: 'houston', xPosition: homeWidth - 20, yPosition: homeHeight - 60 })
+    transparentText(p5, { text: 'oppenheimer', xPosition: homeWidth - 20, yPosition: homeHeight - 20 })
   }
 
   const sketch = (p5) => {
@@ -42,13 +26,15 @@
       p5.colorMode(p5.HSL, 360, 100, 100, 100)
       p5.frameRate(10)
       drawContainer(p5)
-      drawText(p5)
+      transparentTitle(p5, 'home')
+      drawName(p5)
 	  }
 
     p5.windowResized = () => {
       p5.resizeCanvas(homeWidth, homeHeight)
       drawContainer(p5)
-      drawText(p5)
+      transparentTitle(p5, 'home')
+      drawName(p5)
     }
   }
 </script>

@@ -1,6 +1,7 @@
 <script>
   import { fade } from 'svelte/transition'
   import P5Canvas from './P5Canvas.svelte'
+  import { transparentText, transparentTitle } from './helpers.js'
   
   let aboutHeight, aboutWidth
 
@@ -10,29 +11,17 @@
     p5.rect(0, 0, aboutWidth, aboutHeight);
   }
 
-  const drawTitle = (p5) => {
-    const title = 'about'
-    p5.textSize(24)
-    p5.textAlign(p5.LEFT, p5.TOP)
-    p5.text(title, 20, 20, aboutWidth - 20, 30)
-  }
-
   const drawContent = (p5) => {
-    const content = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam in nesciunt facilis. Aspernatur officia ratione laborum saepe aliquam, ut perspiciatis dolores a vitae facere veritatis suscipit, quas ipsum, ullam voluptate!'
-    p5.textSize(18)
-    p5.textAlign(p5.RIGHT, p5.BOTTOM)
-    p5.text(content, 100, 40, aboutWidth - 120, aboutHeight - 60)
-  }
-
-  const drawText = (p5) => {
-    p5.textSize(24)
-    p5.erase()
-    drawTitle(p5)
-    drawContent(p5)
-    p5.noErase()
-    p5.fill(0, 0, 0, 15)
-    drawContent(p5)
-    drawTitle(p5)
+    transparentText(p5, {
+      text: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam in nesciunt facilis. Aspernatur officia ratione laborum saepe aliquam, ut perspiciatis dolores a vitae facere veritatis suscipit, quas ipsum, ullam voluptate!',
+      textSize: 18,
+      horizontalAlignment: p5.RIGHT,
+      verticalAlignment: p5.BOTTOM,
+      xPosition: 100,
+      yPosition: 40,
+      width: aboutWidth - 120,
+      height: aboutHeight - 60
+    })
   }
 
   const sketch = (p5) => {
@@ -41,13 +30,16 @@
       canvas.parent('about')
       p5.colorMode(p5.HSL, 360, 100, 100, 100)
       drawContainer(p5)
-      drawText(p5)
+      transparentTitle(p5, 'about')
+      drawContent(p5)
 	  }
 
     p5.windowResized = () => {
       p5.resizeCanvas(aboutWidth, aboutHeight)
       drawContainer(p5)
-      drawText(p5)
+      transparentTitle(p5, 'about')
+      drawContent(p5)
+      // TODO: FIND IF YOU CAN TURN OFF P5 FRAMERATE IF NOT USING DRAW
     }
   }
 </script>

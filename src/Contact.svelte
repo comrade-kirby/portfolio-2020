@@ -1,7 +1,8 @@
 <script>
   import { fade } from 'svelte/transition'
   import P5Canvas from './P5Canvas.svelte'
-  
+  import { transparentText, transparentTitle } from './helpers.js'
+
   let aboutHeight, aboutWidth, name, email, message, honeypot, errorMessage
   let hover = false
   let messageSent = false
@@ -13,50 +14,46 @@
     p5.rect(0, 0, aboutWidth, aboutHeight);
   }
 
-  const drawTitle = (p5) => {
-    let title = 'contact'
-    p5.textSize(24)
-    p5.textAlign(p5.LEFT, p5.TOP)
-    p5.erase()
-    p5.text(title, 20, 20, aboutWidth - 20, 30)
-    p5.noErase()
-    p5.fill(0, 0, 0, 15)
-    p5.text(title, 20, 20, aboutWidth - 20, 30)
-  }
-
   const drawThankyou = (p5) => {
-    let content = "Thanks! We'll reach out soon :)"
-    p5.textSize(18)
-    p5.textAlign(p5.RIGHT, p5.BOTTOM)
-    p5.erase()
-    p5.text(content, 100, 40, aboutWidth - 120, aboutHeight - 60)
-    p5.noErase()
-    p5.fill(0, 0, 0, 15)
-    p5.text(content, 100, 40, aboutWidth - 120, aboutHeight - 60)
+    transparentText(p5, {
+      text: "Thanks! We'll reach out soon :)",
+      textSize: 18,
+      horizontalAlignment: p5.RIGHT,
+      verticalAlignment: p5.BOTTOM,
+      xPosition: 100,
+      yPosition: 40,
+      width: aboutWidth - 120,
+      height: aboutHeight - 60
+    })
   }
 
   const drawLabels = (p5) => {
-    const xPosition = 0
     const textWidth = aboutWidth * 0.30 - 20
-    const textHeight = 20
-
-    const namePosition = aboutHeight - 240
-    const emailPosition = aboutHeight - 198
-    const messagePosition = aboutHeight - 158
 
     p5.textSize(20)
     p5.textAlign(p5.RIGHT, p5.CENTER)
     
-    p5.erase()
-    p5.text('name', xPosition, namePosition, textWidth, textHeight)
-    p5.text('email', xPosition, emailPosition, textWidth, textHeight)
-    p5.text('message', xPosition, messagePosition, textWidth, textHeight)
-    p5.noErase()
-
-    p5.fill(0, 0, 0, 15)
-    p5.text('name', xPosition, namePosition, textWidth, textHeight)
-    p5.text('email', xPosition, emailPosition, textWidth, textHeight)
-    p5.text('message', xPosition, messagePosition, textWidth, textHeight)
+    transparentText(p5, {
+      text: 'name',
+      xPosition: 0,
+      yPosition: aboutHeight - 240,
+      width: textWidth,
+      height: 20
+    })
+    transparentText(p5, {
+      text: 'email',
+      xPosition: 0,
+      yPosition: aboutHeight - 198,
+      width: textWidth,
+      height: 20
+    })
+    transparentText(p5, {
+      text: 'message',
+      xPosition: 0,
+      yPosition: aboutHeight - 158,
+      width: textWidth,
+      height: 20
+    })
   }
   
   const drawSubmitButton = (p5) => {
@@ -80,17 +77,17 @@
 
   const drawErrorMessage = (p5) => {
     const rectWidth = aboutWidth * 0.70
-    const width = aboutWidth * 0.70
-    const height = 32
-    const xPosition = aboutWidth - rectWidth - 20
-    const yPosition = aboutHeight - 25
-    p5.textAlign(p5.CENTER, p5.CENTER)
-    p5.textSize(14)
-    p5.erase()
-    p5.text(errorMessage, xPosition, yPosition, width, height)
-    p5.noErase()
-    p5.fill(0, 0, 0, 15)
-    p5.text(errorMessage, xPosition, yPosition, width, height)
+  
+    transparentText(p5, {
+      text: errorMessage,
+      textSize: 14,
+      horizontalAlignment: p5.CENTER,
+      verticalAlignment: p5.CENTER,
+      xPosition: aboutWidth - rectWidth - 20,
+      yPosition: aboutHeight - 25,
+      width: aboutWidth * 0.70,
+      height: 32
+    })
   }
 
   const sketch = (p5) => {
@@ -103,7 +100,7 @@
 
     p5.draw = () => {
       drawContainer(p5)
-      drawTitle(p5)
+      transparentTitle(p5, 'contact')
       if (!messageSent) {
         drawSubmitButton(p5)
         drawLabels(p5)
