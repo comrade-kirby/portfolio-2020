@@ -24,17 +24,18 @@
       const canvas = p5.createCanvas(homeWidth, homeHeight)
       canvas.parent('home')
       p5.colorMode(p5.HSL, 360, 100, 100, 100)
-      p5.frameRate(10)
+      p5.noLoop()
+    }
+    
+    p5.draw = () => {
       drawContainer(p5)
       transparentTitle(p5, 'home')
       drawName(p5)
-	  }
+    }
 
     p5.windowResized = () => {
       p5.resizeCanvas(homeWidth, homeHeight)
-      drawContainer(p5)
-      transparentTitle(p5, 'home')
-      drawName(p5)
+      p5.redraw()
     }
   }
 </script>

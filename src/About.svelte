@@ -29,17 +29,18 @@
       const canvas = p5.createCanvas(aboutWidth, aboutHeight)
       canvas.parent('about')
       p5.colorMode(p5.HSL, 360, 100, 100, 100)
+      p5.noLoop()
+    }
+    
+    p5.draw = () => {
       drawContainer(p5)
       transparentTitle(p5, 'about')
       drawContent(p5)
-	  }
+    }
 
     p5.windowResized = () => {
       p5.resizeCanvas(aboutWidth, aboutHeight)
-      drawContainer(p5)
-      transparentTitle(p5, 'about')
-      drawContent(p5)
-      // TODO: FIND IF YOU CAN TURN OFF P5 FRAMERATE IF NOT USING DRAW
+      p5.redraw()
     }
   }
 </script>

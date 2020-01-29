@@ -102,8 +102,8 @@
       drawContainer(p5)
       transparentTitle(p5, 'contact')
       if (!messageSent) {
-        drawSubmitButton(p5)
         drawLabels(p5)
+        drawSubmitButton(p5)
       } else {
         drawThankyou(p5)
       }
@@ -112,6 +112,7 @@
 
     p5.windowResized = () => {
       p5.resizeCanvas(aboutWidth, aboutHeight)
+      p5.redraw()
     }
   }
 
