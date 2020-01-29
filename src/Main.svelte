@@ -27,7 +27,7 @@
     position: relative;
     height: 50%;
     width: 50%;
-    min-width: 300px;
+    min-width: 375px;
   }
 
   .buttons {

@@ -2,9 +2,10 @@
   import { fade } from 'svelte/transition'
   import P5Canvas from './P5Canvas.svelte'
   
-  let aboutHeight
-  let aboutWidth
-  let name, email, message
+  let aboutHeight, aboutWidth, name, email, message, errorMessage
+  let hover = false
+  let messageSent = false
+  
   
   const drawContainer = (p5) => {
     p5.fill(0, 0, 100, 90)
@@ -69,9 +70,8 @@
     p5.erase()
     p5.rect(xPosition, yPosition, rectWidth, rectHeight)
     p5.noErase()
-    p5.fill(0, 0, 0, 15)
+    hover ? p5.fill(0, 0, 0, 20) : p5.fill(0, 0, 0, 15)
     p5.rect(xPosition, yPosition, rectWidth, rectHeight)
-
 
     p5.fill(50, 50, 100)
     p5.textSize(20)
@@ -79,40 +79,69 @@
     p5.text('submit', xPosition, yPosition, rectWidth, rectHeight)
   }
 
+  const drawErrorMessage = (p5) => {
+    const rectWidth = aboutWidth * 0.70
+    const width = aboutWidth * 0.70
+    const height = 32
+    const xPosition = aboutWidth - rectWidth - 20
+    const yPosition = aboutHeight - 25
+    p5.textAlign(p5.CENTER, p5.CENTER)
+    p5.textSize(14)
+    p5.erase()
+    p5.text(errorMessage, xPosition, yPosition, width, height)
+    p5.noErase()
+    p5.fill(0, 0, 0, 15)
+    p5.text(errorMessage, xPosition, yPosition, width, height)
+  }
+
   const sketch = (p5) => {
 	  p5.setup = () => {
       const canvas = p5.createCanvas(aboutWidth, aboutHeight)
       canvas.parent('contact')
       p5.colorMode(p5.HSL, 360, 100, 100, 100)
+      p5.frameRate(10)
+	  }
+
+    p5.draw = () => {
       drawContainer(p5)
       drawText(p5)
       drawSubmitButton(p5)
       drawLabels(p5)
-
-	  }
+      if (errorMessage) { drawErrorMessage(p5) }
+    }
 
     p5.windowResized = () => {
       p5.resizeCanvas(aboutWidth, aboutHeight)
-      drawContainer(p5)
-      drawText(p5)
-      drawSubmitButton(p5)
-      drawLabels(p5)
     }
+  }
+
+  const setErrorMessage = () => {
+    let newMessage = []
+    if (!name) { newMessage.push('name is required')}
+    if (!email) { newMessage.push('email is required')}
+    if (!message) { newMessage.push('message is required')}
+
+    errorMessage = newMessage.join(', ')
   }
 
   const submitForm = () => {
-    var url = 'https://script.google.com/macros/s/AKfycbzRZDcDygipswfktZnpvNlzkZr95KF2YgPocqwkQg/exec'
-    var xhr = new XMLHttpRequest()
-    xhr.open('POST', url)
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        console.log('success')
+    if (name && email && message) {
+      var url = 'https://script.google.com/macros/s/AKfycbzRZDcDygipswfktZnpvNlzkZr95KF2YgPocqwkQg/exec'
+      var xhr = new XMLHttpRequest()
+      xhr.open('POST', url)
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          messageSent = true
+        } else if (xhr.status !== 200) {
+          errorMessage = 'oops, something went wrong'
+        }
       }
+      xhr.send(JSON.stringify({name, email, message}))
+    } else {
+      setErrorMessage()
     }
-    xhr.send(JSON.stringify({name, email, message}))
   }
-
 </script>
   
 <style>
@@ -121,6 +150,8 @@
     top: 0;
     height: 100%;
     width: 100%;
+    min-height: 300px;
+    min-width: 375px;
   }
   
   form {
@@ -155,11 +186,19 @@
   bind:clientHeight={aboutHeight}
 	bind:clientWidth={aboutWidth}
 >
-  <form>
-      <input bind:value={name} type='text' name='name'>
-      <input bind:value={email} type='text' name='email'>
-      <textarea bind:value={message} name='message'></textarea>
-    <button on:click|preventDefault={submitForm}>submit</button>
-  </form>
+  {#if !messageSent}
+    <form>
+        <input bind:value={name} type='text' name='name'>
+        <input bind:value={email} type='text' name='email'>
+        <textarea bind:value={message} name='message'></textarea>
+      <button 
+        on:click|preventDefault={submitForm}
+        on:mouseover={() => { hover = true }}
+        on:mouseout={() => { hover = false }}
+      >
+        submit
+      </button>
+    </form>
+  {/if}
   <P5Canvas sketch={sketch} />
 </div>
