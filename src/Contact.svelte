@@ -2,10 +2,10 @@
   import { fade } from 'svelte/transition'
   import P5Canvas from './P5Canvas.svelte'
   
-  let aboutHeight, aboutWidth, name, email, message, errorMessage
+  let aboutHeight, aboutWidth, name, email, message, honeypot, errorMessage
   let hover = false
   let messageSent = false
-  
+  let sending = false
   
   const drawContainer = (p5) => {
     p5.fill(0, 0, 100, 90)
@@ -17,25 +17,22 @@
     let title = 'contact'
     p5.textSize(24)
     p5.textAlign(p5.LEFT, p5.TOP)
+    p5.erase()
+    p5.text(title, 20, 20, aboutWidth - 20, 30)
+    p5.noErase()
+    p5.fill(0, 0, 0, 15)
     p5.text(title, 20, 20, aboutWidth - 20, 30)
   }
 
-  const drawContent = (p5) => {
-    let content = 'this will be the contact page'
+  const drawThankyou = (p5) => {
+    let content = "Thanks! We'll reach out soon :)"
     p5.textSize(18)
     p5.textAlign(p5.RIGHT, p5.BOTTOM)
-    p5.text(content, 100, 40, aboutWidth - 120, aboutHeight - 60)
-  }
-
-  const drawText = (p5) => {
-    p5.textSize(24)
     p5.erase()
-    drawTitle(p5)
-    drawContent(p5)
+    p5.text(content, 100, 40, aboutWidth - 120, aboutHeight - 60)
     p5.noErase()
     p5.fill(0, 0, 0, 15)
-    drawContent(p5)
-    drawTitle(p5)
+    p5.text(content, 100, 40, aboutWidth - 120, aboutHeight - 60)
   }
 
   const drawLabels = (p5) => {
@@ -73,10 +70,12 @@
     hover ? p5.fill(0, 0, 0, 20) : p5.fill(0, 0, 0, 15)
     p5.rect(xPosition, yPosition, rectWidth, rectHeight)
 
+    const buttonText = sending ? '...' : 'submit'
+
     p5.fill(50, 50, 100)
     p5.textSize(20)
     p5.textAlign(p5.CENTER, p5.CENTER)
-    p5.text('submit', xPosition, yPosition, rectWidth, rectHeight)
+    p5.text(buttonText, xPosition, yPosition, rectWidth, rectHeight)
   }
 
   const drawErrorMessage = (p5) => {
@@ -104,9 +103,13 @@
 
     p5.draw = () => {
       drawContainer(p5)
-      drawText(p5)
-      drawSubmitButton(p5)
-      drawLabels(p5)
+      drawTitle(p5)
+      if (!messageSent) {
+        drawSubmitButton(p5)
+        drawLabels(p5)
+      } else {
+        drawThankyou(p5)
+      }
       if (errorMessage) { drawErrorMessage(p5) }
     }
 
@@ -125,17 +128,20 @@
   }
 
   const submitForm = () => {
-    if (name && email && message) {
+    if (name && email && message && !honeypot && !sending) {
+      sending = true
       var url = 'https://script.google.com/macros/s/AKfycbzRZDcDygipswfktZnpvNlzkZr95KF2YgPocqwkQg/exec'
       var xhr = new XMLHttpRequest()
       xhr.open('POST', url)
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
+          console.log("sent")
           messageSent = true
         } else if (xhr.status !== 200) {
           errorMessage = 'oops, something went wrong'
         }
+        sending = false
       }
       xhr.send(JSON.stringify({name, email, message}))
     } else {
@@ -189,7 +195,8 @@
   {#if !messageSent}
     <form>
         <input bind:value={name} type='text' name='name'>
-        <input bind:value={email} type='text' name='email'>
+        <input bind:value={email} type='email' name='email'>
+        <input bind:value={honeypot} type="hidden" name='honeypot'>
         <textarea bind:value={message} name='message'></textarea>
       <button 
         on:click|preventDefault={submitForm}
