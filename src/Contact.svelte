@@ -154,8 +154,6 @@
     top: 0;
     height: 100%;
     width: 100%;
-    min-height: 300px;
-    min-width: 375px;
   }
   
   form {

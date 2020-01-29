@@ -25,9 +25,10 @@
 
   .content {
     position: relative;
-    height: 50%;
-    width: 50%;
     min-width: 375px;
+    min-height: 300px;
+    width: 50%;
+    height: 50%;
   }
 
   .buttons {
