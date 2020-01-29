@@ -2,8 +2,7 @@
   import { fade } from 'svelte/transition'
   import P5Canvas from './P5Canvas.svelte'
   
-  let homeHeight
-  let homeWidth
+  let homeHeight, homeWidth
 
   const drawContainer = (p5) => {
     p5.fill(0, 0, 100, 90)
@@ -22,8 +21,8 @@
   const drawTitle = (p5) => {
     p5.textSize(24)
     p5.textAlign(p5.LEFT, p5.TOP)
-    p5.text('creative', 20, 20)
-    p5.text('web', 20, 44)
+    p5.text('home', 20, 20)
+    // p5.text('web', 20, 44)
   }
 
   const drawText = (p5) => {

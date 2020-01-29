@@ -177,6 +177,7 @@
 
   textarea {
     height: 100px;
+    resize: none;
   }
 
   button {

@@ -8,7 +8,7 @@
 
   import { screenHeight, scrollPosition } from './stores.js'
 
-  let display = 'contact'
+  let display = 'home'
 </script>
 
 <style>
@@ -41,6 +41,12 @@
     color: white;
     border: none;
     font-size: 24px;
+    text-shadow: 0px 0px 5px hsl(0, 0%, 0%, 15%);
+  }
+
+  .active {
+    font-weight: 600;
+    text-decoration: underline wavy;
   }
 </style>
 
@@ -55,8 +61,8 @@
     {/if}
   </div>
   <div class='buttons'>
-    <button on:click={() => display = 'home'}>HOME</button>
-    <button on:click={() => display = 'about'}>ABOUT</button>
-    <button on:click={() => display = 'contact'}>CONTACT</button>
+    <button class:active={display == 'home'} on:click={() => display = 'home'}>HOME</button>
+    <button class:active={display == 'about'} on:click={() => display = 'about'}>ABOUT</button>
+    <button class:active={display == 'contact'} on:click={() => display = 'contact'}>CONTACT</button>
   </div>
 </div>

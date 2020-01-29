@@ -2,8 +2,7 @@
   import { fade } from 'svelte/transition'
   import P5Canvas from './P5Canvas.svelte'
   
-  let aboutHeight
-  let aboutWidth
+  let aboutHeight, aboutWidth
 
   const drawContainer = (p5) => {
     p5.fill(0, 0, 100, 90)
@@ -12,14 +11,14 @@
   }
 
   const drawTitle = (p5) => {
-    let title = 'about us'
+    const title = 'about'
     p5.textSize(24)
     p5.textAlign(p5.LEFT, p5.TOP)
     p5.text(title, 20, 20, aboutWidth - 20, 30)
   }
 
   const drawContent = (p5) => {
-    let content = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam in nesciunt facilis. Aspernatur officia ratione laborum saepe aliquam, ut perspiciatis dolores a vitae facere veritatis suscipit, quas ipsum, ullam voluptate!'
+    const content = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam in nesciunt facilis. Aspernatur officia ratione laborum saepe aliquam, ut perspiciatis dolores a vitae facere veritatis suscipit, quas ipsum, ullam voluptate!'
     p5.textSize(18)
     p5.textAlign(p5.RIGHT, p5.BOTTOM)
     p5.text(content, 100, 40, aboutWidth - 120, aboutHeight - 60)
