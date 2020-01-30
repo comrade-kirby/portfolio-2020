@@ -1,7 +1,7 @@
 <script>
   import { fade } from 'svelte/transition'
   import P5Canvas from './P5Canvas.svelte'
-  import { transparentText, transparentTitle, drawContainer } from './helpers.js'
+  import { transparentText, transparentTitle, drawContainer, drawMinimizeButton } from './helpers.js'
   
   let homeHeight, homeWidth
 
@@ -25,6 +25,7 @@
       drawContainer(p5, homeWidth, homeHeight)
       transparentTitle(p5, 'home')
       drawName(p5)
+      drawMinimizeButton(p5, homeWidth)
     }
 
     p5.windowResized = () => {

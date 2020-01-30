@@ -1,7 +1,7 @@
 <script>
   import { fade } from 'svelte/transition'
   import P5Canvas from './P5Canvas.svelte'
-  import { transparentText, transparentTitle, drawContainer } from './helpers.js'
+  import { transparentText, transparentTitle, drawContainer, drawMinimizeButton } from './helpers.js'
 
   let contactHeight, contactWidth, name, email, message, honeypot, errorMessage
   let hover = false
@@ -64,6 +64,7 @@
     const buttonText = sending ? '...' : 'submit'
 
     p5.fill(50, 50, 100)
+    p5.noStroke()
     p5.textSize(20)
     p5.textAlign(p5.CENTER, p5.CENTER)
     p5.text(buttonText, xPosition, yPosition, rectWidth, rectHeight)
@@ -95,6 +96,7 @@
     p5.draw = () => {
       drawContainer(p5, contactWidth, contactHeight)
       transparentTitle(p5, 'contact')
+      drawMinimizeButton(p5, contactWidth)
       if (!messageSent) {
         drawLabels(p5)
         drawSubmitButton(p5)
