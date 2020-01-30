@@ -31,3 +31,9 @@ export const transparentTitle = (p5, text) => {
     yPosition: 20,
   })
 }
+
+export const drawContainer = (p5, width, height) => { 
+  p5.fill(0, 0, 100, 90)
+  p5.noStroke()
+  p5.rect(0, 0, width, height)
+}

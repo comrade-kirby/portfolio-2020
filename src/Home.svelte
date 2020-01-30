@@ -1,15 +1,9 @@
 <script>
   import { fade } from 'svelte/transition'
   import P5Canvas from './P5Canvas.svelte'
-  import { transparentText, transparentTitle } from './helpers.js'
+  import { transparentText, transparentTitle, drawContainer } from './helpers.js'
   
   let homeHeight, homeWidth
-
-  const drawContainer = (p5) => {
-    p5.fill(0, 0, 100, 90)
-    p5.noStroke()
-    p5.rect(0, 0, homeWidth, homeHeight);
-  }
 
   const drawName = (p5) => {
     p5.textSize(40)
@@ -28,7 +22,7 @@
     }
     
     p5.draw = () => {
-      drawContainer(p5)
+      drawContainer(p5, homeWidth, homeHeight)
       transparentTitle(p5, 'home')
       drawName(p5)
     }

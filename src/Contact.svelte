@@ -1,18 +1,12 @@
 <script>
   import { fade } from 'svelte/transition'
   import P5Canvas from './P5Canvas.svelte'
-  import { transparentText, transparentTitle } from './helpers.js'
+  import { transparentText, transparentTitle, drawContainer } from './helpers.js'
 
-  let aboutHeight, aboutWidth, name, email, message, honeypot, errorMessage
+  let contactHeight, contactWidth, name, email, message, honeypot, errorMessage
   let hover = false
   let messageSent = false
   let sending = false
-  
-  const drawContainer = (p5) => {
-    p5.fill(0, 0, 100, 90)
-    p5.noStroke()
-    p5.rect(0, 0, aboutWidth, aboutHeight);
-  }
 
   const drawThankyou = (p5) => {
     transparentText(p5, {
@@ -22,13 +16,13 @@
       verticalAlignment: p5.BOTTOM,
       xPosition: 100,
       yPosition: 40,
-      width: aboutWidth - 120,
-      height: aboutHeight - 60
+      width: contactWidth - 120,
+      height: contactHeight - 60
     })
   }
 
   const drawLabels = (p5) => {
-    const textWidth = aboutWidth * 0.30 - 20
+    const textWidth = contactWidth * 0.30 - 20
 
     p5.textSize(20)
     p5.textAlign(p5.RIGHT, p5.CENTER)
@@ -36,31 +30,31 @@
     transparentText(p5, {
       text: 'name',
       xPosition: 0,
-      yPosition: aboutHeight - 240,
+      yPosition: contactHeight - 240,
       width: textWidth,
       height: 20
     })
     transparentText(p5, {
       text: 'email',
       xPosition: 0,
-      yPosition: aboutHeight - 198,
+      yPosition: contactHeight - 198,
       width: textWidth,
       height: 20
     })
     transparentText(p5, {
       text: 'message',
       xPosition: 0,
-      yPosition: aboutHeight - 158,
+      yPosition: contactHeight - 158,
       width: textWidth,
       height: 20
     })
   }
   
   const drawSubmitButton = (p5) => {
-    const rectWidth = aboutWidth * 0.70
+    const rectWidth = contactWidth * 0.70
     const rectHeight = 32
-    const xPosition = aboutWidth - rectWidth - 20
-    const yPosition = aboutHeight - 54
+    const xPosition = contactWidth - rectWidth - 20
+    const yPosition = contactHeight - 54
     p5.erase()
     p5.rect(xPosition, yPosition, rectWidth, rectHeight)
     p5.noErase()
@@ -76,30 +70,30 @@
   }
 
   const drawErrorMessage = (p5) => {
-    const rectWidth = aboutWidth * 0.70
+    const rectWidth = contactWidth * 0.70
   
     transparentText(p5, {
       text: errorMessage,
       textSize: 14,
       horizontalAlignment: p5.CENTER,
       verticalAlignment: p5.CENTER,
-      xPosition: aboutWidth - rectWidth - 20,
-      yPosition: aboutHeight - 25,
-      width: aboutWidth * 0.70,
+      xPosition: contactWidth - rectWidth - 20,
+      yPosition: contactHeight - 25,
+      width: contactWidth * 0.70,
       height: 32
     })
   }
 
   const sketch = (p5) => {
 	  p5.setup = () => {
-      const canvas = p5.createCanvas(aboutWidth, aboutHeight)
+      const canvas = p5.createCanvas(contactWidth, contactHeight)
       canvas.parent('contact')
       p5.colorMode(p5.HSL, 360, 100, 100, 100)
       p5.frameRate(10)
 	  }
 
     p5.draw = () => {
-      drawContainer(p5)
+      drawContainer(p5, contactWidth, contactHeight)
       transparentTitle(p5, 'contact')
       if (!messageSent) {
         drawLabels(p5)
@@ -111,7 +105,7 @@
     }
 
     p5.windowResized = () => {
-      p5.resizeCanvas(aboutWidth, aboutHeight)
+      p5.resizeCanvas(contactWidth, contactHeight)
       p5.redraw()
     }
   }
@@ -186,8 +180,8 @@
 
 <div id='contact'
   transition:fade
-  bind:clientHeight={aboutHeight}
-	bind:clientWidth={aboutWidth}
+  bind:clientHeight={contactHeight}
+	bind:clientWidth={contactWidth}
 >
   {#if !messageSent}
     <form>
