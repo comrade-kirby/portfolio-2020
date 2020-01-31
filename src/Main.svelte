@@ -7,9 +7,13 @@
   import About from './About.svelte'
   import Contact from './Contact.svelte'
 
-  import { screenHeight, scrollPosition, minimizeHover } from './stores.js'
+  import { 
+    screenHeight,
+    scrollPosition,
+    minimizeHover,
+    currentView 
+  } from './stores.js'
 
-  let display = 'home'
 </script>
 
 <style>
@@ -81,18 +85,18 @@
         on:click={() => {$minimized = true}} 
         on:mouseover={() => { $minimizeHover = true }}
         on:mouseout={() => { $minimizeHover = false }} />
-      {#if display == 'home'}
+      {#if $currentView == 'home'}
         <Home />
-      {:else if display == 'about'}
+      {:else if $currentView == 'about'}
         <About />
       {:else }
         <Contact />
       {/if}
     </div>
     <div class='buttons'>
-      <button class='nav-button' class:active={display == 'home'} on:click={() => display = 'home'}>HOME</button>
-      <button class='nav-button' class:active={display == 'about'} on:click={() => display = 'about'}>ABOUT</button>
-      <button class='nav-button' class:active={display == 'contact'} on:click={() => display = 'contact'}>CONTACT</button>
+      <button class='nav-button' class:active={$currentView == 'home'} on:click={() => $currentView = 'home'}>HOME</button>
+      <button class='nav-button' class:active={$currentView == 'about'} on:click={() => $currentView = 'about'}>ABOUT</button>
+      <button class='nav-button' class:active={$currentView == 'contact'} on:click={() => $currentView = 'contact'}>CONTACT</button>
     </div>
   {/if}
 </div>

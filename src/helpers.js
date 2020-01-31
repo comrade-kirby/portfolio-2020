@@ -2,6 +2,7 @@ export const transparentText = (p5, options) => {
   const { 
     text,
     textSize,
+    textLeading,
     horizontalAlignment,
     verticalAlignment,
     xPosition,
@@ -11,12 +12,15 @@ export const transparentText = (p5, options) => {
   } = options
 
   p5.textSize(textSize)
+  p5.textLeading(textLeading)
   p5.textAlign(horizontalAlignment, verticalAlignment)
-
+  p5.fill(0, 0, 0, 15)
+  p5.noStroke()
+  
   p5.erase()
   p5.text(text, xPosition, yPosition, width, height)
   p5.noErase()
-
+  
   p5.fill(0, 0, 0, 15)
   p5.text(text, xPosition, yPosition, width, height)
 }
@@ -41,13 +45,14 @@ export const drawContainer = (p5, width, height) => {
 export const drawMinimizeButton = (p5, width, hover) => {
   const xPosition = width - 40
   const yPosition = 20
+  
   p5.strokeWeight(2)
+  hover ? p5.stroke(0, 0, 0, 20) : p5.stroke(0, 0, 0, 15)
   p5.erase(0, 255)
   p5.line(xPosition + 5, yPosition + 15, xPosition + 15, yPosition + 15)
   p5.rect(xPosition, yPosition, 20, 20)
   p5.noErase()
   
-  hover ? p5.stroke(0, 0, 0, 20) : p5.stroke(0, 0, 0, 15)
   p5.noFill()
   p5.line(xPosition + 5, yPosition + 15, xPosition + 15, yPosition + 15)
   p5.rect(xPosition, yPosition, 20, 20)

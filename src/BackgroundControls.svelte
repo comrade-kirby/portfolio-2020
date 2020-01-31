@@ -2,8 +2,8 @@
   import { fade } from 'svelte/transition'
 
   import P5Canvase from './P5Canvas.svelte'
-  import { screenHeight, minimized } from './stores.js'
-  import { drawContainer } from './helpers'
+  import { screenHeight, minimized, currentView } from './stores.js'
+  import { drawContainer, transparentText } from './helpers'
 
   let controlsHeight, controlsWidth
   let maximizeHover = false
@@ -12,17 +12,30 @@
     const xPosition = 20
     const yPosition = 20
     p5.strokeWeight(2)
+    maximizeHover ? p5.stroke(0, 0, 0, 20) : p5.stroke(0, 0, 0, 15)
+
     p5.erase(0, 255)
     p5.line(xPosition + 7, yPosition + 7, xPosition + 13, yPosition + 7)
     p5.rect(xPosition + 5, yPosition + 5, 10, 10)
     p5.rect(xPosition, yPosition, 20, 20)
     p5.noErase()
     
-    maximizeHover ? p5.stroke(0, 0, 0, 20) : p5.stroke(0, 0, 0, 15)
     p5.noFill()
     p5.line(xPosition + 7, yPosition + 7, xPosition + 13, yPosition + 7)
     p5.rect(xPosition + 5, yPosition + 5, 10, 10)
     p5.rect(xPosition, yPosition, 20, 20)
+  }
+
+  const drawCurrentView = (p5) => {
+    const verticalText = [...$currentView].map(letter => letter + '\n').join('')
+    transparentText(p5, {
+      text: verticalText,
+      textSize: 24,
+      textLeading: 22,
+      horizontalAlignment: p5.CENTER,
+      xPosition: 30,
+      yPosition: 70
+    })
   }
 
   const sketch = (p5) => {
@@ -36,12 +49,13 @@
     p5.draw = () => {
       drawContainer(p5, controlsWidth, controlsHeight)
       drawMaximizeButton(p5)
+      drawCurrentView(p5)
     }
   }
 </script>
 <style>
   #canvas-controls {
-    height: 99.6%;
+    height: 99.5%;
     width: 100%;
   }
 
