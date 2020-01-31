@@ -1,12 +1,13 @@
 <script>
   import { fade } from 'svelte/transition'
-  import { writable } from 'svelte/store'
 
+  import { minimized } from './stores.js'
+  import BackgroundControls from './BackgroundControls.svelte'
   import Home from './Home.svelte'
   import About from './About.svelte'
   import Contact from './Contact.svelte'
 
-  import { screenHeight, scrollPosition } from './stores.js'
+  import { screenHeight, scrollPosition, minimizeHover } from './stores.js'
 
   let display = 'home'
 </script>
@@ -23,6 +24,13 @@
     z-index: 1;
   }
 
+  .background-controls {
+    position: absolute;
+    right: 0;
+    width: 60px;
+    height: 100%;
+  }
+
   .content {
     position: relative;
     min-width: 375px;
@@ -31,13 +39,23 @@
     height: 50%;
   }
 
+  .minimize-button {
+    position: absolute;
+    right: 20px;
+    top: 18px;
+    height: 25px;
+    width: 25px;
+    z-index: 1;
+    opacity: 0;
+  }
+
   .buttons {
     display: flex;
     justify-content: space-evenly;
     width: 50%;
   }
 
-  button {
+  .nav-button {
     background: none;
     color: white;
     border: none;
@@ -52,18 +70,29 @@
 </style>
 
 <div class='main'>
-  <div class='content'>
-    {#if display == 'home'}
-      <Home />
-    {:else if display == 'about'}
-      <About />
-    {:else }
-      <Contact />
-    {/if}
-  </div>
-  <div class='buttons'>
-    <button class:active={display == 'home'} on:click={() => display = 'home'}>HOME</button>
-    <button class:active={display == 'about'} on:click={() => display = 'about'}>ABOUT</button>
-    <button class:active={display == 'contact'} on:click={() => display = 'contact'}>CONTACT</button>
-  </div>
+  {#if $minimized}
+    <div class='background-controls'>
+      <BackgroundControls />
+    </div>
+  {:else }
+    <div class='content'>
+      <button 
+        class='minimize-button'
+        on:click={() => {$minimized = true}} 
+        on:mouseover={() => { $minimizeHover = true }}
+        on:mouseout={() => { $minimizeHover = false }} />
+      {#if display == 'home'}
+        <Home />
+      {:else if display == 'about'}
+        <About />
+      {:else }
+        <Contact />
+      {/if}
+    </div>
+    <div class='buttons'>
+      <button class='nav-button' class:active={display == 'home'} on:click={() => display = 'home'}>HOME</button>
+      <button class='nav-button' class:active={display == 'about'} on:click={() => display = 'about'}>ABOUT</button>
+      <button class='nav-button' class:active={display == 'contact'} on:click={() => display = 'contact'}>CONTACT</button>
+    </div>
+  {/if}
 </div>

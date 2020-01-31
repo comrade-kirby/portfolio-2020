@@ -1,6 +1,8 @@
 <script>
   import { fade } from 'svelte/transition'
+  
   import P5Canvas from './P5Canvas.svelte'
+  import { minimizeHover } from './stores.js'
   import { transparentText, transparentTitle, drawContainer, drawMinimizeButton } from './helpers.js'
   
   let aboutHeight, aboutWidth
@@ -23,14 +25,14 @@
       const canvas = p5.createCanvas(aboutWidth, aboutHeight)
       canvas.parent('about')
       p5.colorMode(p5.HSL, 360, 100, 100, 100)
-      p5.noLoop()
+      p5.frameRate(10)
     }
     
     p5.draw = () => {
       drawContainer(p5, aboutWidth, aboutHeight)
       transparentTitle(p5, 'about')
       drawContent(p5)
-      drawMinimizeButton(p5, aboutWidth)
+      drawMinimizeButton(p5, aboutWidth, $minimizeHover)
     }
 
     p5.windowResized = () => {
@@ -43,7 +45,6 @@
 <style>
  #about {
     position: absolute;
-    top: 0;
     height: 100%;
     width: 100%;
   }

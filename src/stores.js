@@ -6,6 +6,8 @@ export const screenHeight = writable(0)
 export const screenWidth = writable(0)
 export const longestScreenDimension = writable(0)
 export const scrollPosition = writable(0)
+export const minimized = writable(false)
+export const minimizeHover = writable(false)
 
 export const  circleLocation = spring({ x: 0, y: 0 }, {
   stiffness: 0.00001,

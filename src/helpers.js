@@ -42,11 +42,12 @@ export const drawMinimizeButton = (p5, width, hover) => {
   const xPosition = width - 40
   const yPosition = 20
   p5.strokeWeight(2)
-  hover ? p5.stroke(0, 0, 0, 20) : p5.stroke(0, 0, 0, 15)
   p5.erase(0, 255)
   p5.line(xPosition + 5, yPosition + 15, xPosition + 15, yPosition + 15)
   p5.rect(xPosition, yPosition, 20, 20)
   p5.noErase()
+  
+  hover ? p5.stroke(0, 0, 0, 20) : p5.stroke(0, 0, 0, 15)
   p5.noFill()
   p5.line(xPosition + 5, yPosition + 15, xPosition + 15, yPosition + 15)
   p5.rect(xPosition, yPosition, 20, 20)

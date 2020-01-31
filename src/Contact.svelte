@@ -1,6 +1,8 @@
 <script>
   import { fade } from 'svelte/transition'
+
   import P5Canvas from './P5Canvas.svelte'
+  import { minimizeHover } from './stores.js'
   import { transparentText, transparentTitle, drawContainer, drawMinimizeButton } from './helpers.js'
 
   let contactHeight, contactWidth, name, email, message, honeypot, errorMessage
@@ -96,7 +98,7 @@
     p5.draw = () => {
       drawContainer(p5, contactWidth, contactHeight)
       transparentTitle(p5, 'contact')
-      drawMinimizeButton(p5, contactWidth)
+      drawMinimizeButton(p5, contactWidth, $minimizeHover)
       if (!messageSent) {
         drawLabels(p5)
         drawSubmitButton(p5)
@@ -147,7 +149,6 @@
 <style>
  #contact {
     position: absolute;
-    top: 0;
     height: 100%;
     width: 100%;
   }

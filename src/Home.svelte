@@ -1,14 +1,10 @@
 <script>
   import { fade } from 'svelte/transition'
   import P5Canvas from './P5Canvas.svelte'
+  import { minimizeHover } from './stores.js'
   import { transparentText, transparentTitle, drawContainer, drawMinimizeButton } from './helpers.js'
   
   let homeHeight, homeWidth
-  let minimizeHover = false
-
-  const minimize = () => {
-    console.log("minimize")
-  }
 
   const drawName = (p5) => {
     p5.textSize(40)
@@ -30,7 +26,7 @@
       drawContainer(p5, homeWidth, homeHeight)
       transparentTitle(p5, 'home')
       drawName(p5)
-      drawMinimizeButton(p5, homeWidth, minimizeHover)
+      drawMinimizeButton(p5, homeWidth, $minimizeHover)
     }
 
     p5.windowResized = () => {
@@ -43,17 +39,8 @@
 <style>
   #home {
     position: absolute;
-    top: 0;
     height: 100%;
     width: 100%;
-  }
-  button {
-    position: absolute;
-    right: 20px;
-    top: 18px;
-    height: 25px;
-    width: 25px;
-    opacity: 0;
   }
 </style>
 
@@ -61,11 +48,7 @@
   id='home'
   transition:fade
   bind:clientHeight={homeHeight}
-	bind:clientWidth={homeWidth}
+  bind:clientWidth={homeWidth}
 >
-  <button 
-    on:click={minimize} 
-    on:mouseover={() => { minimizeHover = true }}
-    on:mouseout={() => { minimizeHover = false }}/>
   <P5Canvas sketch={sketch} />
 </div>
