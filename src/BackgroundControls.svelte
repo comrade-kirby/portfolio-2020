@@ -1,19 +1,36 @@
 <script>
   import { fade } from 'svelte/transition'
+  import { tweened } from 'svelte/motion'
+  import { cubicOut } from 'svelte/easing'
+
 
   import P5Canvase from './P5Canvas.svelte'
   import { screenHeight, minimized, currentView } from './stores.js'
   import { drawContainer, transparentText } from './helpers'
+  import drawControlButton from './backgroundControl.js'
+  import { controlsXOffset } from './constants.js'
 
   let controlsHeight, controlsWidth
   let maximizeHover = false
   let somethingHover = false
   let somethingOpen = false
+  let somethingRadius = tweened(0, {
+    duration: 1000,
+    easing: cubicOut
+  })
   let sizeHover = false
   let sizeOpen = false
+  let sizeRadius = tweened(0, {
+    duration: 1000,
+    easing: cubicOut
+  })
   let speedHover = false
   let speedOpen = false
-
+  let speedRadius = tweened(0, {
+    duration: 1000,
+    easing: cubicOut
+  })
+  
   const drawLabel = (p5, text, x, y, hover) => {
     transparentText(p5, {
       text: text,
@@ -26,7 +43,7 @@
   }
 
   const drawMaximizeIcon = (p5) => {
-    const xPosition = 20
+    const xPosition = controlsXOffset + 20
     const yPosition = 20
 
     p5.strokeWeight(2)
@@ -41,81 +58,31 @@
 
     p5.erase(0, 255)
     drawMaximizeIcon(p5)
-    p5.line(0, 80, 60, 80)
+    p5.line(controlsXOffset, 80, controlsXOffset + 60, 80)
     p5.noErase()
 
     p5.noFill()
     drawMaximizeIcon(p5)
-    p5.line(0, 80, 60, 80)
+    p5.line(controlsXOffset, 80, controlsXOffset + 60, 80)
 
-    drawLabel(p5, $currentView, 30, 60, maximizeHover)
+    drawLabel(p5, $currentView, controlsXOffset + 30, 60, maximizeHover)
   }
 
   const drawControlTitle = (p5) => {
-    const verticalText = [...'fun'].map(letter => letter + '\n').join('')
+    const verticalText = [...'canvas'].map(letter => letter + '\n').join('')
     transparentText(p5, {
       text: verticalText,
       textSize: 24,
       textLeading: 22,
       horizontalAlignment: p5.CENTER,
-      xPosition: 30,
+      xPosition: controlsXOffset + 30,
       yPosition: 115
     })
-
-  }
-
-  const drawTransparentCircle = (p5, xPosition, yPosition, size, hover) => {
-    p5.strokeWeight(2)
-    p5.stroke(0)
-    
-    p5.erase(0, 255)
-    p5.ellipse(xPosition, yPosition, size, size)
-    p5.noErase()
-
-    p5.noFill()
-    hover ? p5.stroke(0, 0, 0, 20) : p5.stroke(0, 0, 0, 15)
-    p5.ellipse(xPosition, yPosition, size, size)
-
-    p5.stroke(0, 0, 100)
-    p5.ellipse(xPosition, yPosition, size + 4, size + 4)
-  }
-
-  const drawSizeIcon = (p5, xPosition, yPosition, hover) => {
-    const size = 25
-
-    drawTransparentCircle(p5, xPosition, yPosition, size, hover)
-  }
-
-  const drawSpeedIcon = (p5, xPosition, yPosition, hover) => {
-    const size = 20
-    drawTransparentCircle(p5, xPosition + 5, yPosition, 20, hover)
-    drawTransparentCircle(p5, xPosition, yPosition, 20, hover)
-    drawTransparentCircle(p5, xPosition - 5, yPosition, 20, hover)
-    
-    p5.fill(0, 0, 100)
-    p5.noStroke()
-    p5.ellipse(xPosition - 5, yPosition, size - 2)
-  }
-
-  const drawControlButton = (p5, icon, options) => {
-    const { text, yPosition, hover } = options
-
-    const xPosition = 30
-    transparentText(p5, {
-      text: text,
-      textSize: 16,
-      horizontalAlignment: p5.CENTER,
-      xPosition: 30,
-      yPosition: yPosition + 30,
-      hover: hover
-    })
-
-    icon(p5, xPosition, yPosition, hover)
   }
 
   const sketch = (p5) => {
     p5.setup = () => {
-      const canvas = p5.createCanvas(controlsWidth, controlsHeight)
+      const canvas = p5.createCanvas(controlsWidth, $screenHeight)
       canvas.parent('canvas-controls')
       p5.colorMode(p5.HSL, 360, 100, 100, 100)
       p5.frameRate(10)
@@ -125,24 +92,28 @@
       const somethingButtonOptions = {
         text: 'something',
         yPosition: controlsHeight - 190,
+        radius: $somethingRadius,
         hover: somethingHover
       }
+      console.log(somethingHover)
       const sizeButtonOptions = {
         text: 'size',
         yPosition: controlsHeight - 120,
+        radius: $sizeRadius,
         hover: sizeHover
       }
       const speedButtonOptions = {
         text: 'speed',
         yPosition: controlsHeight - 50,
+        radius: $speedRadius,
         hover: speedHover
       }
-      drawContainer(p5, controlsWidth, controlsHeight)
+      drawContainer(p5, 60, $screenHeight, 240)
       drawMaximizeTab(p5)
       drawControlTitle(p5)
-      drawControlButton(p5, drawSizeIcon, somethingButtonOptions)
-      drawControlButton(p5, drawSizeIcon, sizeButtonOptions)
-      drawControlButton(p5, drawSpeedIcon, speedButtonOptions)
+      drawControlButton(p5, 'size', somethingButtonOptions)
+      drawControlButton(p5, 'size', sizeButtonOptions)
+      drawControlButton(p5, 'speed', speedButtonOptions)
     }
   }
 </script>
@@ -162,23 +133,24 @@
   button {
     margin: 0;
     position: absolute;
+    right: 0;
     opacity: 0;
   }
 
   .something-button {
-    bottom: 150px;
+    bottom: 140px;
     width: 60px;
     height: 70px;
   }
 
   .size-button {
-    bottom: 80px;
+    bottom: 70px;
     width: 60px;
     height: 70px;
   }
   
   .speed-button {
-    bottom: 10px;
+    bottom: 0px;
     width: 60px;
     height: 70px;
   }

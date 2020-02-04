@@ -31,7 +31,7 @@
   .background-controls {
     position: absolute;
     right: 0;
-    width: 60px;
+    width: 300px;
     height: 100%;
   }
 

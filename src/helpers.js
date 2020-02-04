@@ -37,10 +37,10 @@ export const transparentTitle = (p5, text) => {
   })
 }
 
-export const drawContainer = (p5, width, height) => { 
+export const drawContainer = (p5, width, height, xPosition = 0) => { 
   p5.fill(0, 0, 100, 90)
   p5.noStroke()
-  p5.rect(0, 0, width, height)
+  p5.rect(xPosition, 0, width, height)
 }
 
 export const drawMinimizeButton = (p5, width, hover) => {
