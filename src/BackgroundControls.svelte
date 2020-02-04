@@ -7,6 +7,12 @@
 
   let controlsHeight, controlsWidth
   let maximizeHover = false
+  let somethingHover = false
+  let somethingOpen = false
+  let sizeHover = false
+  let sizeOpen = false
+  let speedHover = false
+  let speedOpen = false
 
   const drawLabel = (p5, text, x, y, hover) => {
     transparentText(p5, {
@@ -46,7 +52,7 @@
   }
 
   const drawControlTitle = (p5) => {
-    const verticalText = [...'controls'].map(letter => letter + '\n').join('')
+    const verticalText = [...'fun'].map(letter => letter + '\n').join('')
     transparentText(p5, {
       text: verticalText,
       textSize: 24,
@@ -58,7 +64,7 @@
 
   }
 
-  const drawTransparentCircle = (p5, xPosition, yPosition, size) => {
+  const drawTransparentCircle = (p5, xPosition, yPosition, size, hover) => {
     p5.strokeWeight(2)
     p5.stroke(0)
     
@@ -67,42 +73,44 @@
     p5.noErase()
 
     p5.noFill()
-    p5.stroke(0, 0, 0, 15)
+    hover ? p5.stroke(0, 0, 0, 20) : p5.stroke(0, 0, 0, 15)
     p5.ellipse(xPosition, yPosition, size, size)
 
     p5.stroke(0, 0, 100)
     p5.ellipse(xPosition, yPosition, size + 4, size + 4)
   }
 
-  const drawSizeIcon = (p5, xPosition, yPosition) => {
+  const drawSizeIcon = (p5, xPosition, yPosition, hover) => {
     const size = 25
 
-    drawTransparentCircle(p5, xPosition, yPosition, size)
+    drawTransparentCircle(p5, xPosition, yPosition, size, hover)
   }
 
-  const drawSpeedIcon = (p5, xPosition, yPosition) => {
+  const drawSpeedIcon = (p5, xPosition, yPosition, hover) => {
     const size = 20
-    drawTransparentCircle(p5, xPosition + 5, yPosition, 20)
-    drawTransparentCircle(p5, xPosition, yPosition, 20)
-    drawTransparentCircle(p5, xPosition - 5, yPosition, 20)
+    drawTransparentCircle(p5, xPosition + 5, yPosition, 20, hover)
+    drawTransparentCircle(p5, xPosition, yPosition, 20, hover)
+    drawTransparentCircle(p5, xPosition - 5, yPosition, 20, hover)
     
     p5.fill(0, 0, 100)
     p5.noStroke()
     p5.ellipse(xPosition - 5, yPosition, size - 2)
   }
 
-  const drawControl = (p5, label, yPosition, icon) => {
+  const drawControlButton = (p5, icon, options) => {
+    const { text, yPosition, hover } = options
+
     const xPosition = 30
-    
     transparentText(p5, {
-      text: label,
+      text: text,
       textSize: 16,
       horizontalAlignment: p5.CENTER,
       xPosition: 30,
-      yPosition: yPosition + 30
+      yPosition: yPosition + 30,
+      hover: hover
     })
 
-    icon(p5, xPosition, yPosition)
+    icon(p5, xPosition, yPosition, hover)
   }
 
   const sketch = (p5) => {
@@ -114,11 +122,27 @@
     }
 
     p5.draw = () => {
+      const somethingButtonOptions = {
+        text: 'something',
+        yPosition: controlsHeight - 190,
+        hover: somethingHover
+      }
+      const sizeButtonOptions = {
+        text: 'size',
+        yPosition: controlsHeight - 120,
+        hover: sizeHover
+      }
+      const speedButtonOptions = {
+        text: 'speed',
+        yPosition: controlsHeight - 50,
+        hover: speedHover
+      }
       drawContainer(p5, controlsWidth, controlsHeight)
       drawMaximizeTab(p5)
       drawControlTitle(p5)
-      drawControl(p5, 'size', controlsHeight - 120, drawSizeIcon)
-      drawControl(p5, 'speed', controlsHeight - 50, drawSpeedIcon)
+      drawControlButton(p5, drawSizeIcon, somethingButtonOptions)
+      drawControlButton(p5, drawSizeIcon, sizeButtonOptions)
+      drawControlButton(p5, drawSpeedIcon, speedButtonOptions)
     }
   }
 </script>
@@ -129,12 +153,36 @@
     width: 100%;
   }
 
-  button {
+  .minimize-button {
     position: absolute;
     width: 60px;
     height: 80px;
+  }
+
+  button {
+    margin: 0;
+    position: absolute;
     opacity: 0;
   }
+
+  .something-button {
+    bottom: 150px;
+    width: 60px;
+    height: 70px;
+  }
+
+  .size-button {
+    bottom: 80px;
+    width: 60px;
+    height: 70px;
+  }
+  
+  .speed-button {
+    bottom: 10px;
+    width: 60px;
+    height: 70px;
+  }
+
 </style>
 
 <div 
@@ -144,8 +192,25 @@
   bind:clientWidth={controlsWidth}
 >
   <button 
+    class='minimize-button'
     on:click={() => {$minimized = false}} 
     on:mouseover={() => { maximizeHover = true }}
     on:mouseout={() => { maximizeHover = false }} />
+  <button 
+    class='something-button'
+    on:click={() => {somethingOpen = !somethingOpen}} 
+    on:mouseover={() => { somethingHover = true }}
+    on:mouseout={() => { somethingHover = false }} />
+  <button 
+    class='size-button'
+    on:click={() => {sizeOpen = !sizeOpen}} 
+    on:mouseover={() => { sizeHover = true }}
+    on:mouseout={() => { sizeHover = false }} />
+  <button 
+    class='speed-button'
+    on:click={() => {speedOpen = !speedOpen}} 
+    on:mouseover={() => { speedHover = true }}
+    on:mouseout={() => { speedHover = false }} />
+
   <P5Canvase sketch={sketch}/>
 </div>
