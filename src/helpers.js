@@ -9,8 +9,16 @@ export const transparentText = (p5, options) => {
     yPosition,
     width,
     height,
-    hover
+    hover,
+    progress
   } = options
+
+  let erase = 255
+  let opacity = 15
+  if (progress) { 
+    erase = progress * erase
+    opacity = progress * opacity
+  }
 
   p5.textSize(textSize)
   p5.textLeading(textLeading)
@@ -18,11 +26,11 @@ export const transparentText = (p5, options) => {
   p5.fill(0)
   p5.noStroke()
   
-  p5.erase()
+  p5.erase(erase)
   p5.text(text, xPosition, yPosition, width, height)
   p5.noErase()
   
-  hover ? p5.fill(0, 0, 0, 20) : p5.fill(0, 0, 0, 15)
+  hover ? p5.fill(0, 0, 0, 20) : p5.fill(0, 0, 0, opacity)
   p5.text(text, xPosition, yPosition, width, height)
 }
 

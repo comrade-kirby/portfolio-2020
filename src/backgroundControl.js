@@ -15,6 +15,10 @@ const drawTransparentCircle = (p5, xPosition, yPosition, size, hover) => {
 
   p5.stroke(0, 0, 100)
   p5.ellipse(xPosition, yPosition, size + 4, size + 4)
+
+  p5.fill(0, 0, 100)
+  p5.noStroke()
+  p5.ellipse(xPosition, yPosition, size - 2)
 }
 
 const drawSizeIcon = (p5, xPosition, yPosition, hover) => {
@@ -28,13 +32,9 @@ const drawSpeedIcon = (p5, xPosition, yPosition, hover) => {
   drawTransparentCircle(p5, xPosition + 5, yPosition, 20, hover)
   drawTransparentCircle(p5, xPosition, yPosition, 20, hover)
   drawTransparentCircle(p5, xPosition - 5, yPosition, 20, hover)
-  
-  p5.fill(0, 0, 100)
-  p5.noStroke()
-  p5.ellipse(xPosition - 5, yPosition, size - 2)
 }
 
-const drawSlider = (p5, yPosition, progress, open) => {
+const drawSlider = (p5, yPosition, progress) => {
   const maxWidth = 240
   const maxRadius = 25
   const maxErase = 255
@@ -61,24 +61,13 @@ const drawSlider = (p5, yPosition, progress, open) => {
   p5.line(xPosition + 20, yPosition, 230, yPosition)
 }
 
-const drawControlButton = (p5, options) => {
-  const { text, value, yPosition, progress, hover, open } = options
-  const defaultXPosition = controlsXOffset + 30
+const drawIcon = (p5, defaultXPosition, options) => {
+  const { text, value, yPosition, progress, hover } = options
+
   const sliderLength = 210
   const sliderPosition = sliderLength - (value * sliderLength)
   const xPosition = (defaultXPosition) - progress * (40 + sliderPosition)
-  
-  transparentText(p5, {
-    text: text,
-    textSize: 16,
-    horizontalAlignment: p5.CENTER,
-    xPosition: defaultXPosition,
-    yPosition: yPosition + 30,
-    hover: hover
-  })
 
-  drawSlider(p5, yPosition, progress, open)
-  
   switch (text) {
     case 'size':
       drawSizeIcon(p5, xPosition, yPosition, hover)
@@ -90,6 +79,33 @@ const drawControlButton = (p5, options) => {
       drawSizeIcon(p5, xPosition, yPosition, hover)
       break
   }
+}
+
+const drawControlButton = (p5, options) => {
+  const { text, value, yPosition, progress, hover } = options
+  
+  const defaultXPosition = controlsXOffset + 30
+  
+  transparentText(p5, {
+    text: text,
+    textSize: 16,
+    horizontalAlignment: p5.CENTER,
+    xPosition: defaultXPosition,
+    yPosition: yPosition + 30,
+    hover: hover,
+  })
+
+  transparentText(p5, {
+    text: value * 100,
+    textSize: 16,
+    horizontalAlignment: p5.CENTER,
+    xPosition: defaultXPosition,
+    yPosition: yPosition + 5,
+    progress: progress
+  })
+
+  drawSlider(p5, yPosition, progress)
+  drawIcon(p5, defaultXPosition, options)
 }
 
 export default drawControlButton

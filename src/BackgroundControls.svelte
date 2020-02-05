@@ -22,6 +22,7 @@
   const somethingProgress = tweened(0, { easing: cubicIn })
   const sizeProgress = tweened(0, { easing: cubicIn })
   const speedProgress = tweened(0, { easing: cubicIn })
+  
   let somethingHover = false
   let sizeHover = false
   let speedHover = false
@@ -33,7 +34,7 @@
   const handleClick = (button) => {
     const index = buttons.indexOf(button)
     const progress = progresses[index]
-    const value = values[index] 
+    const value = values[index]
 
     if (openStates[index]) {
       progress.set(0)
@@ -107,7 +108,6 @@
         yPosition: controlsHeight - 190,
         progress: $somethingProgress,
         hover: somethingHover,
-        open: openStates[0]
       }
       const sizeButtonOptions = {
         text: 'size',
@@ -115,7 +115,6 @@
         yPosition: controlsHeight - 120,
         progress: $sizeProgress,
         hover: sizeHover,
-        open: openStates[1]
       }
       const speedButtonOptions = {
         text: 'speed',
@@ -123,7 +122,6 @@
         yPosition: controlsHeight - 50,
         progress: $speedProgress,
         hover: speedHover,
-        open: openStates[2]
       }
 
       drawContainer(p5, 60, $screenHeight, 240)
