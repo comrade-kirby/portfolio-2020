@@ -1,7 +1,9 @@
-import { controlsXOffset } from './constants.js'
+import { controlsXOffset, primaryOpacity, hoverOpacity } from './constants.js'
 import { transparentText } from './helpers'
 
 const drawTransparentCircle = (p5, xPosition, yPosition, size, hover) => {
+  const opacity = hover ? hoverOpacity : primaryOpacity
+  
   p5.strokeWeight(2)
   p5.stroke(0)
   
@@ -10,7 +12,7 @@ const drawTransparentCircle = (p5, xPosition, yPosition, size, hover) => {
   p5.noErase()
 
   p5.noFill()
-  hover ? p5.stroke(0, 0, 0, 20) : p5.stroke(0, 0, 0, 15)
+  p5.stroke(0, 0, 0, opacity)
   p5.ellipse(xPosition, yPosition, size, size)
 
   p5.stroke(0, 0, 100)
@@ -38,7 +40,7 @@ const drawSlider = (p5, yPosition, progress) => {
   const maxWidth = 240
   const maxRadius = 25
   const maxErase = 255
-  const maxOpacity = 15
+  const maxOpacity = primaryOpacity
   const currentWidth = progress * maxWidth
   const currentRadius = progress * maxRadius
   const currentErase = progress * maxErase 

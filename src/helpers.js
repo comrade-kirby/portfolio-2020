@@ -1,3 +1,5 @@
+import { primaryOpacity, hoverOpacity } from './constants'
+
 export const transparentText = (p5, options) => {
   const { 
     text,
@@ -14,7 +16,7 @@ export const transparentText = (p5, options) => {
   } = options
 
   let erase = 255
-  let opacity = 15
+  let opacity = hover ? hoverOpacity : primaryOpacity
   if (progress) { 
     erase = progress * erase
     opacity = progress * opacity
@@ -30,7 +32,7 @@ export const transparentText = (p5, options) => {
   p5.text(text, xPosition, yPosition, width, height)
   p5.noErase()
   
-  hover ? p5.fill(0, 0, 0, 20) : p5.fill(0, 0, 0, opacity)
+  p5.fill(0, 0, 0, opacity)
   p5.text(text, xPosition, yPosition, width, height)
 }
 
@@ -54,9 +56,10 @@ export const drawContainer = (p5, width, height, xPosition = 0) => {
 export const drawMinimizeButton = (p5, width, hover) => {
   const xPosition = width - 40
   const yPosition = 20
-  
+  const opacity = hover ? hoverOpacity : primaryOpacity
+
   p5.strokeWeight(2)
-  hover ? p5.stroke(0, 0, 0, 20) : p5.stroke(0, 0, 0, 15)
+  p5.stroke(0, 0, 0, opacity)
   p5.erase(0, 255)
   p5.line(xPosition + 15, yPosition + 5, xPosition + 15, yPosition + 12)
   p5.rect(xPosition, yPosition, 20, 20)
