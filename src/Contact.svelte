@@ -132,7 +132,6 @@
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
-          console.log("sent")
           messageSent = true
         } else if (xhr.status !== 200) {
           errorMessage = 'oops, something went wrong'

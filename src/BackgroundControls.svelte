@@ -1,7 +1,7 @@
 <script>
   import { fade } from 'svelte/transition'
   import { tweened } from 'svelte/motion'
-  import { cubicOut } from 'svelte/easing'
+  import { cubicIn } from 'svelte/easing'
 
 
   import P5Canvase from './P5Canvas.svelte'
@@ -12,25 +12,57 @@
 
   let controlsHeight, controlsWidth
   let maximizeHover = false
+
+  const somethingWidth = tweened(0, {
+    duration: 500,
+    easing: cubicIn
+  })
+  const sizeWidth = tweened(0, {
+    duration: 500,
+    easing: cubicIn
+  })
+  const speedWidth = tweened(0, {
+    duration: 500,
+    easing: cubicIn
+  })
+  const somethingRadius = tweened(0, {
+    duration: 500,
+    easing: cubicIn
+  })
+  const sizeRadius = tweened(0, {
+    duration: 500,
+    easing: cubicIn
+  })
+  const speedRadius = tweened(0, {
+    duration: 500,
+    easing: cubicIn
+  })
+
   let somethingHover = false
-  let somethingOpen = false
-  let somethingRadius = tweened(0, {
-    duration: 1000,
-    easing: cubicOut
-  })
   let sizeHover = false
-  let sizeOpen = false
-  let sizeRadius = tweened(0, {
-    duration: 1000,
-    easing: cubicOut
-  })
   let speedHover = false
-  let speedOpen = false
-  let speedRadius = tweened(0, {
-    duration: 1000,
-    easing: cubicOut
-  })
-  
+  let buttons = ['something', 'size', 'speed']
+  let openStates = [false, false, false]
+  let widths = [somethingWidth, sizeWidth, speedWidth]
+  let radii = [somethingRadius, sizeRadius, speedRadius]
+
+  const handleClick = (button) => {
+    const index = buttons.indexOf(button)
+    let width = widths[index]
+    let radius = radii[index]
+
+    if (openStates[index]) {
+      radius.set(0)
+      width.set(0)
+        openStates[index] = false
+    } else {
+      radius.set(50)
+      width.set(240)
+      setTimeout(() => {
+        openStates[index] = true
+      }, 500)    
+    }
+  }
   const drawLabel = (p5, text, x, y, hover) => {
     transparentText(p5, {
       text: text,
@@ -85,7 +117,6 @@
       const canvas = p5.createCanvas(controlsWidth, $screenHeight)
       canvas.parent('canvas-controls')
       p5.colorMode(p5.HSL, 360, 100, 100, 100)
-      p5.frameRate(10)
     }
 
     p5.draw = () => {
@@ -93,21 +124,27 @@
         text: 'something',
         yPosition: controlsHeight - 190,
         radius: $somethingRadius,
-        hover: somethingHover
+        width: $somethingWidth,
+        hover: somethingHover,
+        open: openStates[0]
       }
-      console.log(somethingHover)
       const sizeButtonOptions = {
         text: 'size',
         yPosition: controlsHeight - 120,
         radius: $sizeRadius,
-        hover: sizeHover
+        width: $sizeWidth,
+        hover: sizeHover,
+        open: openStates[1]
       }
       const speedButtonOptions = {
         text: 'speed',
         yPosition: controlsHeight - 50,
         radius: $speedRadius,
-        hover: speedHover
+        width: $speedWidth,
+        hover: speedHover,
+        open: openStates[2]
       }
+
       drawContainer(p5, 60, $screenHeight, 240)
       drawMaximizeTab(p5)
       drawControlTitle(p5)
@@ -170,17 +207,17 @@
     on:mouseout={() => { maximizeHover = false }} />
   <button 
     class='something-button'
-    on:click={() => {somethingOpen = !somethingOpen}} 
+    on:click={() => {handleClick('something')}} 
     on:mouseover={() => { somethingHover = true }}
     on:mouseout={() => { somethingHover = false }} />
   <button 
     class='size-button'
-    on:click={() => {sizeOpen = !sizeOpen}} 
+    on:click={() => {handleClick('size')}} 
     on:mouseover={() => { sizeHover = true }}
     on:mouseout={() => { sizeHover = false }} />
   <button 
     class='speed-button'
-    on:click={() => {speedOpen = !speedOpen}} 
+    on:click={() => {handleClick('speed')}} 
     on:mouseover={() => { speedHover = true }}
     on:mouseout={() => { speedHover = false }} />
 
