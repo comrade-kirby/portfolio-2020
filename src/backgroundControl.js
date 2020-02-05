@@ -35,28 +35,36 @@ const drawSpeedIcon = (p5, xPosition, yPosition, hover) => {
   p5.ellipse(xPosition - 5, yPosition, size - 2)
 }
 
-const drawSlider = (p5, yPosition, width, radius, open) => {
-  const xPosition = 240 - width
+const drawSlider = (p5, yPosition, progress, open) => {
+  const progressPercentage = (progress / 100)
+  const maxWidth = 240
+  const maxRadius = 25
+  const maxErase = 255
+  const maxOpacity = 15
+  const currentWidth = progressPercentage * maxWidth
+  const currentRadius = progressPercentage * maxRadius
+  const currentErase = progressPercentage * maxErase 
+  const currentOpacity = progressPercentage * maxOpacity 
+  const xPosition = maxWidth - currentWidth
 
   p5.erase()
   p5.rect(0, yPosition - 25, 240, 50)
   p5.noErase()
 
   p5.fill(0, 0, 100)
-  p5.rect(xPosition, yPosition - 25, width, 50, radius, 0, 0, radius)
+  p5.rect(xPosition, yPosition - 25, currentWidth, 50, currentRadius, 0, 0, currentRadius)
   
-  if (open) {
-    p5.stroke(0)
-    p5.erase()
-    p5.line(xPosition + 20, yPosition, 230, yPosition)
-    p5.noErase()
-    p5.stroke(0, 0, 0, 15)
-    p5.line(xPosition + 20, yPosition, 230, yPosition)
-  }
+  p5.stroke(0)
+  p5.erase(0, currentErase)
+  p5.line(xPosition + 20, yPosition, 230, yPosition)
+  p5.noErase()
+  
+  p5.stroke(0, 0, 0, currentOpacity)
+  p5.line(xPosition + 20, yPosition, 230, yPosition)
 }
 
 const drawControlButton = (p5, type, options) => {
-  const { text, yPosition, radius, width, hover, open } = options
+  const { text, yPosition, progress, hover, open } = options
   const xPosition = controlsXOffset + 30
   transparentText(p5, {
     text: text,
@@ -67,7 +75,7 @@ const drawControlButton = (p5, type, options) => {
     hover: hover
   })
 
-  drawSlider(p5, yPosition, width, radius, open)
+  drawSlider(p5, yPosition, progress, open)
   
   switch (type) {
     case 'size':
@@ -75,6 +83,9 @@ const drawControlButton = (p5, type, options) => {
       break
     case 'speed':
       drawSpeedIcon(p5, xPosition, yPosition, hover)
+      break
+    default:
+      drawSizeIcon(p5, xPosition, yPosition, hover)
       break
   }
 }

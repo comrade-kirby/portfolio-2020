@@ -13,54 +13,26 @@
   let controlsHeight, controlsWidth
   let maximizeHover = false
 
-  const somethingWidth = tweened(0, {
-    duration: 500,
-    easing: cubicIn
-  })
-  const sizeWidth = tweened(0, {
-    duration: 500,
-    easing: cubicIn
-  })
-  const speedWidth = tweened(0, {
-    duration: 500,
-    easing: cubicIn
-  })
-  const somethingRadius = tweened(0, {
-    duration: 500,
-    easing: cubicIn
-  })
-  const sizeRadius = tweened(0, {
-    duration: 500,
-    easing: cubicIn
-  })
-  const speedRadius = tweened(0, {
-    duration: 500,
-    easing: cubicIn
-  })
+  const somethingProgress = tweened(0, { easing: cubicIn })
+  const sizeProgress = tweened(0, { easing: cubicIn })
+  const speedProgress = tweened(0, { easing: cubicIn })
 
   let somethingHover = false
   let sizeHover = false
   let speedHover = false
   let buttons = ['something', 'size', 'speed']
   let openStates = [false, false, false]
-  let widths = [somethingWidth, sizeWidth, speedWidth]
-  let radii = [somethingRadius, sizeRadius, speedRadius]
+  let progresses = [somethingProgress, sizeProgress, speedProgress]
 
   const handleClick = (button) => {
     const index = buttons.indexOf(button)
-    let width = widths[index]
-    let radius = radii[index]
-
+    const progress = progresses[index]
     if (openStates[index]) {
-      radius.set(0)
-      width.set(0)
-        openStates[index] = false
+      progress.set(0)
+      openStates[index] = false
     } else {
-      radius.set(50)
-      width.set(240)
-      setTimeout(() => {
-        openStates[index] = true
-      }, 500)    
+      progress.set(100)
+      openStates[index] = true
     }
   }
   const drawLabel = (p5, text, x, y, hover) => {
@@ -123,24 +95,21 @@
       const somethingButtonOptions = {
         text: 'something',
         yPosition: controlsHeight - 190,
-        radius: $somethingRadius,
-        width: $somethingWidth,
+        progress: $somethingProgress,
         hover: somethingHover,
         open: openStates[0]
       }
       const sizeButtonOptions = {
         text: 'size',
         yPosition: controlsHeight - 120,
-        radius: $sizeRadius,
-        width: $sizeWidth,
+        progress: $sizeProgress,
         hover: sizeHover,
         open: openStates[1]
       }
       const speedButtonOptions = {
         text: 'speed',
         yPosition: controlsHeight - 50,
-        radius: $speedRadius,
-        width: $speedWidth,
+        progress: $speedProgress,
         hover: speedHover,
         open: openStates[2]
       }
@@ -148,7 +117,7 @@
       drawContainer(p5, 60, $screenHeight, 240)
       drawMaximizeTab(p5)
       drawControlTitle(p5)
-      drawControlButton(p5, 'size', somethingButtonOptions)
+      drawControlButton(p5, 'something', somethingButtonOptions)
       drawControlButton(p5, 'size', sizeButtonOptions)
       drawControlButton(p5, 'speed', speedButtonOptions)
     }
