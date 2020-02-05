@@ -8,12 +8,11 @@
     longestScreenDimension,
     circleLocation,
     backgroundHue,
-    circleHue 
+    circleHue,
+    sizeValue
   } from './stores.js'
 
   const hueMaxValue = 360
-  
-  let circleSize
   
   const sketch = (p5) => {
 	  p5.setup = () => {
@@ -29,6 +28,7 @@
       const strokeAlpha = 100
       const fillLightness = 85
       const fillAlpha = 7
+      const circleSize = $sizeValue * ($longestScreenDimension * 1.1)
 
       p5.stroke($backgroundHue, saturation, strokeLightness, strokeAlpha);
       p5.strokeWeight(1)
@@ -58,7 +58,6 @@
   onMount(async () => {
     await $screenWidth && $screenHeight
 
-    circleSize = $longestScreenDimension * 1
     circleLocation.set({ x: $screenWidth / 2, y: $screenHeight / 2 }, {
       hard: true
     })

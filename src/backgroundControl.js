@@ -1,6 +1,5 @@
-import { transparentText } from './helpers'
 import { controlsXOffset } from './constants.js'
-
+import { transparentText } from './helpers'
 
 const drawTransparentCircle = (p5, xPosition, yPosition, size, hover) => {
   p5.strokeWeight(2)
@@ -36,15 +35,14 @@ const drawSpeedIcon = (p5, xPosition, yPosition, hover) => {
 }
 
 const drawSlider = (p5, yPosition, progress, open) => {
-  const progressPercentage = (progress / 100)
   const maxWidth = 240
   const maxRadius = 25
   const maxErase = 255
   const maxOpacity = 15
-  const currentWidth = progressPercentage * maxWidth
-  const currentRadius = progressPercentage * maxRadius
-  const currentErase = progressPercentage * maxErase 
-  const currentOpacity = progressPercentage * maxOpacity 
+  const currentWidth = progress * maxWidth
+  const currentRadius = progress * maxRadius
+  const currentErase = progress * maxErase 
+  const currentOpacity = progress * maxOpacity 
   const xPosition = maxWidth - currentWidth
 
   p5.erase()
@@ -63,21 +61,25 @@ const drawSlider = (p5, yPosition, progress, open) => {
   p5.line(xPosition + 20, yPosition, 230, yPosition)
 }
 
-const drawControlButton = (p5, type, options) => {
-  const { text, yPosition, progress, hover, open } = options
-  const xPosition = controlsXOffset + 30
+const drawControlButton = (p5, options) => {
+  const { text, value, yPosition, progress, hover, open } = options
+  const defaultXPosition = controlsXOffset + 30
+  const sliderLength = 210
+  const sliderPosition = sliderLength - (value * sliderLength)
+  const xPosition = (defaultXPosition) - progress * (40 + sliderPosition)
+  
   transparentText(p5, {
     text: text,
     textSize: 16,
     horizontalAlignment: p5.CENTER,
-    xPosition: controlsXOffset + 30,
+    xPosition: defaultXPosition,
     yPosition: yPosition + 30,
     hover: hover
   })
 
   drawSlider(p5, yPosition, progress, open)
   
-  switch (type) {
+  switch (text) {
     case 'size':
       drawSizeIcon(p5, xPosition, yPosition, hover)
       break

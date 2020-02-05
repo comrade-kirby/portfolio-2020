@@ -3,12 +3,18 @@
   import { tweened } from 'svelte/motion'
   import { cubicIn } from 'svelte/easing'
 
-
   import P5Canvase from './P5Canvas.svelte'
-  import { screenHeight, minimized, currentView } from './stores.js'
   import { drawContainer, transparentText } from './helpers'
   import drawControlButton from './backgroundControl.js'
   import { controlsXOffset } from './constants.js'
+  import { 
+    screenHeight,
+    minimized,
+    currentView,
+    somethingValue,
+    sizeValue,
+    speedValue
+  } from './stores.js'
 
   let controlsHeight, controlsWidth
   let maximizeHover = false
@@ -16,25 +22,28 @@
   const somethingProgress = tweened(0, { easing: cubicIn })
   const sizeProgress = tweened(0, { easing: cubicIn })
   const speedProgress = tweened(0, { easing: cubicIn })
-
   let somethingHover = false
   let sizeHover = false
   let speedHover = false
   let buttons = ['something', 'size', 'speed']
   let openStates = [false, false, false]
   let progresses = [somethingProgress, sizeProgress, speedProgress]
+  let values = [somethingValue, sizeValue, speedValue]
 
   const handleClick = (button) => {
     const index = buttons.indexOf(button)
     const progress = progresses[index]
+    const value = values[index] 
+
     if (openStates[index]) {
       progress.set(0)
       openStates[index] = false
     } else {
-      progress.set(100)
+      progress.set(1)
       openStates[index] = true
     }
   }
+
   const drawLabel = (p5, text, x, y, hover) => {
     transparentText(p5, {
       text: text,
@@ -94,6 +103,7 @@
     p5.draw = () => {
       const somethingButtonOptions = {
         text: 'something',
+        value: $somethingValue,
         yPosition: controlsHeight - 190,
         progress: $somethingProgress,
         hover: somethingHover,
@@ -101,6 +111,7 @@
       }
       const sizeButtonOptions = {
         text: 'size',
+        value: $sizeValue,
         yPosition: controlsHeight - 120,
         progress: $sizeProgress,
         hover: sizeHover,
@@ -108,6 +119,7 @@
       }
       const speedButtonOptions = {
         text: 'speed',
+        value: $speedValue,
         yPosition: controlsHeight - 50,
         progress: $speedProgress,
         hover: speedHover,
@@ -117,9 +129,9 @@
       drawContainer(p5, 60, $screenHeight, 240)
       drawMaximizeTab(p5)
       drawControlTitle(p5)
-      drawControlButton(p5, 'something', somethingButtonOptions)
-      drawControlButton(p5, 'size', sizeButtonOptions)
-      drawControlButton(p5, 'speed', speedButtonOptions)
+      drawControlButton(p5, somethingButtonOptions)
+      drawControlButton(p5, sizeButtonOptions)
+      drawControlButton(p5, speedButtonOptions)
     }
   }
 </script>
@@ -160,7 +172,6 @@
     width: 60px;
     height: 70px;
   }
-
 </style>
 
 <div 

@@ -25,3 +25,7 @@ export const backgroundHue = tweened(270, {
   easing: cubicOut
 })
 
+// animation controlls
+export const somethingValue = writable(0)
+export const sizeValue = writable(.9)
+export const speedValue = writable(.5)
