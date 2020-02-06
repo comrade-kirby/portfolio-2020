@@ -12,14 +12,16 @@ export const transparentText = (p5, options) => {
     width,
     height,
     hover,
+    animate,
     progress
   } = options
 
   let erase = 255
   let opacity = hover ? hoverOpacity : primaryOpacity
-  if (progress) { 
-    erase = progress * erase
-    opacity = progress * opacity
+
+  if (animate) {
+    erase = progress * erase || 0
+    opacity = progress * opacity || 0
   }
 
   p5.textSize(textSize)
@@ -68,4 +70,14 @@ export const drawMinimizeButton = (p5, width, hover) => {
   p5.noFill()
   p5.line(xPosition + 15, yPosition + 5, xPosition + 15, yPosition + 12)
   p5.rect(xPosition, yPosition, 20, 20)
+}
+
+export const logStiffness = (value) => {
+  const stiffnessMinPower = -6
+  return 10 ** ((1 - value) * stiffnessMinPower)
+}
+
+export const logDamping = (value) => {
+  const dampingMinPower = -6
+  return 10 ** ((value) * dampingMinPower)
 }

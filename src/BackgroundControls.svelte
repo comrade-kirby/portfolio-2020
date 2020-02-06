@@ -11,29 +11,25 @@
     screenHeight,
     minimized,
     currentView,
-    somethingValue,
     sizeValue,
-    speedValue
+    pullValue,
+    momentumValue
   } from './stores.js'
 
   let controlsHeight, controlsWidth
   let maximizeHover = false
 
-  const somethingProgress = tweened(0, { easing: cubicIn })
   const sizeProgress = tweened(0, { easing: cubicIn })
-  const speedProgress = tweened(0, { easing: cubicIn })
+  const pullProgress = tweened(0, { easing: cubicIn })
+  const momentumProgress = tweened(0, { easing: cubicIn })
   
-  // let somethingHover = false
-  // let sizeHover = false
-  // let speedHover = false
-  let buttons = ['size', 'speed', 'something']
+  let buttons = ['size', 'pull', 'momentum']
   let openStates = [false, false, false]
   let hoverStates = [false, false, false]
-  let progresses = [sizeProgress, speedProgress, somethingProgress]
-  let values = [sizeValue, speedValue, somethingValue]
+  let progresses = [sizeProgress, pullProgress, momentumProgress]
+  let values = [sizeValue, pullValue, momentumValue]
 
   const handleClick = (button) => {
-    console.log(button)
     const index = buttons.indexOf(button)
     const progress = progresses[index]
     const value = values[index]
@@ -50,12 +46,6 @@
   const handleHover = (button, hoverOn) => {
     const index = buttons.indexOf(button)
     hoverStates[index] = hoverOn ? true : false
-
-    // if (hoverState) {
-    //   hover = true
-    // } else {
-    //   hover = false
-    // }
   }
 
   const drawLabel = (p5, text, x, y, hover) => {
@@ -122,18 +112,18 @@
         progress: $sizeProgress,
         hover: hoverStates[0],
       }
-      const speedButtonOptions = {
-        text: 'speed',
-        value: $speedValue,
+      const pullButtonOptions = {
+        text: 'pull',
+        value: $pullValue,
         yPosition: controlsHeight - 120,
-        progress: $speedProgress,
+        progress: $pullProgress,
         hover: hoverStates[1],
       }
-      const somethingButtonOptions = {
-        text: 'something',
-        value: $somethingValue,
+      const momentumButtonOptions = {
+        text: 'momentum',
+        value: $momentumValue,
         yPosition: controlsHeight - 50,
-        progress: $somethingProgress,
+        progress: $momentumProgress,
         hover: hoverStates[2],
       }
 
@@ -141,8 +131,8 @@
       drawMaximizeTab(p5)
       drawControlTitle(p5)
       drawControlButton(p5, sizeButtonOptions)
-      drawControlButton(p5, speedButtonOptions)
-      drawControlButton(p5, somethingButtonOptions)
+      drawControlButton(p5, pullButtonOptions)
+      drawControlButton(p5, momentumButtonOptions)
     }
   }
 </script>
@@ -163,14 +153,21 @@
     margin: 0;
     position: absolute;
     right: 0;
-    opacity: 0.5;
-    background-color: red;
+    opacity: 0;
   }
 
   .canvas-button {
     bottom: var(--bottom);
     width: 60px;
     height: 70px;
+  }
+
+  .canvas-input {
+    position: absolute;
+    right: 60px;
+    bottom: var(--bottom);
+    width: 230px;
+    opacity: 0;
   }
 </style>
 
@@ -193,7 +190,25 @@
       on:click={() => {handleClick(button)}} 
       on:mouseover={() => { handleHover(button, true) }}
       on:mouseout={() => { handleHover(button, false) }} />
+    
   {/each}
-
+  <input 
+    class='canvas-input'
+    style='--bottom:175px'
+    type='range'
+    min='0' max='1' step='0.01' 
+    bind:value={$sizeValue} />
+  <input 
+    class='canvas-input'
+    style='--bottom:105px'
+    type='range'
+    min='0' max='1' step='0.01' 
+    bind:value={$pullValue} />
+  <input 
+    class='canvas-input'
+    style='--bottom:35px'
+    type='range'
+    min='0' max='1' step='0.01' 
+    bind:value={$momentumValue} />
   <P5Canvase sketch={sketch}/>
 </div>

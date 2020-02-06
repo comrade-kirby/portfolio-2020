@@ -2,6 +2,8 @@ import { writable } from 'svelte/store'
 import { spring, tweened } from 'svelte/motion'
 import { cubicOut } from 'svelte/easing'
 
+import { logStiffness, logDamping } from './helpers.js'
+
 export const screenHeight = writable(0)
 export const screenWidth = writable(0)
 export const longestScreenDimension = writable(0)
@@ -10,10 +12,6 @@ export const minimized = writable(true)
 export const minimizeHover = writable(false)
 export const currentView = writable('home')
 
-export const  circleLocation = spring({ x: 0, y: 0 }, {
-  stiffness: 0.00001,
-  damping: .001
-})
 
 export const circleHue = tweened(90, {
   duration: 3000,
@@ -26,6 +24,14 @@ export const backgroundHue = tweened(270, {
 })
 
 // animation controlls
-export const somethingValue = writable(0)
+const startPullValue = 0.17
+const startMomentumValue = 0.4
+
 export const sizeValue = writable(.9)
-export const speedValue = writable(.5)
+export const pullValue = writable(startPullValue)
+export const momentumValue = writable(startMomentumValue)
+
+export const  circleLocation = spring({ x: 0, y: 0 }, {
+  stiffness: logStiffness(startPullValue),
+  damping: logDamping(startMomentumValue)
+})

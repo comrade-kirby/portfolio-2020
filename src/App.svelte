@@ -4,13 +4,23 @@
 	import Background from './Background.svelte'
 	import Main from './Main.svelte'
 	import About from './About.svelte'
-	import { screenHeight, screenWidth, longestScreenDimension, circleLocation, scrollPosition } from './stores.js'
+	import { logStiffness, logDamping } from './helpers.js'
+	import { screenHeight,
+		screenWidth,
+		longestScreenDimension,
+		circleLocation,
+		scrollPosition,
+		pullValue,
+		momentumValue
+	} from './stores.js'
 
 	let canvasHeight
 	let canvasWidth
 	let scroll
 	const handleMouseMove = (e) => {
-    circleLocation.set({ x: e.clientX, y: e.clientY })
+		circleLocation.set({ x: e.clientX, y: e.clientY })
+		circleLocation.stiffness = logStiffness($pullValue)
+		circleLocation.damping = logDamping($momentumValue)
   }
 
 	afterUpdate(() => {

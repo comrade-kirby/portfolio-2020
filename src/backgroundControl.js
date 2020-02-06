@@ -1,7 +1,7 @@
 import { controlsXOffset, primaryOpacity, hoverOpacity } from './constants.js'
 import { transparentText } from './helpers'
 
-const drawTransparentCircle = (p5, xPosition, yPosition, size, hover) => {
+const drawCircle = (p5, xPosition, yPosition, size, hover) => {
   const opacity = hover ? hoverOpacity : primaryOpacity
   
   p5.strokeWeight(2)
@@ -23,17 +23,62 @@ const drawTransparentCircle = (p5, xPosition, yPosition, size, hover) => {
   p5.ellipse(xPosition, yPosition, size - 2)
 }
 
-const drawSizeIcon = (p5, xPosition, yPosition, hover) => {
-  const size = 25
+const drawMouse = (p5, mouseX, mouseY, hover) => {
+  const opacity = hover ? hoverOpacity : primaryOpacity
 
-  drawTransparentCircle(p5, xPosition, yPosition, size, hover)
+  p5.strokeCap(p5.ROUND)
+  p5.strokeJoin(p5.MITER)
+  
+  p5.erase()
+  p5.beginShape()
+  p5.vertex(mouseX, mouseY)
+  p5.vertex(mouseX + 9, mouseY + 4)
+  p5.vertex(mouseX + 4, mouseY + 9)
+  p5.endShape(p5.CLOSE)
+  
+  p5.stroke(0)
+  p5.line(mouseX + 7, mouseY + 7, mouseX + 10, mouseY + 10)
+  p5.noErase()
+
+  p5.noStroke()
+  p5.fill(0, 0, 0, opacity)
+  p5.beginShape()
+  p5.vertex(mouseX, mouseY)
+  p5.vertex(mouseX + 9, mouseY + 4)
+  p5.vertex(mouseX + 4, mouseY + 9)
+  p5.endShape(p5.CLOSE)
+
+  p5.stroke(0, 0, 0, opacity)
+  p5.strokeWeight(2)
+  p5.line(mouseX + 7, mouseY + 7, mouseX + 10, mouseY + 10)
 }
 
-const drawSpeedIcon = (p5, xPosition, yPosition, hover) => {
-  const size = 20
-  drawTransparentCircle(p5, xPosition + 5, yPosition, 20, hover)
-  drawTransparentCircle(p5, xPosition, yPosition, 20, hover)
-  drawTransparentCircle(p5, xPosition - 5, yPosition, 20, hover)
+const drawSizeIcon = (p5, xPosition, yPosition, value, hover) => {
+  const maxSize = 25
+  const size = value * maxSize
+  drawCircle(p5, xPosition, yPosition, size, hover)
+}
+
+const drawPullIcon = (p5, xPosition, yPosition, value, hover) => {
+  const maxDistance = 10
+  const distance = (1 - value) * maxDistance
+  
+  const mouseX = xPosition - distance - 2
+  const mouseY = yPosition + distance - 2
+
+  const circleX = xPosition + distance
+  const circleY = yPosition - distance
+
+  drawCircle(p5, circleX, circleY, 20, hover)
+  drawMouse(p5, mouseX, mouseY, hover)
+}
+
+const drawMomentumIcon = (p5, xPosition, yPosition, value, hover) => {
+  const maxDistance = 10
+  const distance = value * maxDistance
+  drawCircle(p5, xPosition + distance, yPosition, 15, hover)
+  drawCircle(p5, xPosition, yPosition, 15, hover)
+  drawCircle(p5, xPosition - distance, yPosition, 15, hover)
 }
 
 const drawSlider = (p5, yPosition, progress) => {
@@ -72,13 +117,13 @@ const drawIcon = (p5, defaultXPosition, options) => {
 
   switch (text) {
     case 'size':
-      drawSizeIcon(p5, xPosition, yPosition, hover)
+      drawSizeIcon(p5, xPosition, yPosition, value, hover)
       break
-    case 'speed':
-      drawSpeedIcon(p5, xPosition, yPosition, hover)
+    case 'pull':
+      drawPullIcon(p5, xPosition, yPosition, value, hover)
       break
-    default:
-      drawSizeIcon(p5, xPosition, yPosition, hover)
+    case 'momentum':
+      drawMomentumIcon(p5, xPosition, yPosition, value, hover)
       break
   }
 }
@@ -103,6 +148,7 @@ const drawControlButton = (p5, options) => {
     horizontalAlignment: p5.CENTER,
     xPosition: defaultXPosition,
     yPosition: yPosition + 5,
+    animate: true,
     progress: progress
   })
 
