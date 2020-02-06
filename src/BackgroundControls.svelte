@@ -23,15 +23,17 @@
   const sizeProgress = tweened(0, { easing: cubicIn })
   const speedProgress = tweened(0, { easing: cubicIn })
   
-  let somethingHover = false
-  let sizeHover = false
-  let speedHover = false
-  let buttons = ['something', 'size', 'speed']
+  // let somethingHover = false
+  // let sizeHover = false
+  // let speedHover = false
+  let buttons = ['size', 'speed', 'something']
   let openStates = [false, false, false]
-  let progresses = [somethingProgress, sizeProgress, speedProgress]
-  let values = [somethingValue, sizeValue, speedValue]
+  let hoverStates = [false, false, false]
+  let progresses = [sizeProgress, speedProgress, somethingProgress]
+  let values = [sizeValue, speedValue, somethingValue]
 
   const handleClick = (button) => {
+    console.log(button)
     const index = buttons.indexOf(button)
     const progress = progresses[index]
     const value = values[index]
@@ -43,6 +45,17 @@
       progress.set(1)
       openStates[index] = true
     }
+  }
+
+  const handleHover = (button, hoverOn) => {
+    const index = buttons.indexOf(button)
+    hoverStates[index] = hoverOn ? true : false
+
+    // if (hoverState) {
+    //   hover = true
+    // } else {
+    //   hover = false
+    // }
   }
 
   const drawLabel = (p5, text, x, y, hover) => {
@@ -102,34 +115,34 @@
     }
 
     p5.draw = () => {
-      const somethingButtonOptions = {
-        text: 'something',
-        value: $somethingValue,
-        yPosition: controlsHeight - 190,
-        progress: $somethingProgress,
-        hover: somethingHover,
-      }
       const sizeButtonOptions = {
         text: 'size',
         value: $sizeValue,
-        yPosition: controlsHeight - 120,
+        yPosition: controlsHeight - 190,
         progress: $sizeProgress,
-        hover: sizeHover,
+        hover: hoverStates[0],
       }
       const speedButtonOptions = {
         text: 'speed',
         value: $speedValue,
-        yPosition: controlsHeight - 50,
+        yPosition: controlsHeight - 120,
         progress: $speedProgress,
-        hover: speedHover,
+        hover: hoverStates[1],
+      }
+      const somethingButtonOptions = {
+        text: 'something',
+        value: $somethingValue,
+        yPosition: controlsHeight - 50,
+        progress: $somethingProgress,
+        hover: hoverStates[2],
       }
 
       drawContainer(p5, 60, $screenHeight, 240)
       drawMaximizeTab(p5)
       drawControlTitle(p5)
-      drawControlButton(p5, somethingButtonOptions)
       drawControlButton(p5, sizeButtonOptions)
       drawControlButton(p5, speedButtonOptions)
+      drawControlButton(p5, somethingButtonOptions)
     }
   }
 </script>
@@ -150,23 +163,12 @@
     margin: 0;
     position: absolute;
     right: 0;
-    opacity: 0;
+    opacity: 0.5;
+    background-color: red;
   }
 
-  .something-button {
-    bottom: 140px;
-    width: 60px;
-    height: 70px;
-  }
-
-  .size-button {
-    bottom: 70px;
-    width: 60px;
-    height: 70px;
-  }
-  
-  .speed-button {
-    bottom: 0px;
+  .canvas-button {
+    bottom: var(--bottom);
     width: 60px;
     height: 70px;
   }
@@ -183,21 +185,15 @@
     on:click={() => {$minimized = false}} 
     on:mouseover={() => { maximizeHover = true }}
     on:mouseout={() => { maximizeHover = false }} />
-  <button 
-    class='something-button'
-    on:click={() => {handleClick('something')}} 
-    on:mouseover={() => { somethingHover = true }}
-    on:mouseout={() => { somethingHover = false }} />
-  <button 
-    class='size-button'
-    on:click={() => {handleClick('size')}} 
-    on:mouseover={() => { sizeHover = true }}
-    on:mouseout={() => { sizeHover = false }} />
-  <button 
-    class='speed-button'
-    on:click={() => {handleClick('speed')}} 
-    on:mouseover={() => { speedHover = true }}
-    on:mouseout={() => { speedHover = false }} />
+  
+  {#each buttons.reverse() as button, index}
+    <button
+      class='canvas-button'
+      style='--bottom:{(buttons.length - 1) * 70 - index * 70}px'
+      on:click={() => {handleClick(button)}} 
+      on:mouseover={() => { handleHover(button, true) }}
+      on:mouseout={() => { handleHover(button, false) }} />
+  {/each}
 
   <P5Canvase sketch={sketch}/>
 </div>
