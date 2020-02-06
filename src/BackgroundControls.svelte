@@ -13,7 +13,7 @@
     currentView,
     sizeValue,
     pullValue,
-    momentumValue
+    opacityValue
   } from './stores.js'
 
   let controlsHeight, controlsWidth
@@ -21,13 +21,13 @@
 
   const sizeProgress = tweened(0, { easing: cubicIn })
   const pullProgress = tweened(0, { easing: cubicIn })
-  const momentumProgress = tweened(0, { easing: cubicIn })
+  const opacityProgress = tweened(0, { easing: cubicIn })
   
-  let buttons = ['size', 'pull', 'momentum']
+  let buttons = ['size', 'pull', 'opacity']
   let openStates = [false, false, false]
   let hoverStates = [false, false, false]
-  let progresses = [sizeProgress, pullProgress, momentumProgress]
-  let values = [sizeValue, pullValue, momentumValue]
+  let progresses = [sizeProgress, pullProgress, opacityProgress]
+  let values = [sizeValue, pullValue, opacityValue]
 
   const handleClick = (button) => {
     const index = buttons.indexOf(button)
@@ -119,11 +119,11 @@
         progress: $pullProgress,
         hover: hoverStates[1],
       }
-      const momentumButtonOptions = {
-        text: 'momentum',
-        value: $momentumValue,
+      const opacityButtonOptions = {
+        text: 'opacity',
+        value: $opacityValue,
         yPosition: controlsHeight - 50,
-        progress: $momentumProgress,
+        progress: $opacityProgress,
         hover: hoverStates[2],
       }
 
@@ -132,7 +132,7 @@
       drawControlTitle(p5)
       drawControlButton(p5, sizeButtonOptions)
       drawControlButton(p5, pullButtonOptions)
-      drawControlButton(p5, momentumButtonOptions)
+      drawControlButton(p5, opacityButtonOptions)
     }
   }
 </script>
@@ -209,6 +209,6 @@
     style='--bottom:35px'
     type='range'
     min='0' max='1' step='0.01' 
-    bind:value={$momentumValue} />
+    bind:value={$opacityValue} />
   <P5Canvase sketch={sketch}/>
 </div>

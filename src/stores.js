@@ -24,14 +24,13 @@ export const backgroundHue = tweened(270, {
 })
 
 // animation controlls
-const startPullValue = 0.17
-const startMomentumValue = 0.4
+const startPullValue = 0.1
 
 export const sizeValue = writable(.9)
 export const pullValue = writable(startPullValue)
-export const momentumValue = writable(startMomentumValue)
+export const opacityValue = writable(.93)
 
 export const  circleLocation = spring({ x: 0, y: 0 }, {
   stiffness: logStiffness(startPullValue),
-  damping: logDamping(startMomentumValue)
+  damping: logDamping(startPullValue)
 })

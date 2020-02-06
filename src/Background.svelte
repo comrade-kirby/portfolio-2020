@@ -9,7 +9,8 @@
     circleLocation,
     backgroundHue,
     circleHue,
-    sizeValue
+    sizeValue,
+    opacityValue
   } from './stores.js'
 
   const hueMaxValue = 360
@@ -27,7 +28,7 @@
       const strokeLightness = 97
       const strokeAlpha = 100
       const fillLightness = 85
-      const fillAlpha = 7
+      const fillAlpha = 100 - $opacityValue * 100
       const circleSize = $sizeValue * ($longestScreenDimension * 1.1)
 
       p5.stroke($backgroundHue, saturation, strokeLightness, strokeAlpha);

@@ -73,11 +73,11 @@ export const drawMinimizeButton = (p5, width, hover) => {
 }
 
 export const logStiffness = (value) => {
-  const stiffnessMinPower = -6
+  const stiffnessMinPower = - 6
   return 10 ** ((1 - value) * stiffnessMinPower)
 }
 
 export const logDamping = (value) => {
-  const dampingMinPower = -6
-  return 10 ** ((value) * dampingMinPower)
+  const dampingMinPower = - 4
+  return 10 ** ((1 - value) * dampingMinPower)
 }

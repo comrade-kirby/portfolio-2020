@@ -11,7 +11,7 @@
 		circleLocation,
 		scrollPosition,
 		pullValue,
-		momentumValue
+		// opacityValue
 	} from './stores.js'
 
 	let canvasHeight
@@ -20,7 +20,7 @@
 	const handleMouseMove = (e) => {
 		circleLocation.set({ x: e.clientX, y: e.clientY })
 		circleLocation.stiffness = logStiffness($pullValue)
-		circleLocation.damping = logDamping($momentumValue)
+		circleLocation.damping = logDamping($pullValue)
   }
 
 	afterUpdate(() => {
