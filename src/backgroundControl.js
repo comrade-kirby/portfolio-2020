@@ -11,7 +11,7 @@ const drawCircle = (p5, xPosition, yPosition, size, hover, fillOpacity=0) => {
   //erase 
   p5.strokeWeight(2)
   p5.stroke(0)
-  p5.erase(100 * fillOpacity, 255)
+  p5.erase(fillOpacity, 255)
   p5.ellipse(xPosition, yPosition, size, size)
   p5.noErase()
 
@@ -78,9 +78,57 @@ const drawPullIcon = (p5, xPosition, yPosition, value, hover) => {
 }
 
 const drawOpacityIcon = (p5, xPosition, yPosition, value, hover) => {
-  const maxOpacity = 10
+  const maxOpacity = 100
   const opacity = value * maxOpacity
-  drawCircle(p5, xPosition, yPosition, 20, hover, value)
+  drawCircle(p5, xPosition, yPosition, 20, hover, opacity)
+}
+
+const drawRandomIcon = (p5, xPosition, yPosition, value, hover) => {
+  const opacity = hover ? hoverOpacity : primaryOpacity
+
+  const numberOfCircles = Math.ceil(value * 10)
+  const coordinates = [
+    [0, 0],
+    [-8, -4],
+    [6, 6],
+    [3, -6],
+    [-8, 2],
+    [0, 4],
+    [8, -2],
+    [-4, -4],
+    [6, 2],
+    [-6, 6]
+  ]
+  
+  p5.erase()
+  p5.noFill()
+  p5.rect(xPosition - 12, yPosition - 8, 24, 16)
+  p5.noErase()
+  p5.stroke(0, 0, 0, opacity)
+  p5.fill(0, 0, 100)
+  p5.rect(xPosition - 12, yPosition - 8, 24, 16)
+
+  p5.strokeWeight(5)
+  for (let i = 0; i < numberOfCircles; i++) {
+    const x = xPosition + coordinates[i][0]
+    const y = yPosition + coordinates[i][1]
+    p5.stroke(0)
+    p5.erase()
+    p5.point(x, y)
+    p5.noErase()
+    p5.stroke(0, 0, 0, opacity)
+    p5.point(x,y)
+  } 
+
+  if (value == 0) {
+    p5.strokeWeight(2)
+    p5.stroke(0)
+    p5.erase()
+    p5.line(xPosition - 5, yPosition + 10, xPosition + 5, yPosition - 10)
+    p5.noErase()
+    p5.stroke(0, 0, 0, opacity)
+    p5.line(xPosition - 5, yPosition + 10, xPosition + 5, yPosition - 10)
+  }
 }
 
 const drawSlider = (p5, yPosition, progress) => {
@@ -128,7 +176,7 @@ const drawIcon = (p5, defaultXPosition, options) => {
       drawOpacityIcon(p5, xPosition, yPosition, value, hover)
       break
     case 'random':
-      drawSizeIcon(p5, xPosition, yPosition, value, hover)
+      drawRandomIcon(p5, xPosition, yPosition, value, hover)
       break
   }
 }
