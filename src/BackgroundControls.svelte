@@ -13,7 +13,8 @@
     currentView,
     sizeValue,
     pullValue,
-    opacityValue
+    opacityValue,
+    randomValue
   } from './stores.js'
 
   let controlsHeight, controlsWidth
@@ -22,12 +23,13 @@
   const sizeProgress = tweened(0, { easing: cubicIn })
   const pullProgress = tweened(0, { easing: cubicIn })
   const opacityProgress = tweened(0, { easing: cubicIn })
+  const randomProgress = tweened(0, { easing: cubicIn })
   
-  let buttons = ['size', 'pull', 'opacity']
-  let openStates = [false, false, false]
-  let hoverStates = [false, false, false]
-  let progresses = [sizeProgress, pullProgress, opacityProgress]
-  let values = [sizeValue, pullValue, opacityValue]
+  let buttons = ['size', 'pull', 'opacity', 'random']
+  let openStates = [false, false, false, false]
+  let hoverStates = [false, false, false, false]
+  let progresses = [sizeProgress, pullProgress, opacityProgress, randomProgress]
+  let values = [sizeValue, pullValue, opacityValue, randomValue]
 
   const handleClick = (button) => {
     const index = buttons.indexOf(button)
@@ -108,23 +110,30 @@
       const sizeButtonOptions = {
         text: 'size',
         value: $sizeValue,
-        yPosition: controlsHeight - 190,
+        yPosition: controlsHeight - 260,
         progress: $sizeProgress,
         hover: hoverStates[0],
       }
       const pullButtonOptions = {
         text: 'pull',
         value: $pullValue,
-        yPosition: controlsHeight - 120,
+        yPosition: controlsHeight - 190,
         progress: $pullProgress,
         hover: hoverStates[1],
       }
       const opacityButtonOptions = {
         text: 'opacity',
         value: $opacityValue,
-        yPosition: controlsHeight - 50,
+        yPosition: controlsHeight - 120,
         progress: $opacityProgress,
         hover: hoverStates[2],
+      }
+      const randomButtonOptions = {
+        text: 'random',
+        value: $randomValue,
+        yPosition: controlsHeight - 50,
+        progress: $randomProgress,
+        hover: hoverStates[3],
       }
 
       drawContainer(p5, 60, $screenHeight, 240)
@@ -133,6 +142,7 @@
       drawControlButton(p5, sizeButtonOptions)
       drawControlButton(p5, pullButtonOptions)
       drawControlButton(p5, opacityButtonOptions)
+      drawControlButton(p5, randomButtonOptions)
     }
   }
 </script>
@@ -194,21 +204,27 @@
   {/each}
   <input 
     class='canvas-input'
-    style='--bottom:175px'
+    style='--bottom:245px'
     type='range'
     min='0' max='1' step='0.01' 
     bind:value={$sizeValue} />
   <input 
     class='canvas-input'
-    style='--bottom:105px'
+    style='--bottom:175px'
     type='range'
     min='0' max='1' step='0.01' 
     bind:value={$pullValue} />
   <input 
     class='canvas-input'
-    style='--bottom:35px'
+    style='--bottom:105px'
     type='range'
     min='0' max='1' step='0.01' 
     bind:value={$opacityValue} />
+  <input 
+    class='canvas-input'
+    style='--bottom:35px'
+    type='range'
+    min='0' max='1' step='0.01' 
+    bind:value={$randomValue} />
   <P5Canvase sketch={sketch}/>
 </div>

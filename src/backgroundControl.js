@@ -127,6 +127,9 @@ const drawIcon = (p5, defaultXPosition, options) => {
     case 'opacity':
       drawOpacityIcon(p5, xPosition, yPosition, value, hover)
       break
+    case 'random':
+      drawSizeIcon(p5, xPosition, yPosition, value, hover)
+      break
   }
 }
 

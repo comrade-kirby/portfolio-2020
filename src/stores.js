@@ -29,6 +29,7 @@ const startPullValue = 0.1
 export const sizeValue = writable(.9)
 export const pullValue = writable(startPullValue)
 export const opacityValue = writable(.93)
+export const randomValue = writable(.5)
 
 export const  circleLocation = spring({ x: 0, y: 0 }, {
   stiffness: logStiffness(startPullValue),

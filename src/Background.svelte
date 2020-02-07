@@ -10,11 +10,16 @@
     backgroundHue,
     circleHue,
     sizeValue,
-    opacityValue
+    opacityValue,
+		randomValue
   } from './stores.js'
 
   const hueMaxValue = 360
-  
+  let interval
+  $: {
+    setRandomness($randomValue)
+  }
+
   const sketch = (p5) => {
 	  p5.setup = () => {
       const canvas = p5.createCanvas($screenWidth, $screenHeight)
@@ -50,11 +55,18 @@
     circleLocation.set({ x: xPosition, y: yPosition })
   }
   
-  setInterval(() => {
-    circleHue.set(hueMaxValue * $circleLocation.x / $screenWidth)
-    backgroundHue.set(hueMaxValue * $circleLocation.y / $screenHeight)
-    setRandomCircleLocation(5)
-  }, 3000)
+  const setRandomness = (randomValue) => {
+    clearInterval(interval)
+    if (randomValue == 0) { return }
+    
+    const milliseconds = (1 - randomValue) * 5000
+
+    interval = setInterval(() => {
+      circleHue.set(hueMaxValue * $circleLocation.x / $screenWidth)
+      backgroundHue.set(hueMaxValue * $circleLocation.y / $screenHeight)
+      setRandomCircleLocation(5)
+    }, milliseconds)
+  }
 
   onMount(async () => {
     await $screenWidth && $screenHeight

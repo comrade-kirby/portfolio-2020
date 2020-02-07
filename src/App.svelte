@@ -10,8 +10,7 @@
 		longestScreenDimension,
 		circleLocation,
 		scrollPosition,
-		pullValue,
-		// opacityValue
+		pullValue
 	} from './stores.js'
 
 	let canvasHeight
