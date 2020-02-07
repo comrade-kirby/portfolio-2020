@@ -60,12 +60,7 @@
     if (randomValue == 0) { return }
     
     const milliseconds = (1 - randomValue) * 5000
-
-    interval = setInterval(() => {
-      circleHue.set(hueMaxValue * $circleLocation.x / $screenWidth)
-      backgroundHue.set(hueMaxValue * $circleLocation.y / $screenHeight)
-      setRandomCircleLocation(5)
-    }, milliseconds)
+    interval = setInterval(() => { setRandomCircleLocation(5) }, milliseconds)
   }
 
   onMount(async () => {
@@ -75,6 +70,11 @@
       hard: true
     })
   })
+
+  setInterval(() => {
+    circleHue.set(hueMaxValue * $circleLocation.x / $screenWidth)
+    backgroundHue.set(hueMaxValue * $circleLocation.y / $screenHeight)
+  }, 1000);
 </script>
 
 <style>       
