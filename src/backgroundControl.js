@@ -99,14 +99,15 @@ const drawRandomIcon = (p5, xPosition, yPosition, value, hover) => {
     [6, 2],
     [-6, 6]
   ]
-  
   p5.erase()
   p5.noFill()
   p5.rect(xPosition - 12, yPosition - 8, 24, 16)
   p5.noErase()
   p5.stroke(0, 0, 0, opacity)
-  p5.fill(0, 0, 100)
   p5.rect(xPosition - 12, yPosition - 8, 24, 16)
+  p5.fill(0, 0, 100)
+  p5.noStroke()
+  p5.rect(xPosition - 10, yPosition - 6, 20, 12)
 
   p5.strokeWeight(5)
   for (let i = 0; i < numberOfCircles; i++) {
