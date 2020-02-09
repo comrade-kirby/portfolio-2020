@@ -20,6 +20,76 @@
     setRandomness($randomValue)
   }
 
+  const generateCoordinates = (p5) => {
+    const circleSize = $sizeValue * ($longestScreenDimension * 1.1)
+    const centerX = $circleLocation.x
+    const centerY = $circleLocation.y
+
+    const pointsCount = 7
+    const sectionAngle = Math.PI*2 / pointsCount
+    const radius = circleSize / 2
+    let coordinates = []
+    for (let i = 1; i <= pointsCount; i++) {
+      var angle = i * sectionAngle
+      
+      const xOffset = Math.cos(angle) * radius
+      const yOffset = Math.sin(angle) * radius
+      const distanceToCenter = (Math.sqrt(
+        ((p5.mouseX - centerX) ** 2) + ((p5.mouseY - centerY) ** 2)
+      ))
+      
+      let x = centerX + xOffset
+      let y = centerY + yOffset
+      // p5.strokeWeight(30)
+      // p5.point(x, y)
+
+      const distanceToVertex = (Math.sqrt(
+        ((p5.mouseX - x) ** 2) + ((p5.mouseY - y) ** 2)
+      ))
+      
+      const maxPush = 1000
+      const push = maxPush - distanceToVertex
+
+      if (push > 0 ) {
+        let pushPercentage = (push / maxPush)
+
+        if (distanceToCenter > radius) {
+          x = centerX + (xOffset * (1 - pushPercentage))
+          y = centerY + (yOffset * (1 - pushPercentage))
+        } else {
+          x = centerX + xOffset - (xOffset * pushPercentage)
+          y = centerY + yOffset - (yOffset * pushPercentage)
+        }
+      }
+
+      coordinates.push([x,  y])
+    }
+
+    return coordinates
+  }
+
+  const drawShape = (p5, coordinates) => {
+    const saturation = 100
+    const strokeLightness = 97
+    const strokeAlpha = 100
+    const fillLightness = 85
+    const fillAlpha = 100 - $opacityValue * 100
+
+    p5.stroke($backgroundHue, saturation, strokeLightness, strokeAlpha);
+    p5.strokeWeight(1)
+    p5.fill($circleHue, saturation, fillLightness, fillAlpha)
+    
+    p5.beginShape();
+    coordinates.forEach(coordinate => {
+      // p5.strokeWeight(2)
+      p5.curveVertex(coordinate[0], coordinate[1])
+    })
+    p5.curveVertex(coordinates[0][0], coordinates[0][1])
+    p5.curveVertex(coordinates[1][0], coordinates[1][1])
+    p5.curveVertex(coordinates[2][0], coordinates[2][1])
+    p5.endShape()
+  }
+
   const sketch = (p5) => {
 	  p5.setup = () => {
       const canvas = p5.createCanvas($screenWidth, $screenHeight)
@@ -29,17 +99,9 @@
 	  }
 
 	  p5.draw = () => {
-      const saturation = 100
-      const strokeLightness = 97
-      const strokeAlpha = 100
-      const fillLightness = 85
-      const fillAlpha = 100 - $opacityValue * 100
-      const circleSize = $sizeValue * ($longestScreenDimension * 1.1)
+      const coordinates = generateCoordinates(p5)
 
-      p5.stroke($backgroundHue, saturation, strokeLightness, strokeAlpha);
-      p5.strokeWeight(1)
-      p5.fill($circleHue, saturation, fillLightness, fillAlpha)
-      p5.ellipse($circleLocation.x, $circleLocation.y, circleSize, circleSize)
+      drawShape(p5, coordinates)
     }
 
     p5.windowResized = () => {
