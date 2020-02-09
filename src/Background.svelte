@@ -81,7 +81,6 @@
     
     p5.beginShape();
     coordinates.forEach(coordinate => {
-      // p5.strokeWeight(2)
       p5.curveVertex(coordinate[0], coordinate[1])
     })
     p5.curveVertex(coordinates[0][0], coordinates[0][1])

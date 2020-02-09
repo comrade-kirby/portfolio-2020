@@ -9,7 +9,7 @@
   import { controlsXOffset } from './constants.js'
   import { 
     screenHeight,
-    minimized,
+    open,
     currentView,
     sizeValue,
     pullValue,
@@ -50,9 +50,9 @@
     hoverStates[index] = hoverOn ? true : false
   }
 
-  const drawLabel = (p5, text, x, y, hover) => {
+  const drawLabel = (p5, x, y, hover) => {
     transparentText(p5, {
-      text: text,
+      text: 'home',
       textSize: 16,
       horizontalAlignment: p5.CENTER,
       xPosition: x,
@@ -84,7 +84,7 @@
     drawMaximizeIcon(p5)
     p5.line(controlsXOffset, 80, controlsXOffset + 60, 80)
 
-    drawLabel(p5, $currentView, controlsXOffset + 30, 60, maximizeHover)
+    drawLabel(p5, controlsXOffset + 30, 60, maximizeHover)
   }
 
   const drawControlTitle = (p5) => {
@@ -153,7 +153,7 @@
     width: 100%;
   }
 
-  .minimize-button {
+  .open-button {
     position: absolute;
     width: 60px;
     height: 80px;
@@ -188,8 +188,8 @@
   bind:clientWidth={controlsWidth}
 >
   <button 
-    class='minimize-button'
-    on:click={() => {$minimized = false}} 
+    class='open-button'
+    on:click={() => {open.set(true); currentView.set('home') }} 
     on:mouseover={() => { maximizeHover = true }}
     on:mouseout={() => { maximizeHover = false }} />
   

@@ -1,7 +1,7 @@
 <script>
   import { fade } from 'svelte/transition'
 
-  import { minimized } from './stores.js'
+  import { open } from './stores.js'
   import BackgroundControls from './BackgroundControls.svelte'
   import Home from './Home.svelte'
   import About from './About.svelte'
@@ -10,7 +10,7 @@
   import { 
     screenHeight,
     scrollPosition,
-    minimizeHover,
+    closeHover,
     currentView 
   } from './stores.js'
 
@@ -43,7 +43,7 @@
     height: 50%;
   }
 
-  .minimize-button {
+  .close-button {
     position: absolute;
     right: 20px;
     top: 18px;
@@ -74,29 +74,28 @@
 </style>
 
 <div class='main'>
-  {#if $minimized}
-    <div class='background-controls'>
-      <BackgroundControls />
-    </div>
-  {:else }
-    <div class='content'>
-      <button 
-        class='minimize-button'
-        on:click={() => {$minimized = true}} 
-        on:mouseover={() => { $minimizeHover = true }}
-        on:mouseout={() => { $minimizeHover = false }} />
-      {#if $currentView == 'home'}
-        <Home />
-      {:else if $currentView == 'about'}
-        <About />
-      {:else }
-        <Contact />
-      {/if}
-    </div>
-    <div class='buttons'>
-      <button class='nav-button' class:active={$currentView == 'home'} on:click={() => $currentView = 'home'}>HOME</button>
-      <button class='nav-button' class:active={$currentView == 'about'} on:click={() => $currentView = 'about'}>ABOUT</button>
-      <button class='nav-button' class:active={$currentView == 'contact'} on:click={() => $currentView = 'contact'}>CONTACT</button>
-    </div>
+  <div class='background-controls'>
+    <BackgroundControls />
+  </div>
+  {#if $open}
+  <div class='content'>
+    <button 
+      class='close-button'
+      on:click={() => {$open = false}} 
+      on:mouseover={() => { $closeHover = true }}
+      on:mouseout={() => { $closeHover = false }} />
+    {#if $currentView == 'home'}
+      <Home />
+    {:else if $currentView == 'about'}
+      <About />
+    {:else }
+      <Contact />
+    {/if}
+  </div>
+  <div class='buttons'>
+    <button class='nav-button' class:active={$currentView == 'home'} on:click={() => $currentView = 'home'}>HOME</button>
+    <button class='nav-button' class:active={$currentView == 'about'} on:click={() => $currentView = 'about'}>ABOUT</button>
+    <button class='nav-button' class:active={$currentView == 'contact'} on:click={() => $currentView = 'contact'}>CONTACT</button>
+  </div>
   {/if}
 </div>

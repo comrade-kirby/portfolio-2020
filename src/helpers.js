@@ -55,7 +55,7 @@ export const drawContainer = (p5, width, height, xPosition = 0) => {
   p5.rect(xPosition, 0, width, height)
 }
 
-export const drawMinimizeButton = (p5, width, hover) => {
+export const drawCloseButton = (p5, width, hover) => {
   const xPosition = width - 40
   const yPosition = 20
   const opacity = hover ? hoverOpacity : primaryOpacity

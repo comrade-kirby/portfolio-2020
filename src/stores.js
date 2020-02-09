@@ -8,8 +8,8 @@ export const screenHeight = writable(0)
 export const screenWidth = writable(0)
 export const longestScreenDimension = writable(0)
 export const scrollPosition = writable(0)
-export const minimized = writable(true)
-export const minimizeHover = writable(false)
+export const open = writable(true)
+export const closeHover = writable(false)
 export const currentView = writable('home')
 
 
