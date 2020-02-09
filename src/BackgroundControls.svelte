@@ -1,7 +1,6 @@
 <script>
   import { fade } from 'svelte/transition'
   import { tweened } from 'svelte/motion'
-  import { cubicIn } from 'svelte/easing'
 
   import P5Canvase from './P5Canvas.svelte'
   import { drawContainer, transparentText } from './helpers'
@@ -14,34 +13,35 @@
     sizeValue,
     pullValue,
     opacityValue,
-    randomValue
+    randomValue,
+    sizeProgress,
+    pullProgress,
+    opacityProgress,
+    randomProgress
   } from './stores.js'
 
   let controlsHeight, controlsWidth
   let maximizeHover = false
-
-  const sizeProgress = tweened(0, { easing: cubicIn })
-  const pullProgress = tweened(0, { easing: cubicIn })
-  const opacityProgress = tweened(0, { easing: cubicIn })
-  const randomProgress = tweened(0, { easing: cubicIn })
   
   let buttons = ['size', 'pull', 'opacity', 'random']
   let openStates = [false, false, false, false]
   let hoverStates = [false, false, false, false]
-  let progresses = [sizeProgress, pullProgress, opacityProgress, randomProgress]
+  
+  let writableProgresses = [sizeProgress, pullProgress, opacityProgress, randomProgress]
   let values = [sizeValue, pullValue, opacityValue, randomValue]
+
+  $: readableProgresses = [$sizeProgress, $pullProgress, $opacityProgress, $randomProgress]
 
   const handleClick = (button) => {
     const index = buttons.indexOf(button)
-    const progress = progresses[index]
+    const progress = readableProgresses[index]
+    const writableProgress = writableProgresses[index]
     const value = values[index]
 
-    if (openStates[index]) {
-      progress.set(0)
-      openStates[index] = false
+    if (progress == 0) {
+      writableProgress.set(1)
     } else {
-      progress.set(1)
-      openStates[index] = true
+      writableProgress.set(0)
     }
   }
 

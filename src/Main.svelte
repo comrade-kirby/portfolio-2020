@@ -11,9 +11,26 @@
     screenHeight,
     scrollPosition,
     closeHover,
-    currentView 
+    currentView,
+    sizeProgress,
+    pullProgress,
+    opacityProgress,
+    randomProgress,
+    closedOnce
   } from './stores.js'
 
+  const handleClose = () => {
+    open.set(false)
+    
+    if (!$closedOnce) {
+      sizeProgress.set(1, { delay: 400 })
+      pullProgress.set(1, { delay: 300 })
+      opacityProgress.set(1, { delay: 200 })
+      randomProgress.set(1, { delay: 100 })
+    }
+
+    closedOnce.set(true)
+  }
 </script>
 
 <style>
@@ -81,7 +98,7 @@
   <div class='content'>
     <button 
       class='close-button'
-      on:click={() => {$open = false}} 
+      on:click={handleClose} 
       on:mouseover={() => { $closeHover = true }}
       on:mouseout={() => { $closeHover = false }} />
     {#if $currentView == 'home'}
