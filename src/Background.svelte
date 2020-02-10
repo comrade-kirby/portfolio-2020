@@ -25,7 +25,7 @@
     const centerX = $circleLocation.x
     const centerY = $circleLocation.y
 
-    const pointsCount = 7
+    const pointsCount = 5
     const sectionAngle = Math.PI*2 / pointsCount
     const radius = circleSize / 2
     let coordinates = []
@@ -40,14 +40,12 @@
       
       let x = centerX + xOffset
       let y = centerY + yOffset
-      // p5.strokeWeight(30)
-      // p5.point(x, y)
 
       const distanceToVertex = (Math.sqrt(
         ((p5.mouseX - x) ** 2) + ((p5.mouseY - y) ** 2)
       ))
       
-      const maxPush = 1000
+      const maxPush = $longestScreenDimension / 4
       const push = maxPush - distanceToVertex
 
       if (push > 0 ) {
