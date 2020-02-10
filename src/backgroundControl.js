@@ -146,7 +146,8 @@ const drawSlider = (p5, yPosition, progress) => {
   p5.erase()
   p5.rect(0, yPosition - 25, 240, 50)
   p5.noErase()
-
+  
+  p5.noStroke()
   p5.fill(0, 0, 100)
   p5.rect(xPosition, yPosition - 25, currentWidth, 50, currentRadius, 0, 0, currentRadius)
   
@@ -196,15 +197,28 @@ const drawControlButton = (p5, options) => {
     hover: hover,
   })
 
-  transparentText(p5, {
-    text: value * 100,
-    textSize: 16,
-    horizontalAlignment: p5.CENTER,
-    xPosition: defaultXPosition,
-    yPosition: yPosition + 5,
-    animate: true,
-    progress: progress
-  })
+  if (hover && progress == 1) {
+    p5.strokeWeight(2)
+    p5.stroke(0, 0, 0, hoverOpacity)
+    p5.erase(0, 255)
+    p5.line(defaultXPosition - 10, yPosition - 10, defaultXPosition + 10, yPosition + 10)
+    p5.line(defaultXPosition - 10, yPosition + 10, defaultXPosition + 10, yPosition - 10)
+    p5.noErase()
+    
+    p5.noFill()
+    p5.line(defaultXPosition - 10, yPosition - 10, defaultXPosition + 10, yPosition + 10)
+    p5.line(defaultXPosition - 10, yPosition + 10, defaultXPosition + 10, yPosition - 10)
+  } else {
+    transparentText(p5, {
+      text: value * 100,
+      textSize: 16,
+      horizontalAlignment: p5.CENTER,
+      xPosition: defaultXPosition,
+      yPosition: yPosition + 5,
+      animate: true,
+      progress: progress
+    })
+  }
 
   drawSlider(p5, yPosition, progress)
   drawIcon(p5, defaultXPosition, options)

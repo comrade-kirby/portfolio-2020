@@ -24,7 +24,6 @@
   let maximizeHover = false
   
   let buttons = ['size', 'pull', 'opacity', 'random']
-  let openStates = [false, false, false, false]
   let hoverStates = [false, false, false, false]
   
   let writableProgresses = [sizeProgress, pullProgress, opacityProgress, randomProgress]
@@ -179,6 +178,35 @@
     width: 230px;
     opacity: 0;
   }
+
+input[type=range]::-webkit-slider-thumb {
+  height: 35px;
+  width: 35px;
+  border-radius: 15px;
+  cursor: pointer;
+  opacity: 0;
+
+}
+
+input[type=range]::-moz-range-thumb {
+  height: 35px;
+  width: 35px;
+  border-radius: 15px;
+  margin-top: -14px;
+  cursor: pointer;
+  opacity: 0;
+
+}
+
+input[type=range]::-ms-thumb {
+  height: 35px;
+  width: 35px;
+  border-radius: 15px;
+  margin-top: -14px;
+  cursor: pointer;
+  opacity: 0;
+
+}
 </style>
 
 <div 
@@ -202,29 +230,37 @@
       on:mouseout={() => { handleHover(button, false) }} />
     
   {/each}
-  <input 
-    class='canvas-input'
-    style='--bottom:245px'
-    type='range'
-    min='0' max='1' step='0.01' 
-    bind:value={$sizeValue} />
-  <input 
-    class='canvas-input'
-    style='--bottom:175px'
-    type='range'
-    min='0' max='1' step='0.01' 
-    bind:value={$pullValue} />
-  <input 
-    class='canvas-input'
-    style='--bottom:105px'
-    type='range'
-    min='0' max='1' step='0.01' 
-    bind:value={$opacityValue} />
-  <input 
-    class='canvas-input'
-    style='--bottom:35px'
-    type='range'
-    min='0' max='1' step='0.01' 
-    bind:value={$randomValue} />
+  {#if $sizeProgress}
+    <input 
+      class='canvas-input'
+      style='--bottom:245px'
+      type='range'
+      min='0' max='1' step='0.01' 
+      bind:value={$sizeValue} />
+  {/if}
+  {#if $pullProgress}
+    <input 
+      class='canvas-input'
+      style='--bottom:175px'
+      type='range'
+      min='0' max='1' step='0.01' 
+      bind:value={$pullValue} />
+  {/if}
+  {#if $opacityProgress}
+    <input 
+      class='canvas-input'
+      style='--bottom:105px'
+      type='range'
+      min='0' max='1' step='0.01' 
+      bind:value={$opacityValue} />
+  {/if}
+  {#if $randomProgress}
+    <input 
+      class='canvas-input'
+      style='--bottom:35px'
+      type='range'
+      min='0' max='1' step='0.01' 
+      bind:value={$randomValue} />
+  {/if}
   <P5Canvase sketch={sketch}/>
 </div>
