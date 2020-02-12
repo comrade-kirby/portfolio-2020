@@ -35,6 +35,11 @@ export const sizeProgress = tweened(0, { easing: cubicIn })
 export const pullProgress = tweened(0, { easing: cubicIn })
 export const opacityProgress = tweened(0, { easing: cubicIn })
 export const randomProgress = tweened(0, { easing: cubicIn })
+export const sizeHover = writable(false)
+export const pullHover = writable(false)
+export const opacityHover = writable(false)
+export const randomHover = writable(false)
+
 export const  circleLocation = spring({ x: 0, y: 0 }, {
   stiffness: logStiffness(startPullValue),
   damping: logDamping(startPullValue)

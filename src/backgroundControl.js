@@ -143,12 +143,12 @@ const drawSlider = (p5, yPosition, progress) => {
   const currentOpacity = progress * maxOpacity 
   const xPosition = maxWidth - currentWidth
 
+  p5.noStroke()
+  p5.fill(0, 0, 100)
   p5.erase()
   p5.rect(0, yPosition - 25, 240, 50)
   p5.noErase()
   
-  p5.noStroke()
-  p5.fill(0, 0, 100)
   p5.rect(xPosition, yPosition - 25, currentWidth, 50, currentRadius, 0, 0, currentRadius)
   
   p5.stroke(0)
@@ -197,9 +197,9 @@ const drawControlButton = (p5, options) => {
     hover: hover,
   })
 
-  if (hover && progress == 1) {
+  if (hover && progress) {
     p5.strokeWeight(2)
-    p5.stroke(0, 0, 0, hoverOpacity)
+    p5.stroke(0, 0, 0, progress * hoverOpacity)
     p5.erase(0, 255)
     p5.line(defaultXPosition - 10, yPosition - 10, defaultXPosition + 10, yPosition + 10)
     p5.line(defaultXPosition - 10, yPosition + 10, defaultXPosition + 10, yPosition - 10)

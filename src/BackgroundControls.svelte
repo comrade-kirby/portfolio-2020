@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from 'svelte'
   import { fade } from 'svelte/transition'
   import { tweened } from 'svelte/motion'
 
@@ -17,36 +18,94 @@
     sizeProgress,
     pullProgress,
     opacityProgress,
-    randomProgress
+    randomProgress,
+    sizeHover,
+    pullHover,
+    opacityHover,
+    randomHover
   } from './stores.js'
 
   let controlsHeight, controlsWidth
   let maximizeHover = false
   
-  let buttons = ['size', 'pull', 'opacity', 'random']
-  let hoverStates = [false, false, false, false]
-  
-  let writableProgresses = [sizeProgress, pullProgress, opacityProgress, randomProgress]
-  let values = [sizeValue, pullValue, opacityValue, randomValue]
+  let sizeButtonOptions, pullButtonOptions, opacityButtonOptions, randomButtonOptions
 
-  $: readableProgresses = [$sizeProgress, $pullProgress, $opacityProgress, $randomProgress]
-
-  const handleClick = (button) => {
-    const index = buttons.indexOf(button)
-    const progress = readableProgresses[index]
-    const writableProgress = writableProgresses[index]
-    const value = values[index]
-
-    if (progress == 0) {
-      writableProgress.set(1)
-    } else {
-      writableProgress.set(0)
+  const setSizeButtonOptions = (value, progress, progressWritable, hover, hoverWritable) => {
+    sizeButtonOptions = {
+      text: 'size',
+      value: value,
+      yPosition: controlsHeight - 260,
+      progress: progress,
+      progressWritable: progressWritable,
+      hover: hover,
+      hoverWritable: hoverWritable
     }
   }
 
-  const handleHover = (button, hoverOn) => {
-    const index = buttons.indexOf(button)
-    hoverStates[index] = hoverOn ? true : false
+  const setPullButtonOptions = (value, progress, progressWritable, hover, hoverWritable) => {
+    pullButtonOptions = {
+      text: 'pull',
+      value: $pullValue,
+      yPosition: controlsHeight - 190,
+      progress: progress,
+      progressWritable: progressWritable,
+      hover: hover,
+      hoverWritable: hoverWritable
+    }
+  }
+
+  const setOpacityButtonOptions = (value, progress, progressWritable, hover, hoverWritable) => {
+    opacityButtonOptions = {
+      text: 'opacity',
+      value: $opacityValue,
+      yPosition: controlsHeight - 120,
+      progress: progress,
+      progressWritable: progressWritable,
+      hover: hover,
+      hoverWritable, hoverWritable
+    }
+  }
+
+  const setRandomButtonOptions = (value, progress, progressWritable, hover, hoverWritable) => {
+    randomButtonOptions = {
+      text: 'random',
+      value: $randomValue,
+      yPosition: controlsHeight - 50,
+      progress: progress,
+      progressWritable: progressWritable,
+      hover: hover,
+      hoverWritable, hoverWritable
+    }
+  }
+
+  $: setSizeButtonOptions($sizeValue, $sizeProgress, sizeProgress, $sizeHover,sizeHover)
+  $: setPullButtonOptions($pullValue, $pullProgress, pullProgress, $pullHover, pullHover)
+  $: setOpacityButtonOptions($opacityValue, $opacityProgress, opacityProgress, $opacityHover, opacityHover)
+  $: setRandomButtonOptions($randomValue, $randomProgress, randomProgress, $randomHover, randomHover)
+  
+  $: buttonOptions = [sizeButtonOptions, pullButtonOptions, opacityButtonOptions, randomButtonOptions]
+
+  const handleOpen = () => {
+    open.set(true)
+    currentView.set('home')
+    buttonOptions.forEach((button, index) => {
+      button.progressWritable.set(0)
+    })
+  }
+
+  const handleClick = (buttonText) => {
+    const button = buttonOptions.find(button => button.text == buttonText)
+    if (button.progress == 0) {
+      button.progressWritable.set(1)
+    } else {
+      button.progressWritable.set(0)
+    }
+  }
+
+  const handleHover = (buttonText, hoverOn) => {
+    const button = buttonOptions.find(button => button.text == buttonText)
+
+    button.hoverWritable.set(hoverOn ? true : false)
   }
 
   const drawLabel = (p5, x, y, hover) => {
@@ -106,35 +165,6 @@
     }
 
     p5.draw = () => {
-      const sizeButtonOptions = {
-        text: 'size',
-        value: $sizeValue,
-        yPosition: controlsHeight - 260,
-        progress: $sizeProgress,
-        hover: hoverStates[0],
-      }
-      const pullButtonOptions = {
-        text: 'pull',
-        value: $pullValue,
-        yPosition: controlsHeight - 190,
-        progress: $pullProgress,
-        hover: hoverStates[1],
-      }
-      const opacityButtonOptions = {
-        text: 'opacity',
-        value: $opacityValue,
-        yPosition: controlsHeight - 120,
-        progress: $opacityProgress,
-        hover: hoverStates[2],
-      }
-      const randomButtonOptions = {
-        text: 'random',
-        value: $randomValue,
-        yPosition: controlsHeight - 50,
-        progress: $randomProgress,
-        hover: hoverStates[3],
-      }
-
       drawContainer(p5, 60, $screenHeight, 240)
       drawMaximizeTab(p5)
       drawControlTitle(p5)
@@ -144,6 +174,13 @@
       drawControlButton(p5, randomButtonOptions)
     }
   }
+
+  onMount(() => {
+    setSizeButtonOptions($sizeValue, $sizeProgress, sizeProgress, $sizeHover, sizeHover)
+    setPullButtonOptions($pullValue, $pullProgress, pullProgress, $pullHover, pullHover)
+    setOpacityButtonOptions($opacityValue, $opacityProgress, opacityProgress, $opacityHover, opacityHover)
+    setRandomButtonOptions($randomValue, $randomProgress, randomProgress, $randomHover, randomHover)
+  })
 </script>
 
 <style>
@@ -179,34 +216,31 @@
     opacity: 0;
   }
 
-input[type=range]::-webkit-slider-thumb {
-  height: 35px;
-  width: 35px;
-  border-radius: 15px;
-  cursor: pointer;
-  opacity: 0;
+  input[type=range]::-webkit-slider-thumb {
+    height: 35px;
+    width: 35px;
+    border-radius: 15px;
+    cursor: pointer;
+    opacity: 0;
+  }
 
-}
+  input[type=range]::-moz-range-thumb {
+    height: 35px;
+    width: 35px;
+    border-radius: 15px;
+    margin-top: -14px;
+    cursor: pointer;
+    opacity: 0;
+  }
 
-input[type=range]::-moz-range-thumb {
-  height: 35px;
-  width: 35px;
-  border-radius: 15px;
-  margin-top: -14px;
-  cursor: pointer;
-  opacity: 0;
-
-}
-
-input[type=range]::-ms-thumb {
-  height: 35px;
-  width: 35px;
-  border-radius: 15px;
-  margin-top: -14px;
-  cursor: pointer;
-  opacity: 0;
-
-}
+  input[type=range]::-ms-thumb {
+    height: 35px;
+    width: 35px;
+    border-radius: 15px;
+    margin-top: -14px;
+    cursor: pointer;
+    opacity: 0;
+  }
 </style>
 
 <div 
@@ -217,17 +251,17 @@ input[type=range]::-ms-thumb {
 >
   <button 
     class='open-button'
-    on:click={() => {open.set(true); currentView.set('home') }} 
+    on:click={handleOpen} 
     on:mouseover={() => { maximizeHover = true }}
     on:mouseout={() => { maximizeHover = false }} />
   
-  {#each buttons.reverse() as button, index}
+  {#each buttonOptions as button, index}
     <button
       class='canvas-button'
-      style='--bottom:{(buttons.length - 1) * 70 - index * 70}px'
-      on:click={() => {handleClick(button)}} 
-      on:mouseover={() => { handleHover(button, true) }}
-      on:mouseout={() => { handleHover(button, false) }} />
+      style='--bottom:{(buttonOptions.length - 1) * 70 - index * 70}px'
+      on:click={() => {handleClick(button.text)}} 
+      on:mouseover={() => { handleHover(button.text, true) }}
+      on:mouseout={() => { handleHover(button.text, false) }} />
     
   {/each}
   {#if $sizeProgress}
