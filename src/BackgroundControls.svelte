@@ -27,63 +27,50 @@
 
   let controlsHeight, controlsWidth
   let maximizeHover = false
+
+  let sizeButtonOptions = {
+    text: 'size',
+    progressWritable: sizeProgress,
+    hoverWritable: sizeHover
+  }
+  let pullButtonOptions = {
+    text: 'pull',
+    progressWritable: pullProgress,
+    hoverWritable: pullHover
+  }
+  let opacityButtonOptions = {
+    text: 'opacity',
+    progressWritable: opacityProgress,
+    hoverWritable: opacityHover
+  }
+  let randomButtonOptions = {
+    text: 'random',
+    progressWritable: randomProgress,
+    hoverWritable: randomHover
+  }
+
+  let buttonOptions = [sizeButtonOptions, pullButtonOptions, opacityButtonOptions, randomButtonOptions]
+
+  const setButtonOptions = (text, value, progress, hover) => {
+    const button = buttonOptions.find(button => button.text == text)
+    
+    button.text = text
+    button.value = value
+    button.progress = progress
+    button.hover = hover
+  }
+
+  const setButtonYPositions = () => {
+    buttonOptions.reverse().forEach((button, index) => {
+      const heightOffset = 50 + (index * 70)
+      button.yPosition = controlsHeight - heightOffset
+    })
+  }
   
-  let sizeButtonOptions, pullButtonOptions, opacityButtonOptions, randomButtonOptions
-
-  const setSizeButtonOptions = (value, progress, progressWritable, hover, hoverWritable) => {
-    sizeButtonOptions = {
-      text: 'size',
-      value: value,
-      yPosition: controlsHeight - 260,
-      progress: progress,
-      progressWritable: progressWritable,
-      hover: hover,
-      hoverWritable: hoverWritable
-    }
-  }
-
-  const setPullButtonOptions = (value, progress, progressWritable, hover, hoverWritable) => {
-    pullButtonOptions = {
-      text: 'pull',
-      value: $pullValue,
-      yPosition: controlsHeight - 190,
-      progress: progress,
-      progressWritable: progressWritable,
-      hover: hover,
-      hoverWritable: hoverWritable
-    }
-  }
-
-  const setOpacityButtonOptions = (value, progress, progressWritable, hover, hoverWritable) => {
-    opacityButtonOptions = {
-      text: 'opacity',
-      value: $opacityValue,
-      yPosition: controlsHeight - 120,
-      progress: progress,
-      progressWritable: progressWritable,
-      hover: hover,
-      hoverWritable, hoverWritable
-    }
-  }
-
-  const setRandomButtonOptions = (value, progress, progressWritable, hover, hoverWritable) => {
-    randomButtonOptions = {
-      text: 'random',
-      value: $randomValue,
-      yPosition: controlsHeight - 50,
-      progress: progress,
-      progressWritable: progressWritable,
-      hover: hover,
-      hoverWritable, hoverWritable
-    }
-  }
-
-  $: setSizeButtonOptions($sizeValue, $sizeProgress, sizeProgress, $sizeHover,sizeHover)
-  $: setPullButtonOptions($pullValue, $pullProgress, pullProgress, $pullHover, pullHover)
-  $: setOpacityButtonOptions($opacityValue, $opacityProgress, opacityProgress, $opacityHover, opacityHover)
-  $: setRandomButtonOptions($randomValue, $randomProgress, randomProgress, $randomHover, randomHover)
-  
-  $: buttonOptions = [sizeButtonOptions, pullButtonOptions, opacityButtonOptions, randomButtonOptions]
+  $: setButtonOptions('size', $sizeValue, $sizeProgress, $sizeHover)
+  $: setButtonOptions('pull', $pullValue, $pullProgress, $pullHover)
+  $: setButtonOptions('opacity', $opacityValue, $opacityProgress, $opacityHover)
+  $: setButtonOptions('random', $randomValue, $randomProgress, $randomHover)
 
   const handleOpen = () => {
     open.set(true)
@@ -176,10 +163,11 @@
   }
 
   onMount(() => {
-    setSizeButtonOptions($sizeValue, $sizeProgress, sizeProgress, $sizeHover, sizeHover)
-    setPullButtonOptions($pullValue, $pullProgress, pullProgress, $pullHover, pullHover)
-    setOpacityButtonOptions($opacityValue, $opacityProgress, opacityProgress, $opacityHover, opacityHover)
-    setRandomButtonOptions($randomValue, $randomProgress, randomProgress, $randomHover, randomHover)
+    setButtonYPositions()
+    setButtonOptions('size', $sizeValue, $sizeProgress, $sizeHover)
+    setButtonOptions('pull', $pullValue, $pullProgress, $pullHover)
+    setButtonOptions('opacity', $opacityValue, $opacityProgress, $opacityHover) 
+    setButtonOptions('random', $randomValue, $randomProgress, $randomHover)
   })
 </script>
 
