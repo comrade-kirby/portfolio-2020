@@ -4,8 +4,7 @@
   import { tweened } from 'svelte/motion'
 
   import P5Canvase from './P5Canvas.svelte'
-  import { drawContainer, transparentText } from './helpers'
-  import drawControlButton from './backgroundControl.js'
+  import drawBackgroundControls from './backgroundControl.js'
   import { controlsXOffset } from './constants.js'
   import { 
     screenHeight,
@@ -95,55 +94,6 @@
     button.hoverWritable.set(hoverOn ? true : false)
   }
 
-  const drawLabel = (p5, x, y, hover) => {
-    transparentText(p5, {
-      text: 'home',
-      textSize: 16,
-      horizontalAlignment: p5.CENTER,
-      xPosition: x,
-      yPosition: y,
-      hover
-    })
-  }
-
-  const drawMaximizeIcon = (p5) => {
-    const xPosition = controlsXOffset + 20
-    const yPosition = 20
-
-    p5.strokeWeight(2)
-    p5.rect(xPosition, yPosition, 20, 20)
-    p5.rect(xPosition + 5, yPosition + 5, 10, 10)
-    p5.strokeCap(p5.PROJECT)
-    p5.line(xPosition + 7, yPosition + 7, xPosition + 13, yPosition + 7)
-  }
-
-  const drawMaximizeTab = (p5) => {
-    maximizeHover ? p5.stroke(0, 0, 0, 20) : p5.stroke(0, 0, 0, 15)
-
-    p5.erase(0, 255)
-    drawMaximizeIcon(p5)
-    p5.line(controlsXOffset, 80, controlsXOffset + 60, 80)
-    p5.noErase()
-
-    p5.noFill()
-    drawMaximizeIcon(p5)
-    p5.line(controlsXOffset, 80, controlsXOffset + 60, 80)
-
-    drawLabel(p5, controlsXOffset + 30, 60, maximizeHover)
-  }
-
-  const drawControlTitle = (p5) => {
-    const verticalText = [...'canvas'].map(letter => letter + '\n').join('')
-    transparentText(p5, {
-      text: verticalText,
-      textSize: 24,
-      textLeading: 22,
-      horizontalAlignment: p5.CENTER,
-      xPosition: controlsXOffset + 30,
-      yPosition: 115
-    })
-  }
-
   const sketch = (p5) => {
     p5.setup = () => {
       const canvas = p5.createCanvas(controlsWidth, $screenHeight)
@@ -152,13 +102,7 @@
     }
 
     p5.draw = () => {
-      drawContainer(p5, 60, $screenHeight, 240)
-      drawMaximizeTab(p5)
-      drawControlTitle(p5)
-      drawControlButton(p5, sizeButtonOptions)
-      drawControlButton(p5, pullButtonOptions)
-      drawControlButton(p5, opacityButtonOptions)
-      drawControlButton(p5, randomButtonOptions)
+      drawBackgroundControls(p5, $screenHeight, maximizeHover, buttonOptions)
     }
   }
 
