@@ -86,7 +86,7 @@
 
   .active {
     font-weight: 600;
-    text-decoration: underline wavy;
+    text-decoration: underline wavy 2px;
   }
 </style>
 
