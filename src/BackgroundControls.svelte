@@ -4,7 +4,7 @@
   import { tweened } from 'svelte/motion'
 
   import P5Canvase from './P5Canvas.svelte'
-  import drawBackgroundControls from './backgroundControl.js'
+  import drawBackgroundControls from './drawBackgroundControls.js'
   import { controlsXOffset } from './constants.js'
   import { 
     screenHeight,
