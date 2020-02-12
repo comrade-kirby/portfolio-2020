@@ -87,7 +87,7 @@ const drawBackgroundControls = (p5, height, maximizeHover, buttonOptions) => {
       p5.line(defaultXPosition - 10, yPosition + 10, defaultXPosition + 10, yPosition - 10)
     } else {
       transparentText(p5, {
-        text: value * 100,
+        text: (value * 100).toFixed(0),
         textSize: 16,
         horizontalAlignment: p5.CENTER,
         xPosition: defaultXPosition,
