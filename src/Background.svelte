@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte'
 
+  import { setupCanvas } from './helpers.js'
   import P5Canvas from './P5Canvas.svelte'
   import { 
     screenHeight,
@@ -89,9 +90,7 @@
 
   const sketch = (p5) => {
 	  p5.setup = () => {
-      const canvas = p5.createCanvas($screenWidth, $screenHeight)
-      canvas.parent('background-holder')
-      p5.colorMode(p5.HSL, 360, 100, 100, 100)
+      setupCanvas(p5, $screenWidth, $screenHeight, 'background-holder')
       p5.frameRate(10)
 	  }
 

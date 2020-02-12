@@ -83,3 +83,9 @@ export const logDamping = (value) => {
   const dampingMinPower = - 4
   return 10 ** ((1 - value) * dampingMinPower)
 }
+
+export const setupCanvas = (p5, width, height, parentId) => {
+  const canvas = p5.createCanvas(width, height)
+  canvas.parent(parentId)
+  p5.colorMode(p5.HSL, 360, 100, 100, 100)
+}

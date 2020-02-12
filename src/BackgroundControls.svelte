@@ -5,6 +5,7 @@
 
   import P5Canvase from './P5Canvas.svelte'
   import drawBackgroundControls from './drawBackgroundControls.js'
+  import { setupCanvas } from './helpers'
   import { controlsXOffset } from './constants.js'
   import { 
     screenHeight,
@@ -96,9 +97,7 @@
 
   const sketch = (p5) => {
     p5.setup = () => {
-      const canvas = p5.createCanvas(controlsWidth, $screenHeight)
-      canvas.parent('canvas-controls')
-      p5.colorMode(p5.HSL, 360, 100, 100, 100)
+      setupCanvas(p5, controlsWidth, $screenHeight, 'canvas-controls')
     }
 
     p5.draw = () => {

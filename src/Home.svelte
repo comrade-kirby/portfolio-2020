@@ -2,7 +2,13 @@
   import { fade } from 'svelte/transition'
   import P5Canvas from './P5Canvas.svelte'
   import { closeHover } from './stores.js'
-  import { transparentText, transparentTitle, drawContainer, drawCloseButton } from './helpers.js'
+  import {
+    transparentText,
+    transparentTitle,
+    drawContainer,
+    drawCloseButton,
+    setupCanvas
+  } from './helpers.js'
   
   let homeHeight, homeWidth
 
@@ -16,9 +22,7 @@
 
   const sketch = (p5) => {
 	  p5.setup = () => {
-      const canvas = p5.createCanvas(homeWidth, homeHeight)
-      canvas.parent('home')
-      p5.colorMode(p5.HSL, 360, 100, 100, 100)
+      setupCanvas(p5, homeWidth, homeHeight, 'home')
       p5.frameRate(10)
     }
     
