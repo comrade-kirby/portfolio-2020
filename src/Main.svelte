@@ -48,7 +48,7 @@
   .background-controls {
     position: absolute;
     right: 0;
-    width: 300px;
+    width: 600px;
     height: 100%;
   }
 

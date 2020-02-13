@@ -2,7 +2,7 @@ import { controlsXOffset, primaryOpacity, hoverOpacity } from './constants.js'
 import { drawContainer, transparentText } from './helpers'
 
 const drawBackgroundControls = (p5, height, maximizeHover, buttonOptions) => {
-  drawContainer(p5, 60, height, 240)
+  drawContainer(p5, 60, height, controlsXOffset)
   drawMaximizeTab(p5, maximizeHover)
   drawControlTitle(p5)
 
@@ -61,10 +61,11 @@ const drawBackgroundControls = (p5, height, maximizeHover, buttonOptions) => {
   }
 
   const drawControlButton = (p5, options) => {
-    const { text, value, yPosition, progress, hover } = options
+    const { text, type, value, yPosition, progress, hover } = options
     
     const defaultXPosition = controlsXOffset + 30
     
+    // label
     transparentText(p5, {
       text: text,
       textSize: 16,
@@ -74,7 +75,9 @@ const drawBackgroundControls = (p5, height, maximizeHover, buttonOptions) => {
       hover: hover,
     })
 
-    if (hover && progress) {
+    
+    
+    if (hover && progress) { // X icon
       p5.strokeWeight(2)
       p5.stroke(0, 0, 0, progress * hoverOpacity)
       p5.erase(0, 255)
@@ -85,7 +88,7 @@ const drawBackgroundControls = (p5, height, maximizeHover, buttonOptions) => {
       p5.noFill()
       p5.line(defaultXPosition - 10, yPosition - 10, defaultXPosition + 10, yPosition + 10)
       p5.line(defaultXPosition - 10, yPosition + 10, defaultXPosition + 10, yPosition - 10)
-    } else {
+    } else if (value) { // value
       transparentText(p5, {
         text: (value * 100).toFixed(0),
         textSize: 16,
@@ -97,8 +100,11 @@ const drawBackgroundControls = (p5, height, maximizeHover, buttonOptions) => {
       })
     }
 
-    drawSlider(p5, yPosition, progress)
-    drawIcon(p5, defaultXPosition, options)
+    value 
+      ? drawSlider(p5, yPosition, progress) 
+      : drawTextBox(p5, yPosition, progress)
+    
+    drawIcon(p5, defaultXPosition, options)    
   }
 
     const drawSlider = (p5, yPosition, progress) => {
@@ -110,12 +116,12 @@ const drawBackgroundControls = (p5, height, maximizeHover, buttonOptions) => {
       const currentRadius = progress * maxRadius
       const currentErase = progress * maxErase 
       const currentOpacity = progress * maxOpacity 
-      const xPosition = maxWidth - currentWidth
-    
+      const xPosition = controlsXOffset - currentWidth
+      
       p5.noStroke()
       p5.fill(0, 0, 100)
       p5.erase()
-      p5.rect(0, yPosition - 25, 240, 50)
+      p5.rect(controlsXOffset - 240, yPosition - 25, 240, 50)
       p5.noErase()
       
       p5.rect(xPosition, yPosition - 25, currentWidth, 50, currentRadius, 0, 0, currentRadius)
@@ -123,11 +129,31 @@ const drawBackgroundControls = (p5, height, maximizeHover, buttonOptions) => {
       p5.stroke(0)
       p5.strokeWeight(2)
       p5.erase(0, currentErase)
-      p5.line(xPosition + 20, yPosition, 230, yPosition)
+      p5.line(xPosition + 20, yPosition, controlsXOffset - 10, yPosition)
       p5.noErase()
       
       p5.stroke(0, 0, 0, currentOpacity)
-      p5.line(xPosition + 20, yPosition, 230, yPosition)
+      p5.line(xPosition + 20, yPosition, controlsXOffset - 10, yPosition)
+    }
+
+    const drawTextBox = (p5, yPosition, progress) => {
+      const maxWidth = controlsXOffset
+      const maxRadius = 25
+      const maxOpacity = primaryOpacity
+
+      const currentWidth = progress * maxWidth
+      const currentRadius = progress * maxRadius
+      const currentOpacity = progress * maxOpacity 
+      const xPosition = maxWidth - currentWidth
+
+
+      p5.noStroke()
+      p5.fill(0, 0, 100)
+      p5.erase()
+      p5.rect(0, yPosition - 215, controlsXOffset, 240)
+      p5.noErase()
+
+      p5.rect(xPosition, yPosition - 215, currentWidth, 240, currentRadius, 0, 0, currentRadius)
     }
 
     const drawIcon = (p5, defaultXPosition, options) => {
@@ -135,9 +161,13 @@ const drawBackgroundControls = (p5, height, maximizeHover, buttonOptions) => {
     
       const sliderLength = 210
       const sliderPosition = sliderLength - (value * sliderLength)
-      const xPosition = (defaultXPosition) - progress * (40 + sliderPosition)
+      const sliderIconPosition = (defaultXPosition) - progress * (40 + sliderPosition)
+      const xPosition = value ? sliderIconPosition : defaultXPosition
     
       switch (text) {
+        case 'info':
+          drawInfoIcon(p5, xPosition, yPosition, hover, progress)
+          break
         case 'size':
           drawSizeIcon(p5, xPosition, yPosition, value, hover)
           break
@@ -152,6 +182,26 @@ const drawBackgroundControls = (p5, height, maximizeHover, buttonOptions) => {
           break
       }
     }
+      
+      const drawInfoIcon = (p5, xPosition, yPosition, hover, progress) => {
+        if (!hover || !progress) {
+          const opacity = hover ? hoverOpacity : primaryOpacity
+          const size = 25
+          p5.noStroke()
+          p5.erase()
+          p5.ellipse(xPosition, yPosition, size, size)
+          p5.noErase()
+          
+          p5.fill(0, 0, 0, opacity)
+          p5.ellipse(xPosition, yPosition, size, size)
+          
+          p5.strokeWeight(3)
+          p5.strokeCap(p5.PROJECT)
+          p5.stroke(0, 0, 100)
+          p5.line(xPosition, yPosition, xPosition, yPosition + 6)
+          p5.line(xPosition, yPosition - 5, xPosition, yPosition - 5)
+        }
+      }
 
       const drawSizeIcon = (p5, xPosition, yPosition, value, hover) => {
         const maxSize = 25
