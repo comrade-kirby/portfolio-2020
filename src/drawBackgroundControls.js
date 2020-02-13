@@ -1,5 +1,5 @@
 import { primaryOpacity, hoverOpacity } from './constants.js'
-import { drawContainer, transparentText } from './helpers'
+import { drawContainer, transparentText, getOpacity } from './helpers'
 
 const controlsXOffset = 540
 const centerX = controlsXOffset + 30
@@ -22,7 +22,7 @@ const drawBackgroundControls = (p5, height, maximizeHover, infoParams,buttonPara
   }
 
     const drawMaximizeIcon = (p5, hover) => {
-      const opacity = hover ? hoverOpacity : primaryOpacity
+      const opacity = getOpacity(hover)
 
       const xPosition = controlsXOffset + 20
       const yPosition = 20
@@ -174,7 +174,7 @@ const drawBackgroundControls = (p5, height, maximizeHover, infoParams,buttonPara
     }
       
       const drawInfoIcon = (p5, yPosition, hover) => {
-        const opacity = hover ? hoverOpacity : primaryOpacity
+        const opacity = getOpacity(hover)
         const size = 25
         p5.noStroke()
         p5.erase()
@@ -212,7 +212,7 @@ const drawBackgroundControls = (p5, height, maximizeHover, infoParams,buttonPara
       }
 
         const drawMouse = (p5, mouseX, mouseY, hover) => {
-          const opacity = hover ? hoverOpacity : primaryOpacity
+          const opacity = getOpacity(hover)
         
           p5.strokeCap(p5.ROUND)
           p5.strokeJoin(p5.MITER)
@@ -250,7 +250,7 @@ const drawBackgroundControls = (p5, height, maximizeHover, infoParams,buttonPara
       }
 
       const drawRandomIcon = (p5, xPosition, yPosition, value, hover) => {
-        const opacity = hover ? hoverOpacity : primaryOpacity
+        const opacity = getOpacity(hover)
       
         const numberOfCircles = Math.ceil(value * 10)
         const coordinates = [
@@ -299,7 +299,7 @@ const drawBackgroundControls = (p5, height, maximizeHover, infoParams,buttonPara
       }
 
       const drawCircle = (p5, xPosition, yPosition, size, hover, fillOpacity=0) => {
-        const opacity = hover ? hoverOpacity : primaryOpacity
+        const opacity = getOpacity(hover)
         // fill circle white
         p5.fill(0, 0, 100)
         p5.noStroke()
@@ -334,7 +334,7 @@ const drawBackgroundControls = (p5, height, maximizeHover, infoParams,buttonPara
   }
 
   const drawDivider = (p5, yPosition, hover) => {
-    const opacity = hover ? hoverOpacity : primaryOpacity
+    const opacity = getOpacity(hover)
 
     p5.stroke(0, 0, 0, opacity)
     p5.strokeWeight(2)

@@ -1,4 +1,5 @@
-import { primaryOpacity, hoverOpacity } from './constants'
+const primaryOpacity = 15
+const hoverOpacity = 25
 
 export const transparentText = (p5, options) => {
   const { 
@@ -17,7 +18,7 @@ export const transparentText = (p5, options) => {
   } = options
 
   let erase = 255
-  let opacity = hover ? hoverOpacity : primaryOpacity
+  let opacity = getOpacity(hover)
 
   if (animate) {
     erase = progress * erase || 0
@@ -58,7 +59,7 @@ export const drawContainer = (p5, width, height, xPosition = 0) => {
 export const drawCloseButton = (p5, width, hover) => {
   const xPosition = width - 40
   const yPosition = 20
-  const opacity = hover ? hoverOpacity : primaryOpacity
+  const opacity = getOpacity(hover)
 
   p5.strokeWeight(2)
   p5.stroke(0, 0, 0, opacity)
@@ -89,3 +90,5 @@ export const setupCanvas = (p5, width, height, parentId) => {
   canvas.parent(parentId)
   p5.colorMode(p5.HSL, 360, 100, 100, 100)
 }
+
+export const getOpacity = (hover) => hover ? hoverOpacity : primaryOpacity
