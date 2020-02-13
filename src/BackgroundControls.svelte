@@ -6,7 +6,6 @@
   import P5Canvase from './P5Canvas.svelte'
   import drawBackgroundControls from './drawBackgroundControls.js'
   import { setupCanvas } from './helpers'
-  import { controlsXOffset } from './constants.js'
   import { 
     screenHeight,
     open,
@@ -20,7 +19,6 @@
     pullProgress,
     opacityProgress,
     randomProgress,
-    infoHover,
     sizeHover,
     pullHover,
     opacityHover,
@@ -30,42 +28,36 @@
   let controlsHeight, controlsWidth
   let maximizeHover = false
 
-  let infoButtonOptions = {
-    text: 'info',
-    type: 'info',
+  let infoParams = {
     progressWritable: infoProgress,
-    hoverWritable: infoHover
+    hover: false
   }
 
-  let sizeButtonOptions = {
+  let sizeButtonParams = {
     text: 'size',
-    type: 'slider',
     progressWritable: sizeProgress,
     hoverWritable: sizeHover
   }
-  let pullButtonOptions = {
+  let pullButtonParams = {
     text: 'pull',
-    type: 'slider',
     progressWritable: pullProgress,
     hoverWritable: pullHover
   }
-  let opacityButtonOptions = {
+  let opacityButtonParams = {
     text: 'opacity',
-    type: 'slider',
     progressWritable: opacityProgress,
     hoverWritable: opacityHover
   }
-  let randomButtonOptions = {
+  let randomButtonParams = {
     text: 'random',
-    type: 'slider',
     progressWritable: randomProgress,
     hoverWritable: randomHover
   }
 
-  let buttonOptions = [infoButtonOptions, sizeButtonOptions, pullButtonOptions, opacityButtonOptions, randomButtonOptions]
+  let buttonParams = [sizeButtonParams, pullButtonParams, opacityButtonParams, randomButtonParams]
 
-  const setButtonOptions = (text, progress, hover, value=null) => {
-    const button = buttonOptions.find(button => button.text == text)
+  const setButtonParams = (text, progress, hover, value=null) => {
+    const button = buttonParams.find(button => button.text == text)
     
     button.text = text
     button.value = value
@@ -74,28 +66,28 @@
   }
 
   const setButtonYPositions = () => {
-    buttonOptions.reverse().forEach((button, index) => {
-      const heightOffset = 50 + (index * 70)
+    buttonParams.reverse().forEach((button, index) => {
+      const heightOffset = 45 + (index * 70)
       button.yPosition = controlsHeight - heightOffset
     })
   }
   
-  $: setButtonOptions('info', $infoProgress, $infoHover)
-  $: setButtonOptions('size', $sizeProgress, $sizeHover, $sizeValue)
-  $: setButtonOptions('pull', $pullProgress, $pullHover, $pullValue)
-  $: setButtonOptions('opacity', $opacityProgress, $opacityHover, $opacityValue)
-  $: setButtonOptions('random', $randomProgress, $randomHover, $randomValue)
+  $: infoParams.progress = $infoProgress
+  $: setButtonParams('size', $sizeProgress, $sizeHover, $sizeValue)
+  $: setButtonParams('pull', $pullProgress, $pullHover, $pullValue)
+  $: setButtonParams('opacity', $opacityProgress, $opacityHover, $opacityValue)
+  $: setButtonParams('random', $randomProgress, $randomHover, $randomValue)
 
   const handleOpen = () => {
     open.set(true)
     currentView.set('home')
-    buttonOptions.forEach((button, index) => {
+    buttonParams.forEach((button, index) => {
       button.progressWritable.set(0)
     })
   }
 
   const handleClick = (buttonText) => {
-    const button = buttonOptions.find(button => button.text == buttonText)
+    const button = buttonParams.find(button => button.text == buttonText)
     if (button.progress == 0) {
       button.progressWritable.set(1)
     } else {
@@ -104,7 +96,7 @@
   }
 
   const handleHover = (buttonText, hoverOn) => {
-    const button = buttonOptions.find(button => button.text == buttonText)
+    const button = buttonParams.find(button => button.text == buttonText)
 
     button.hoverWritable.set(hoverOn ? true : false)
   }
@@ -115,17 +107,17 @@
     }
 
     p5.draw = () => {
-      drawBackgroundControls(p5, $screenHeight, maximizeHover, buttonOptions)
+      drawBackgroundControls(p5, $screenHeight, maximizeHover, infoParams, buttonParams)
     }
   }
 
   onMount(() => {
     setButtonYPositions()
-    setButtonOptions('info', $infoProgress, $infoHover)
-    setButtonOptions('size', $sizeProgress, $sizeHover, $sizeValue)
-    setButtonOptions('pull', $pullProgress, $pullHover, $pullValue)
-    setButtonOptions('opacity', $opacityProgress, $opacityHover, $opacityValue) 
-    setButtonOptions('random', $randomProgress, $randomHover, $randomValue)
+    infoParams.progress = $infoProgress
+    setButtonParams('size', $sizeProgress, $sizeHover, $sizeValue)
+    setButtonParams('pull', $pullProgress, $pullHover, $pullValue)
+    setButtonParams('opacity', $opacityProgress, $opacityHover, $opacityValue) 
+    setButtonParams('random', $randomProgress, $randomHover, $randomValue)
   })
 </script>
 
@@ -139,6 +131,13 @@
     position: absolute;
     width: 60px;
     height: 80px;
+  }
+
+  .info-button {
+    position: absolute;
+    top: 80px;
+    width: 60px;
+    height: 220px;
   }
 
   button {
@@ -200,11 +199,15 @@
     on:click={handleOpen} 
     on:mouseover={() => { maximizeHover = true }}
     on:mouseout={() => { maximizeHover = false }} />
-  
-  {#each buttonOptions as button, index}
+  <button
+    class='info-button'
+    on:click={() => { infoProgress.set($infoProgress ? 0 : 1) }} 
+    on:mouseover={() => { infoParams.hover = true }}
+    on:mouseout={() => { infoParams.hover = false }} />
+  {#each buttonParams as button, index}
     <button
       class='canvas-button'
-      style='--bottom:{(buttonOptions.length - 1) * 70 - index * 70}px'
+      style='--bottom:{(buttonParams.length - 1) * 70 - index * 70}px'
       on:click={() => {handleClick(button.text)}} 
       on:mouseover={() => { handleHover(button.text, true) }}
       on:mouseout={() => { handleHover(button.text, false) }} />

@@ -24,7 +24,6 @@ export const backgroundHue = tweened(270, {
   easing: cubicOut
 })
 
-// animation controlls
 const startPullValue = 0.1
 
 export const sizeValue = writable(.9)
@@ -38,7 +37,6 @@ export const pullProgress = tweened(0, { easing: cubicIn })
 export const opacityProgress = tweened(0, { easing: cubicIn })
 export const randomProgress = tweened(0, { easing: cubicIn })
 
-export const infoHover = writable(false)
 export const sizeHover = writable(false)
 export const pullHover = writable(false)
 export const opacityHover = writable(false)

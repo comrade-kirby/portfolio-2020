@@ -1,54 +1,69 @@
-import { controlsXOffset, primaryOpacity, hoverOpacity } from './constants.js'
+import { primaryOpacity, hoverOpacity } from './constants.js'
 import { drawContainer, transparentText } from './helpers'
 
-const drawBackgroundControls = (p5, height, maximizeHover, buttonOptions) => {
+const controlsXOffset = 540
+const centerX = controlsXOffset + 30
+
+const drawBackgroundControls = (p5, height, maximizeHover, infoParams,buttonParams) => {
   drawContainer(p5, 60, height, controlsXOffset)
   drawMaximizeTab(p5, maximizeHover)
-  drawControlTitle(p5)
+  drawInfoButton(p5, infoParams)
 
-  buttonOptions.forEach(button => {
+  buttonParams.forEach(button => {
     drawControlButton(p5, button)
   })
 }
 
-  const drawMaximizeTab = (p5, maximizeHover) => {
-    maximizeHover ? p5.stroke(0, 0, 0, 20) : p5.stroke(0, 0, 0, 15)
-
-    p5.erase(0, 255)
-    drawMaximizeIcon(p5)
-    p5.line(controlsXOffset, 80, controlsXOffset + 60, 80)
-    p5.noErase()
-
-    p5.noFill()
-    drawMaximizeIcon(p5)
-    p5.line(controlsXOffset, 80, controlsXOffset + 60, 80)
-
-    drawLabel(p5, controlsXOffset + 30, 60, maximizeHover)
+  const drawMaximizeTab = (p5, hover) => {
+    const dividerY = 80
+    drawMaximizeIcon(p5, hover)
+    drawLabel(p5, 'home', 60, hover)
+    drawDivider(p5, dividerY, hover)
   }
 
-    const drawMaximizeIcon = (p5) => {
+    const drawMaximizeIcon = (p5, hover) => {
+      const opacity = hover ? hoverOpacity : primaryOpacity
+
       const xPosition = controlsXOffset + 20
       const yPosition = 20
-
+      
+      p5.stroke(0, 0, 0, opacity)
+      p5.erase(0, 255)
       p5.strokeWeight(2)
+      p5.rect(xPosition, yPosition, 20, 20)
+      p5.rect(xPosition + 5, yPosition + 5, 10, 10)
+      p5.strokeCap(p5.PROJECT)
+      p5.line(xPosition + 7, yPosition + 7, xPosition + 13, yPosition + 7)
+      p5.noErase()
+
+      p5.noFill()
       p5.rect(xPosition, yPosition, 20, 20)
       p5.rect(xPosition + 5, yPosition + 5, 10, 10)
       p5.strokeCap(p5.PROJECT)
       p5.line(xPosition + 7, yPosition + 7, xPosition + 13, yPosition + 7)
     }
 
-    const drawLabel = (p5, x, y, hover) => {
-      transparentText(p5, {
-        text: 'home',
-        textSize: 16,
-        horizontalAlignment: p5.CENTER,
-        xPosition: x,
-        yPosition: y,
-        hover
-      })
-    }
+  const drawInfoButton = (p5, infoParams) => {
+    const hover = infoParams.hover
+    const progress = infoParams.progress
+    const topY = 80
+    const textBoxY = topY + 1
+    const iconY = topY + 180
+    const labelY = topY + 210
+    const dividerY = topY + 230
 
-  const drawControlTitle = (p5) => {
+    drawControlTitle(p5, hover)
+    drawTextBox(p5, textBoxY, progress)
+    if (progress && hover) {
+      drawXIcon(p5, iconY, progress)
+    } else {
+      drawInfoIcon(p5, iconY, hover)
+    }
+    drawLabel(p5, 'info', labelY, hover)
+    drawDivider(p5, dividerY, hover)
+  }
+
+  const drawControlTitle = (p5, hover) => {
     const verticalText = [...'canvas'].map(letter => letter + '\n').join('')
     transparentText(p5, {
       text: verticalText,
@@ -56,55 +71,53 @@ const drawBackgroundControls = (p5, height, maximizeHover, buttonOptions) => {
       textLeading: 22,
       horizontalAlignment: p5.CENTER,
       xPosition: controlsXOffset + 30,
-      yPosition: 115
+      yPosition: 115,
+      hover: hover
     })
   }
 
-  const drawControlButton = (p5, options) => {
-    const { text, type, value, yPosition, progress, hover } = options
-    
-    const defaultXPosition = controlsXOffset + 30
-    
-    // label
-    transparentText(p5, {
-      text: text,
-      textSize: 16,
-      horizontalAlignment: p5.CENTER,
-      xPosition: defaultXPosition,
-      yPosition: yPosition + 30,
-      hover: hover,
-    })
+  const drawTextBox = (p5, yPosition, progress) => {
+    const maxWidth = controlsXOffset
+    const maxRadius = 25
+    const maxOpacity = primaryOpacity
 
+    const currentWidth = progress * maxWidth
+    const currentRadius = progress * maxRadius
+    const currentOpacity = progress * maxOpacity 
+    const xPosition = maxWidth - currentWidth
+
+
+    p5.noStroke()
+    p5.fill(0, 0, 100)
+    p5.erase()
+    p5.rect(0, yPosition, controlsXOffset, 227)
+    p5.noErase()
+
+    p5.rect(xPosition, yPosition, currentWidth, 227, currentRadius, 0, 0, currentRadius)
+  }
+
+  const drawControlButton = (p5, params) => {
+    const { text, value, yPosition, progress, hover } = params
     
     
-    if (hover && progress) { // X icon
-      p5.strokeWeight(2)
-      p5.stroke(0, 0, 0, progress * hoverOpacity)
-      p5.erase(0, 255)
-      p5.line(defaultXPosition - 10, yPosition - 10, defaultXPosition + 10, yPosition + 10)
-      p5.line(defaultXPosition - 10, yPosition + 10, defaultXPosition + 10, yPosition - 10)
-      p5.noErase()
-      
-      p5.noFill()
-      p5.line(defaultXPosition - 10, yPosition - 10, defaultXPosition + 10, yPosition + 10)
-      p5.line(defaultXPosition - 10, yPosition + 10, defaultXPosition + 10, yPosition - 10)
-    } else if (value) { // value
+    drawLabel(p5, text, yPosition + 30, hover)
+    
+    if (hover && progress) {
+      drawXIcon(p5, yPosition, progress)
+    } else { // value
       transparentText(p5, {
         text: (value * 100).toFixed(0),
         textSize: 16,
         horizontalAlignment: p5.CENTER,
-        xPosition: defaultXPosition,
+        xPosition: centerX,
         yPosition: yPosition + 5,
         animate: true,
         progress: progress
       })
     }
 
-    value 
-      ? drawSlider(p5, yPosition, progress) 
-      : drawTextBox(p5, yPosition, progress)
-    
-    drawIcon(p5, defaultXPosition, options)    
+    drawSlider(p5, yPosition, progress)
+    drawIcon(p5, params)    
   }
 
     const drawSlider = (p5, yPosition, progress) => {
@@ -136,38 +149,15 @@ const drawBackgroundControls = (p5, height, maximizeHover, buttonOptions) => {
       p5.line(xPosition + 20, yPosition, controlsXOffset - 10, yPosition)
     }
 
-    const drawTextBox = (p5, yPosition, progress) => {
-      const maxWidth = controlsXOffset
-      const maxRadius = 25
-      const maxOpacity = primaryOpacity
-
-      const currentWidth = progress * maxWidth
-      const currentRadius = progress * maxRadius
-      const currentOpacity = progress * maxOpacity 
-      const xPosition = maxWidth - currentWidth
-
-
-      p5.noStroke()
-      p5.fill(0, 0, 100)
-      p5.erase()
-      p5.rect(0, yPosition - 215, controlsXOffset, 240)
-      p5.noErase()
-
-      p5.rect(xPosition, yPosition - 215, currentWidth, 240, currentRadius, 0, 0, currentRadius)
-    }
-
-    const drawIcon = (p5, defaultXPosition, options) => {
-      const { text, value, yPosition, progress, hover } = options
+    const drawIcon = (p5, params) => {
+      const { text, value, yPosition, progress, hover } = params
     
       const sliderLength = 210
       const sliderPosition = sliderLength - (value * sliderLength)
-      const sliderIconPosition = (defaultXPosition) - progress * (40 + sliderPosition)
-      const xPosition = value ? sliderIconPosition : defaultXPosition
+      const sliderIconPosition = (centerX) - progress * (40 + sliderPosition)
+      const xPosition = sliderIconPosition
     
       switch (text) {
-        case 'info':
-          drawInfoIcon(p5, xPosition, yPosition, hover, progress)
-          break
         case 'size':
           drawSizeIcon(p5, xPosition, yPosition, value, hover)
           break
@@ -183,24 +173,22 @@ const drawBackgroundControls = (p5, height, maximizeHover, buttonOptions) => {
       }
     }
       
-      const drawInfoIcon = (p5, xPosition, yPosition, hover, progress) => {
-        if (!hover || !progress) {
-          const opacity = hover ? hoverOpacity : primaryOpacity
-          const size = 25
-          p5.noStroke()
-          p5.erase()
-          p5.ellipse(xPosition, yPosition, size, size)
-          p5.noErase()
-          
-          p5.fill(0, 0, 0, opacity)
-          p5.ellipse(xPosition, yPosition, size, size)
-          
-          p5.strokeWeight(3)
-          p5.strokeCap(p5.PROJECT)
-          p5.stroke(0, 0, 100)
-          p5.line(xPosition, yPosition, xPosition, yPosition + 6)
-          p5.line(xPosition, yPosition - 5, xPosition, yPosition - 5)
-        }
+      const drawInfoIcon = (p5, yPosition, hover) => {
+        const opacity = hover ? hoverOpacity : primaryOpacity
+        const size = 25
+        p5.noStroke()
+        p5.erase()
+        p5.ellipse(centerX, yPosition, size, size)
+        p5.noErase()
+        
+        p5.fill(0, 0, 0, opacity)
+        p5.ellipse(centerX, yPosition, size, size)
+        
+        p5.strokeWeight(3)
+        p5.strokeCap(p5.PROJECT)
+        p5.stroke(0, 0, 100)
+        p5.line(centerX, yPosition, centerX, yPosition + 6)
+        p5.line(centerX, yPosition - 5, centerX, yPosition - 5)
       }
 
       const drawSizeIcon = (p5, xPosition, yPosition, value, hover) => {
@@ -334,4 +322,41 @@ const drawBackgroundControls = (p5, height, maximizeHover, buttonOptions) => {
         p5.ellipse(xPosition, yPosition, size + 4, size + 4)
       }
 
+  const drawLabel = (p5, text, y, hover) => {
+    transparentText(p5, {
+      text: text,
+      textSize: 16,
+      horizontalAlignment: p5.CENTER,
+      xPosition: centerX,
+      yPosition: y,
+      hover
+    })
+  }
+
+  const drawDivider = (p5, yPosition, hover) => {
+    const opacity = hover ? hoverOpacity : primaryOpacity
+
+    p5.stroke(0, 0, 0, opacity)
+    p5.strokeWeight(2)
+    p5.erase()
+    p5.line(controlsXOffset, yPosition, controlsXOffset + 60, yPosition)
+    p5.noErase()
+
+    p5.noFill()
+    p5.line(controlsXOffset, yPosition, controlsXOffset + 60, yPosition)
+  }
+
+  const drawXIcon = (p5, yPosition, progress) => {
+    p5.strokeWeight(2)
+    p5.stroke(0, 0, 0, progress * hoverOpacity)
+    
+    p5.erase(0, 255)
+    p5.line(centerX - 10, yPosition - 10, centerX + 10, yPosition + 10)
+    p5.line(centerX - 10, yPosition + 10, centerX + 10, yPosition - 10)
+    p5.noErase()
+    
+    p5.noFill()
+    p5.line(centerX - 10, yPosition - 10, centerX + 10, yPosition + 10)
+    p5.line(centerX - 10, yPosition + 10, centerX + 10, yPosition - 10)
+  }
 export default drawBackgroundControls
