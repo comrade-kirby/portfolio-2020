@@ -1,20 +1,15 @@
 <script>
   import { onMount } from 'svelte'
-  import { fade } from 'svelte/transition'
-  import { tweened } from 'svelte/motion'
 
-  import P5Canvase from './P5Canvas.svelte'
+  import P5Canvas from './P5Canvas.svelte'
   import drawBackgroundControls from './drawBackgroundControls.js'
   import { setupCanvas } from './helpers'
   import { 
     screenHeight,
-    open,
-    currentView,
     sizeValue,
     pullValue,
     opacityValue,
     randomValue,
-    infoProgress,
     sizeProgress,
     pullProgress,
     opacityProgress,
@@ -26,12 +21,6 @@
   } from './stores.js'
 
   let controlsHeight, controlsWidth
-  let maximizeHover = false
-
-  let infoParams = {
-    progressWritable: infoProgress,
-    hover: false
-  }
 
   let sizeButtonParams = {
     text: 'size',
@@ -72,19 +61,10 @@
     })
   }
   
-  $: infoParams.progress = $infoProgress
   $: setButtonParams('size', $sizeProgress, $sizeHover, $sizeValue)
   $: setButtonParams('pull', $pullProgress, $pullHover, $pullValue)
   $: setButtonParams('opacity', $opacityProgress, $opacityHover, $opacityValue)
   $: setButtonParams('random', $randomProgress, $randomHover, $randomValue)
-
-  const handleOpen = () => {
-    open.set(true)
-    currentView.set('home')
-    buttonParams.forEach((button, index) => {
-      button.progressWritable.set(0)
-    })
-  }
 
   const handleClick = (buttonText) => {
     const button = buttonParams.find(button => button.text == buttonText)
@@ -97,23 +77,21 @@
 
   const handleHover = (buttonText, hoverOn) => {
     const button = buttonParams.find(button => button.text == buttonText)
-
     button.hoverWritable.set(hoverOn ? true : false)
   }
 
   const sketch = (p5) => {
     p5.setup = () => {
-      setupCanvas(p5, controlsWidth, $screenHeight, 'canvas-controls')
+      setupCanvas(p5, controlsWidth, controlsHeight, 'controls-canvas-container')
     }
 
     p5.draw = () => {
-      drawBackgroundControls(p5, $screenHeight, maximizeHover, infoParams, buttonParams)
+      drawBackgroundControls(p5, controlsWidth, controlsHeight, buttonParams)
     }
   }
 
   onMount(() => {
     setButtonYPositions()
-    infoParams.progress = $infoProgress
     setButtonParams('size', $sizeProgress, $sizeHover, $sizeValue)
     setButtonParams('pull', $pullProgress, $pullHover, $pullValue)
     setButtonParams('opacity', $opacityProgress, $opacityHover, $opacityValue) 
@@ -122,35 +100,20 @@
 </script>
 
 <style>
-  #canvas-controls {
-    height: 99.5%;
+  #controls-canvas-container {
+    min-height: 280px;
+    height: 100%;
     width: 100%;
   }
-
-  .open-button {
-    position: absolute;
-    width: 60px;
-    height: 80px;
-  }
-
-  .info-button {
-    position: absolute;
-    top: 80px;
-    width: 60px;
-    height: 220px;
-  }
-
-  button {
-    margin: 0;
-    position: absolute;
-    right: 0;
-    opacity: 0;
-  }
-
+    
   .canvas-button {
+    position: absolute;
+    margin: 0;
+    right: 0;
     bottom: var(--bottom);
     width: 60px;
     height: 70px;
+    opacity: 0;
   }
 
   .canvas-input {
@@ -189,21 +152,10 @@
 </style>
 
 <div 
-  id='canvas-controls' 
-  transition:fade
+  id='controls-canvas-container' 
   bind:clientHeight={controlsHeight}
-  bind:clientWidth={controlsWidth}
->
-  <button 
-    class='open-button'
-    on:click={handleOpen} 
-    on:mouseover={() => { maximizeHover = true }}
-    on:mouseout={() => { maximizeHover = false }} />
-  <button
-    class='info-button'
-    on:click={() => { infoProgress.set($infoProgress ? 0 : 1) }} 
-    on:mouseover={() => { infoParams.hover = true }}
-    on:mouseout={() => { infoParams.hover = false }} />
+  bind:clientWidth={controlsWidth} >
+  <P5Canvas sketch={sketch}/>
   {#each buttonParams as button, index}
     <button
       class='canvas-button'
@@ -211,12 +163,11 @@
       on:click={() => {handleClick(button.text)}} 
       on:mouseover={() => { handleHover(button.text, true) }}
       on:mouseout={() => { handleHover(button.text, false) }} />
-    
   {/each}
   {#if $sizeProgress}
     <input 
       class='canvas-input'
-      style='--bottom:245px'
+      style='--bottom:240px'
       type='range'
       min='0' max='1' step='0.01' 
       bind:value={$sizeValue} />
@@ -224,7 +175,7 @@
   {#if $pullProgress}
     <input 
       class='canvas-input'
-      style='--bottom:175px'
+      style='--bottom:170px'
       type='range'
       min='0' max='1' step='0.01' 
       bind:value={$pullValue} />
@@ -232,7 +183,7 @@
   {#if $opacityProgress}
     <input 
       class='canvas-input'
-      style='--bottom:105px'
+      style='--bottom:100px'
       type='range'
       min='0' max='1' step='0.01' 
       bind:value={$opacityValue} />
@@ -240,10 +191,9 @@
   {#if $randomProgress}
     <input 
       class='canvas-input'
-      style='--bottom:35px'
+      style='--bottom:30px'
       type='range'
       min='0' max='1' step='0.01' 
       bind:value={$randomValue} />
   {/if}
-  <P5Canvase sketch={sketch}/>
 </div>

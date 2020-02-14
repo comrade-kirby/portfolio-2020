@@ -1,128 +1,65 @@
-import { drawContainer, transparentText, getOpacity, transparentObject, transparentShape } from './helpers'
+import {
+  drawContainer,
+  drawDivider,
+  drawLabel,
+  drawXIcon,
+  eraseArea,
+  getOpacity,
+  transparentObject,
+  transparentShape,
+  transparentText
+} from './helpers'
 
-const controlsXOffset = 540
-const centerX = controlsXOffset + 30
-
-const drawBackgroundControls = (p5, height, maximizeHover, infoParams,buttonParams) => {
-  drawContainer(p5, 60, height, controlsXOffset)
-  drawMaximizeTab(p5, maximizeHover)
-  drawInfoButton(p5, infoParams)
+export const drawBackgroundControls = (p5, width, height, buttonParams) => {
+  const containerWidth = 60
+  const containerX = width - containerWidth
+  drawContainer(p5, containerWidth, height, containerX)
 
   buttonParams.forEach(button => {
-    drawControlButton(p5, button)
+    drawControlButton(p5, width, button)
   })
 }
 
-  const drawMaximizeTab = (p5, hover) => {
-    const dividerY = 80
-    drawMaximizeIcon(p5, hover)
-    drawLabel(p5, 'home', 60, hover)
-    drawDivider(p5, dividerY, hover)
-  }
+  
 
-    const drawMaximizeIcon = (p5, hover) => {
-      const opacity = getOpacity(hover)
+  
 
-      const xPosition = controlsXOffset + 20
-      const yPosition = 20
-      // use transparentObject here
-      p5.strokeWeight(2)
-      p5.strokeCap(p5.PROJECT)
-
-      const maximizeIcon = () => {
-        p5.rect(xPosition, yPosition, 20, 20)
-        p5.rect(xPosition + 5, yPosition + 5, 10, 10)
-        p5.line(xPosition + 7, yPosition + 7, xPosition + 13, yPosition + 7)
-      }
-      const options = { stroke: true, opacity }
-      transparentShape(p5, maximizeIcon, options)
-    }
-
-  const drawInfoButton = (p5, infoParams) => {
-    const hover = infoParams.hover
-    const progress = infoParams.progress
-    const topY = 80
-    const textBoxY = topY + 1
-    const iconY = topY + 180
-    const labelY = topY + 210
-    const dividerY = topY + 230
-
-    drawControlTitle(p5, hover)
-    drawTextBox(p5, textBoxY, progress)
-    if (progress && hover) {
-      drawXIcon(p5, iconY, progress)
-    } else {
-      drawInfoIcon(p5, iconY, hover)
-    }
-    drawLabel(p5, 'info', labelY, hover)
-    drawDivider(p5, dividerY, hover)
-  }
-
-  const drawControlTitle = (p5, hover) => {
-    const verticalText = [...'canvas'].map(letter => letter + '\n').join('')
-    transparentText(p5, {
-      text: verticalText,
-      textSize: 24,
-      textLeading: 22,
-      horizontalAlignment: p5.CENTER,
-      xPosition: controlsXOffset + 30,
-      yPosition: 115,
-      hover: hover
-    })
-  }
-
-  const drawTextBox = (p5, yPosition, progress) => {
-    const maxWidth = controlsXOffset
-    const maxRadius = 25
-
-    const currentWidth = progress * maxWidth
-    const currentRadius = progress * maxRadius
-    const xPosition = maxWidth - currentWidth
-    const height = 228
-    
-    eraseArea(p5, yPosition, maxWidth, height)
-    
-    p5.noStroke()
-    p5.fill(0, 0, 100)
-    p5.rect(xPosition, yPosition, currentWidth, height, currentRadius, 0, 0, currentRadius)
-  }
-
-  const drawControlButton = (p5, params) => {
+  const drawControlButton = (p5, width, params) => {
     const { text, value, yPosition, progress, hover } = params
-    
-    
-    drawLabel(p5, text, yPosition + 30, hover)
+    const centerX = width - 30
+    const valueY = yPosition + 5
+    const labelY = yPosition + 30
+    drawLabel(p5, text, centerX, labelY, hover)
     
     if (hover && progress) {
-      drawXIcon(p5, yPosition, progress)
-    } else { // value
+      drawXIcon(p5, centerX, yPosition, progress)
+    } else if (progress) {
       transparentText(p5, {
         text: (value * 100).toFixed(0),
         textSize: 16,
         horizontalAlignment: p5.CENTER,
         xPosition: centerX,
-        yPosition: yPosition + 5,
-        animate: true,
-        progress: progress
+        yPosition: valueY
       })
     }
 
-    drawSlider(p5, yPosition, progress)
-    drawIcon(p5, params)    
+    drawSlider(p5, width, yPosition, progress)
+    drawIcon(p5, centerX, params)    
   }
 
-    const drawSlider = (p5, yPosition, progress) => {
-      const maxWidth = 240
+    const drawSlider = (p5, width, y, progress) => {
+      const maxWidth = width - 60
       const currentWidth = progress * maxWidth
-      const backgroundX = controlsXOffset - currentWidth
-      const backgroundY = yPosition - 25
+
+      const backgroundX = maxWidth - currentWidth
+      const backgroundY = y - 25
       const backgroundHeight = 50
       const lineX = backgroundX + 20
-      const lineY = yPosition
+      const lineY = y
 
       eraseArea(p5, backgroundY, maxWidth, backgroundHeight)
       drawSliderBackground(p5, backgroundX, backgroundY, currentWidth, backgroundHeight, progress)
-      drawSliderLine(p5, lineX, lineY, progress) 
+      drawSliderLine(p5, lineX, lineY, width, progress) 
     }
 
       const drawSliderBackground = (p5, xPosition, yPosition, width, height, progress) => {
@@ -133,25 +70,25 @@ const drawBackgroundControls = (p5, height, maximizeHover, infoParams,buttonPara
         p5.rect(xPosition, yPosition, width, height, currentRadius, 0, 0, currentRadius)
       }
 
-      const drawSliderLine = (p5, xPosition, yPosition, progress) => {
+      const drawSliderLine = (p5, xPosition, yPosition, width, progress) => {
         const maxOpacity = getOpacity()
         const currentOpacity = progress * maxOpacity 
-
+        const lineEndX = width - 70
         p5.strokeWeight(2)
         const line = () => {
-          p5.line(xPosition, yPosition, controlsXOffset - 10, yPosition)
+          p5.line(xPosition, yPosition, lineEndX, yPosition)
         }
   
         const lineOptions = { stroke: true, progress, opacity: currentOpacity }
         transparentShape(p5, line, lineOptions)
       }
 
-    const drawIcon = (p5, params) => {
+    const drawIcon = (p5, x, params) => {
       const { text, value, yPosition, progress, hover } = params
     
       const sliderLength = 210
       const sliderPosition = sliderLength - (value * sliderLength)
-      const sliderIconPosition = (centerX) - progress * (40 + sliderPosition)
+      const sliderIconPosition = (x) - progress * (40 + sliderPosition)
       const xPosition = sliderIconPosition
     
       switch (text) {
@@ -170,27 +107,7 @@ const drawBackgroundControls = (p5, height, maximizeHover, infoParams,buttonPara
       }
     }
       
-      const drawInfoIcon = (p5, yPosition, hover) => {
-        const opacity = getOpacity(hover)
-        const size = 25
-        
-        const circle = () => {
-          p5.ellipse(centerX, yPosition, size, size)
-        }
-
-        const options = { fill: true, opacity}
-        transparentShape(p5, circle, options)
-        drawLowerCaseI(p5, yPosition)
-      }
-
-        const drawLowerCaseI = (p5, yPosition) => {
-          p5.strokeWeight(3)
-          p5.strokeCap(p5.PROJECT)
-          p5.stroke(0, 0, 100)
-          p5.line(centerX, yPosition, centerX, yPosition + 6)
-          p5.line(centerX, yPosition - 5, centerX, yPosition - 5)
-        }
-
+      
       const drawSizeIcon = (p5, xPosition, yPosition, value, hover) => {
         const maxSize = 25
         const size = value * maxSize
@@ -278,7 +195,6 @@ const drawBackgroundControls = (p5, height, maximizeHover, infoParams,buttonPara
             [-6, 6]
           ]
 
-          
           for (let i = 0; i < numberOfCircles; i++) {
             const x = xPosition + coordinates[i][0]
             const y = yPosition + coordinates[i][1]
@@ -324,47 +240,5 @@ const drawBackgroundControls = (p5, height, maximizeHover, infoParams,buttonPara
         p5.ellipse(xPosition, yPosition, size + 2, size + 2)
       }
 
-  const drawLabel = (p5, text, y, hover) => {
-    transparentText(p5, {
-      text: text,
-      textSize: 16,
-      horizontalAlignment: p5.CENTER,
-      xPosition: centerX,
-      yPosition: y,
-      hover
-    })
-  }
-
-  const drawDivider = (p5, yPosition, hover) => {
-    const opacity = getOpacity(hover)
-
-    p5.strokeWeight(2)
-    const divider = () => {
-      p5.line(controlsXOffset, yPosition, controlsXOffset + 60, yPosition)
-    }
-    const options = { stroke: true, opacity }
-    transparentShape(p5, divider, options)
-  }
-
-  const drawXIcon = (p5, yPosition, progress) => {
-    const opacity = getOpacity(true)
-
-    p5.strokeWeight(2)
-    const xIcon = () => {
-      p5.line(centerX - 10, yPosition - 10, centerX + 10, yPosition + 10)
-      p5.line(centerX - 10, yPosition + 10, centerX + 10, yPosition - 10)
-    }
-
-    const options = { stroke: true, opacity }
-    transparentShape(p5, xIcon, options)
-  }
-  
-  const eraseArea = (p5, yPosition, width, height) => {
-    const xPosition = controlsXOffset - width
-    const sliderArea = () => {
-      p5.rect(xPosition, yPosition, width, height)
-    } 
-    const sliderOptions = { fill: true, opacity: 0 }
-    transparentShape(p5, sliderArea, sliderOptions)
-  }
 export default drawBackgroundControls
+  

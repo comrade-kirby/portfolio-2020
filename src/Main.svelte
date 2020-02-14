@@ -2,10 +2,10 @@
   import { fade } from 'svelte/transition'
 
   import { open } from './stores.js'
-  import BackgroundControls from './BackgroundControls.svelte'
   import Home from './Home.svelte'
   import About from './About.svelte'
   import Contact from './Contact.svelte'
+  import SidePanel from './SidePanel.svelte'
 
   import { 
     screenHeight,
@@ -21,7 +21,6 @@
 
   const handleClose = () => {
     open.set(false)
-    
     if (!$closedOnce) {
       sizeProgress.set(1, { delay: 400 })
       pullProgress.set(1, { delay: 300 })
@@ -45,10 +44,9 @@
     z-index: 1;
   }
 
-  .background-controls {
+  .side-panel {
     position: absolute;
     right: 0;
-    width: 600px;
     height: 100%;
   }
 
@@ -91,8 +89,8 @@
 </style>
 
 <div class='main'>
-  <div class='background-controls'>
-    <BackgroundControls />
+  <div class='side-panel'>
+    <SidePanel />
   </div>
   {#if $open}
   <div class='content'>

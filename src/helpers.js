@@ -13,17 +13,10 @@ export const transparentText = (p5, options) => {
     width,
     height,
     hover,
-    animate,
-    progress
   } = options
 
   let erase = 255
   let opacity = getOpacity(hover)
-
-  if (animate) {
-    erase = progress * erase || 0
-    opacity = progress * opacity || 0
-  }
 
   p5.textSize(textSize)
   p5.textLeading(textLeading)
@@ -95,7 +88,6 @@ export const getOpacity = (hover) => hover ? hoverOpacity : primaryOpacity
 
 export const transparentShape = (p5, shapeCallback, options) => {
   const { fill, stroke, progress=1, opacity } = options
-  // where am i using progress??
   const maxErase = 100
   const currentErase = maxErase * progress
   
@@ -109,4 +101,48 @@ export const transparentShape = (p5, shapeCallback, options) => {
   stroke ? p5.stroke(0, 0, 0, opacity * progress) : p5.noStroke()
   fill ? p5.fill(0, 0, 0, opacity * progress) : p5.noFill()
   shapeCallback()
+}
+
+export const drawLabel = (p5, text, x, y, hover) => {
+  transparentText(p5, {
+    text: text,
+    textSize: 16,
+    horizontalAlignment: p5.CENTER,
+    xPosition: x,
+    yPosition: y,
+    hover
+  })
+}
+
+export const drawDivider = (p5, x, y, hover) => {
+  const opacity = getOpacity(hover)
+
+  p5.strokeWeight(2)
+  const divider = () => {
+    p5.line(x, y, x + 60, y)
+  }
+  const options = { stroke: true, opacity }
+  transparentShape(p5, divider, options)
+}
+
+export const eraseArea = (p5, y, width, height) => {
+  const x = 0
+  const sliderArea = () => {
+    p5.rect(x, y, width, height)
+  } 
+  const sliderOptions = { fill: true, opacity: 0 }
+  transparentShape(p5, sliderArea, sliderOptions)
+}
+
+export const drawXIcon = (p5, x, y, progress) => {
+  const opacity = getOpacity(true) * progress
+  
+  p5.strokeWeight(2)
+  const xIcon = () => {
+    p5.line(x - 10, y - 10, x + 10, y + 10)
+    p5.line(x - 10, y + 10, x + 10, y - 10)
+  }
+
+  const options = { stroke: true, opacity }
+  transparentShape(p5, xIcon, options)
 }
