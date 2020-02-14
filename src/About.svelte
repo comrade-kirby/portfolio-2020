@@ -4,10 +4,11 @@
   import P5Canvas from './P5Canvas.svelte'
   import { closeHover } from './stores.js'
   import { 
-    transparentText,
-    transparentTitle,
     drawContainer,
     drawCloseButton,
+    eraseArea,
+    transparentText,
+    transparentTitle,
     setupCanvas 
   } from './helpers.js'
   
@@ -33,6 +34,7 @@
     }
     
     p5.draw = () => {
+      eraseArea(p5, 0, aboutWidth, aboutHeight)
       drawContainer(p5, aboutWidth, aboutHeight)
       transparentTitle(p5, 'about')
       drawContent(p5)

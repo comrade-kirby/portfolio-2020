@@ -13,6 +13,7 @@ import {
 export const drawBackgroundControls = (p5, width, height, buttonParams) => {
   const containerWidth = 60
   const containerX = width - containerWidth
+  eraseArea(p5, 0, width, height)
   drawContainer(p5, containerWidth, height, containerX)
 
   buttonParams.forEach(button => {

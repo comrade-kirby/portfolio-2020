@@ -55,8 +55,9 @@
   }
 
   const setButtonYPositions = () => {
-    buttonParams.reverse().forEach((button, index) => {
-      const heightOffset = 45 + (index * 70)
+    buttonParams.forEach((button, index) => {
+      const count = buttonParams.length - index - 1
+      const heightOffset = 45 + (count * 70)
       button.yPosition = controlsHeight - heightOffset
     })
   }
@@ -86,7 +87,14 @@
     }
 
     p5.draw = () => {
+      console.log(controlsHeight)
       drawBackgroundControls(p5, controlsWidth, controlsHeight, buttonParams)
+    }
+
+    p5.windowResized = () => {
+      p5.resizeCanvas(controlsWidth, controlsHeight)
+      setButtonYPositions()
+      p5.redraw()
     }
   }
 

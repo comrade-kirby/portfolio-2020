@@ -4,10 +4,11 @@
   import P5Canvas from './P5Canvas.svelte'
   import { closeHover } from './stores.js'
   import {
+    drawCloseButton,
+    drawContainer,
+    eraseArea,
     transparentText,
     transparentTitle,
-    drawContainer,
-    drawCloseButton,
     setupCanvas
   } from './helpers.js'
 
@@ -100,6 +101,7 @@
 	  }
 
     p5.draw = () => {
+      eraseArea(p5, 0, contactWidth, contactHeight)
       drawContainer(p5, contactWidth, contactHeight)
       transparentTitle(p5, 'contact')
       drawCloseButton(p5, contactWidth, $closeHover)
