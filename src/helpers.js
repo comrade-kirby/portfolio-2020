@@ -92,3 +92,21 @@ export const setupCanvas = (p5, width, height, parentId) => {
 }
 
 export const getOpacity = (hover) => hover ? hoverOpacity : primaryOpacity
+
+export const transparentShape = (p5, shapeCallback, options) => {
+  const { fill, stroke, progress=1, opacity } = options
+  // where am i using progress??
+  const maxErase = 100
+  const currentErase = maxErase * progress
+  
+  fill ? p5.fill(0) : p5.noFill()
+  stroke ? p5.stroke(0) : p5.noStroke()
+
+  p5.erase(currentErase, currentErase)
+  shapeCallback()
+  p5.noErase()
+  
+  stroke ? p5.stroke(0, 0, 0, opacity * progress) : p5.noStroke()
+  fill ? p5.fill(0, 0, 0, opacity * progress) : p5.noFill()
+  shapeCallback()
+}
