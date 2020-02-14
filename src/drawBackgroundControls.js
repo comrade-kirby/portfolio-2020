@@ -67,7 +67,7 @@ export const drawBackgroundControls = (p5, width, height, buttonParams) => {
         const maxRadius = 25
         const currentRadius = progress * maxRadius
 
-        p5.fill(0, 0, 100)
+        p5.fill(0, 0, 100, 90)
         p5.rect(xPosition, yPosition, width, height, currentRadius, 0, 0, currentRadius)
       }
 
@@ -176,7 +176,7 @@ export const drawBackgroundControls = (p5, width, height, buttonParams) => {
           const options = { stroke: true, opacity }
           transparentShape(p5, rectOutline, options)
 
-          p5.fill(0, 0, 100)
+          p5.fill(0, 0, 100, 90)
           p5.noStroke()
           p5.rect(xPosition - 11, yPosition - 6, 22, 12) // fill white
         }
@@ -236,7 +236,7 @@ export const drawBackgroundControls = (p5, width, height, buttonParams) => {
         p5.ellipse(xPosition, yPosition, size - 4 , size - 4 )
 
         // white outline
-        p5.stroke(0, 0, 100)
+        p5.stroke(0, 0, 100, 90)
         p5.noFill()
         p5.ellipse(xPosition, yPosition, size + 2, size + 2)
       }

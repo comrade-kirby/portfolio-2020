@@ -61,7 +61,7 @@ const drawTextBox = (p5, width, height, y, progress) => {
   
   p5.noStroke()
   p5.fill(0, 0, 100)
-  p5.rect(x, y, currentWidth, height, currentRadius, 0, 0, currentRadius)
+  p5.rect(x, y, currentWidth, height - 3, currentRadius, 0, 0, currentRadius)
 }
 
 const drawInfoIcon = (p5, x, y, hover) => {

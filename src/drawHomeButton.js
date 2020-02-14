@@ -31,9 +31,10 @@ const drawMaximizeIcon = (p5, x, y, hover) => {
     p5.rect(x, y, 10, 10)
     p5.line(x - 3, y - 3, x + 3, y - 3)
   }
-
+  
   const options = { stroke: true, opacity }
   transparentShape(p5, maximizeIcon, options)
+  p5.rectMode(p5.CORNER)
 }
 
 export default drawHomeButton
