@@ -29,18 +29,18 @@ const startPullValue = 0.1
 export const sizeValue = writable(.9)
 export const pullValue = writable(startPullValue)
 export const opacityValue = writable(.93)
-export const randomValue = writable(.5)
+export const autoValue = writable(.5)
 
 export const infoProgress = tweened(0, { easing: cubicIn })
 export const sizeProgress = tweened(0, { easing: cubicIn })
 export const pullProgress = tweened(0, { easing: cubicIn })
 export const opacityProgress = tweened(0, { easing: cubicIn })
-export const randomProgress = tweened(0, { easing: cubicIn })
+export const autoProgress = tweened(0, { easing: cubicIn })
 
 export const sizeHover = writable(false)
 export const pullHover = writable(false)
 export const opacityHover = writable(false)
-export const randomHover = writable(false)
+export const autoHover = writable(false)
 
 export const  circleLocation = spring({ x: 0, y: 0 }, {
   stiffness: logStiffness(startPullValue),
