@@ -1,4 +1,4 @@
-const primaryOpacity = 15
+const primaryOpacity = 20
 const hoverOpacity = 25
 
 export const transparentText = (p5, options) => {

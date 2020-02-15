@@ -53,7 +53,7 @@
   .content {
     position: relative;
     min-width: 600px;
-    min-height: 400px;
+    min-height: 500px;
     width: 50%;
     height: 50%;
   }

@@ -7,6 +7,7 @@
     drawCloseButton,
     drawContainer,
     eraseArea,
+    getOpacity,
     transparentText,
     transparentTitle,
     setupCanvas
@@ -25,8 +26,8 @@
       verticalAlignment: p5.BOTTOM,
       xPosition: 100,
       yPosition: 40,
-      width: contactWidth - 120,
-      height: contactHeight - 60
+      width: contactWidth - 140,
+      height: contactHeight - 80
     })
   }
 
@@ -64,10 +65,13 @@
     const rectHeight = 32
     const xPosition = contactWidth - rectWidth - 40
     const yPosition = contactHeight - 74
+    const opacity = getOpacity(hover)
     p5.erase()
     p5.rect(xPosition, yPosition, rectWidth, rectHeight)
     p5.noErase()
-    hover ? p5.fill(0, 0, 0, 20) : p5.fill(0, 0, 0, 15)
+    
+    // hover ? p5.fill(0, 0, 0, 20) : p5.fill(0, 0, 0, 15)
+    p5.fill(0, 0, 0, opacity)
     p5.rect(xPosition, yPosition, rectWidth, rectHeight)
 
     const buttonText = sending ? '...' : 'submit'

@@ -16,16 +16,55 @@
 
   const drawContent = (p5) => {
     transparentText(p5, {
-      text: "I create for the web.\n\nI am passionate about designing inovative and interactive experiences online and work to make the internet more fun.. more human. I value transparency, compassion, and curiosity above all else. I leverage animation and interaction design to build visually informative and joyful applications. Call on me for technical experience, creative direction, or general web consulting.",
+      text: "I create for the web.",
       textSize: 18,
-      horizontalAlignment: p5.RIGHT,
-      verticalAlignment: p5.BOTTOM,
+      horizontalAlignment: p5.LEFT,
+      verticalAlignment: p5.CENTER,
       xPosition: 100,
-      yPosition: 0,
-      width: aboutWidth - 140,
-      height: aboutHeight - 120
+      yPosition: aboutHeight - 390,
+      width: aboutWidth - 180,
+      height: 20
     })
-    p5.rect()
+    transparentText(p5, {
+      text: "I am passionate about designing inovative and interactive experiences and work to make the internet more fun, more accessible, more human",
+      textSize: 18,
+      horizontalAlignment: p5.LEFT,
+      verticalAlignment: p5.CENTER,
+      xPosition: 160,
+      yPosition: aboutHeight - 340,
+      width: aboutWidth - 200,
+      height: 60
+    })
+    transparentText(p5, {
+      text: "I value transparency, compassion, and curiosity",
+      textSize: 18,
+      horizontalAlignment: p5.LEFT,
+      verticalAlignment: p5.CENTER,
+      xPosition: 100,
+      yPosition: aboutHeight - 250,
+      width: aboutWidth - 140,
+      height: 20
+    })
+    transparentText(p5, {
+      text: "I leverage animation and interaction design to build visually informative and joyful applications",
+      textSize: 18,
+      horizontalAlignment: p5.LEFT,
+      verticalAlignment: p5.CENTER,
+      xPosition: 160,
+      yPosition: aboutHeight - 200,
+      width: aboutWidth - 200,
+      height: 40
+    })
+    transparentText(p5, {
+      text: "Call on me for technical experience, creative direction, and software consulting",
+      textSize: 18,
+      horizontalAlignment: p5.LEFT,
+      verticalAlignment: p5.CENTER,
+      xPosition: 100,
+      yPosition: aboutHeight - 130,
+      width: aboutWidth - 140,
+      height: 40
+    })
     transparentText(p5, {
       text: "Together we can build a better web :)",
       textSize: 18,
