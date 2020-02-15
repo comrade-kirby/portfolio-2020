@@ -16,14 +16,23 @@
 
   const drawContent = (p5) => {
     transparentText(p5, {
-      text: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam in nesciunt facilis. Aspernatur officia ratione laborum saepe aliquam, ut perspiciatis dolores a vitae facere veritatis suscipit, quas ipsum, ullam voluptate!',
+      text: "I create for the web.\n\nI am passionate about designing inovative and interactive experiences online and work to make the internet more fun.. more human. I value transparency, compassion, and curiosity above all else. I leverage animation and interaction design to build visually informative and joyful applications. Call on me for technical experience, creative direction, or general web consulting.",
       textSize: 18,
       horizontalAlignment: p5.RIGHT,
       verticalAlignment: p5.BOTTOM,
       xPosition: 100,
-      yPosition: 40,
-      width: aboutWidth - 120,
-      height: aboutHeight - 60
+      yPosition: 0,
+      width: aboutWidth - 140,
+      height: aboutHeight - 120
+    })
+    p5.rect()
+    transparentText(p5, {
+      text: "Together we can build a better web :)",
+      textSize: 18,
+      horizontalAlignment: p5.RIGHT,
+      verticalAlignment: p5.BOTTOM,
+      xPosition: aboutWidth - 40,
+      yPosition: aboutHeight - 40,
     })
   }
 
@@ -36,7 +45,7 @@
     p5.draw = () => {
       eraseArea(p5, 0, aboutWidth, aboutHeight)
       drawContainer(p5, aboutWidth, aboutHeight)
-      transparentTitle(p5, 'about')
+      transparentTitle(p5, "who am i? asking for a friend")
       drawContent(p5)
       drawCloseButton(p5, aboutWidth, $closeHover)
     }

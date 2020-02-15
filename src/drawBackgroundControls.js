@@ -102,8 +102,8 @@ export const drawBackgroundControls = (p5, width, height, buttonParams) => {
         case 'opacity':
           drawOpacityIcon(p5, xPosition, yPosition, value, hover)
           break
-        case 'random':
-          drawRandomIcon(p5, xPosition, yPosition, value, hover)
+        case 'auto':
+          drawAutoIcon(p5, xPosition, yPosition, value, hover)
           break
       }
     }
@@ -156,7 +156,7 @@ export const drawBackgroundControls = (p5, width, height, buttonParams) => {
         drawCircle(p5, xPosition, yPosition, 20, hover, opacity)
       }
 
-      const drawRandomIcon = (p5, xPosition, yPosition, value, hover) => {
+      const drawAutoIcon = (p5, xPosition, yPosition, value, hover) => {
         const opacity = getOpacity(hover)
       
         

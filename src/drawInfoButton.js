@@ -77,7 +77,7 @@ const drawTextBox = (p5, width, height, y, progress) => {
 
     // labels
     transparentText(p5, {
-      text: "size -\npull -\nopacity -\nrandom -",
+      text: "size -\npull -\nopacity -\nauto -",
       textSize: 16,
       textLeading: 32,
       horizontalAlignment: p5.RIGHT,

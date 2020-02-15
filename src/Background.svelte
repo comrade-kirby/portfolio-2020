@@ -12,13 +12,14 @@
     circleHue,
     sizeValue,
     opacityValue,
-		randomValue
+		autoValue
   } from './stores.js'
 
   const hueMaxValue = 360
   let interval
+  
   $: {
-    setRandomness($randomValue)
+    setAutoInterval($autoValue)
   }
 
   const generateCoordinates = (p5) => {
@@ -105,20 +106,20 @@
     }
   }
 
-  const setRandomCircleLocation = (divisions) => {
-    const randomNumber = () => { return Math.random() * divisions }
-    const xPosition = $screenWidth / divisions * randomNumber()
-    const yPosition = $screenHeight / divisions * randomNumber()
+  const setAutoCircleLocation = (divisions) => {
+    const autoNumber = () => { return Math.random() * divisions }
+    const xPosition = $screenWidth / divisions * autoNumber()
+    const yPosition = $screenHeight / divisions * autoNumber()
 
     circleLocation.set({ x: xPosition, y: yPosition })
   }
   
-  const setRandomness = (randomValue) => {
+  const setAutoInterval = (autoValue) => {
     clearInterval(interval)
-    if (randomValue == 0) { return }
+    if (autoValue == 0) { return }
     
-    const milliseconds = (1 - randomValue) * 5000
-    interval = setInterval(() => { setRandomCircleLocation(5) }, milliseconds)
+    const milliseconds = (1 - autoValue) * 5000
+    interval = setInterval(() => { setAutoCircleLocation(5) }, milliseconds)
   }
 
   onMount(async () => {

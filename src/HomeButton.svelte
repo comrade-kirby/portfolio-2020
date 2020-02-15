@@ -9,7 +9,7 @@
     sizeProgress,
     pullProgress,
     opacityProgress,
-    randomProgress 
+    autoProgress 
   } from './stores'
 
   let homeButtonWidth, homeButtonHeight
@@ -18,7 +18,7 @@
     sizeProgress,
     pullProgress,
     opacityProgress,
-    randomProgress ]
+    autoProgress ]
   
   const handleOpen = () => {
     open.set(true)

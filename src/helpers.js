@@ -41,8 +41,8 @@ export const transparentTitle = (p5, text) => {
     textSize: 24,
     horizontalAlignment: p5.LEFT,
     verticalAlignment: p5.TOP,
-    xPosition: 20,
-    yPosition: 20,
+    xPosition: 40,
+    yPosition: 40,
   })
 }
 

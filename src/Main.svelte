@@ -15,7 +15,7 @@
     sizeProgress,
     pullProgress,
     opacityProgress,
-    randomProgress,
+    autoProgress,
     closedOnce
   } from './stores.js'
 
@@ -25,7 +25,7 @@
       sizeProgress.set(1, { delay: 400 })
       pullProgress.set(1, { delay: 300 })
       opacityProgress.set(1, { delay: 200 })
-      randomProgress.set(1, { delay: 100 })
+      autoProgress.set(1, { delay: 100 })
     }
 
     closedOnce.set(true)
@@ -52,8 +52,8 @@
 
   .content {
     position: relative;
-    min-width: 375px;
-    min-height: 300px;
+    min-width: 600px;
+    min-height: 400px;
     width: 50%;
     height: 50%;
   }

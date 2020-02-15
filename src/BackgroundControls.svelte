@@ -9,15 +9,15 @@
     sizeValue,
     pullValue,
     opacityValue,
-    randomValue,
+    autoValue,
     sizeProgress,
     pullProgress,
     opacityProgress,
-    randomProgress,
+    autoProgress,
     sizeHover,
     pullHover,
     opacityHover,
-    randomHover
+    autoHover
   } from './stores.js'
 
   let controlsHeight, controlsWidth
@@ -37,13 +37,13 @@
     progressWritable: opacityProgress,
     hoverWritable: opacityHover
   }
-  let randomButtonParams = {
-    text: 'random',
-    progressWritable: randomProgress,
-    hoverWritable: randomHover
+  let autoButtonParams = {
+    text: 'auto',
+    progressWritable: autoProgress,
+    hoverWritable: autoHover
   }
 
-  let buttonParams = [sizeButtonParams, pullButtonParams, opacityButtonParams, randomButtonParams]
+  let buttonParams = [sizeButtonParams, pullButtonParams, opacityButtonParams, autoButtonParams]
 
   const setButtonParams = (text, progress, hover, value=null) => {
     const button = buttonParams.find(button => button.text == text)
@@ -65,7 +65,7 @@
   $: setButtonParams('size', $sizeProgress, $sizeHover, $sizeValue)
   $: setButtonParams('pull', $pullProgress, $pullHover, $pullValue)
   $: setButtonParams('opacity', $opacityProgress, $opacityHover, $opacityValue)
-  $: setButtonParams('random', $randomProgress, $randomHover, $randomValue)
+  $: setButtonParams('auto', $autoProgress, $autoHover, $autoValue)
 
   const handleClick = (buttonText) => {
     const button = buttonParams.find(button => button.text == buttonText)
@@ -102,7 +102,7 @@
     setButtonParams('size', $sizeProgress, $sizeHover, $sizeValue)
     setButtonParams('pull', $pullProgress, $pullHover, $pullValue)
     setButtonParams('opacity', $opacityProgress, $opacityHover, $opacityValue) 
-    setButtonParams('random', $randomProgress, $randomHover, $randomValue)
+    setButtonParams('auto', $autoProgress, $autoHover, $autoValue)
   })
 </script>
 
@@ -195,12 +195,12 @@
       min='0' max='1' step='0.01' 
       bind:value={$opacityValue} />
   {/if}
-  {#if $randomProgress}
+  {#if $autoProgress}
     <input 
       class='canvas-input'
       style='--bottom:30px'
       type='range'
       min='0' max='1' step='0.01' 
-      bind:value={$randomValue} />
+      bind:value={$autoValue} />
   {/if}
 </div>
