@@ -22,7 +22,7 @@
 
   .info-button-container {
     position: relative;
-    width: 540px;
+    width: 480px;
     height: 220px;
   }
 

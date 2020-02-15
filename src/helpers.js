@@ -13,11 +13,14 @@ export const transparentText = (p5, options) => {
     width,
     height,
     hover,
+    progress
   } = options
 
-  let erase = 255
+  let erase = 100
   let opacity = getOpacity(hover)
 
+  erase = progress ? erase * progress : erase
+  opacity = progress ? opacity * progress : opacity
   p5.textSize(textSize)
   p5.textLeading(textLeading)
   p5.textAlign(horizontalAlignment, verticalAlignment)
@@ -107,6 +110,7 @@ export const drawLabel = (p5, text, x, y, hover) => {
   transparentText(p5, {
     text: text,
     textSize: 16,
+    verticalAlignment: p5.CENTER,
     horizontalAlignment: p5.CENTER,
     xPosition: x,
     yPosition: y,

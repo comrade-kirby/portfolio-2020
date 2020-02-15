@@ -17,10 +17,10 @@ const drawInfoButton = (p5, width, height, infoParams) => {
   const containerX = width - containerWidth
   const centerX = width - 30
   
-  const titleY = 40
+  const titleY = 10
   const textBoxY = 1
-  const iconY = 180
-  const labelY = 210
+  const iconY = 170
+  const labelY = 200
   const dividerX = width - 60
   const dividerY = 219
 
@@ -42,6 +42,7 @@ const drawControlTitle = (p5, x, y, hover) => {
     text: verticalText,
     textSize: 24,
     textLeading: 22,
+    verticalAlignment: p5.TOP,
     horizontalAlignment: p5.CENTER,
     xPosition: x,
     yPosition: y,
@@ -58,7 +59,53 @@ const drawTextBox = (p5, width, height, y, progress) => {
   const x = maxWidth - currentWidth
   
   eraseArea(p5, y, maxWidth, height)
+  drawTextBoxBackground(p5, x, y, currentWidth, height, currentRadius)
   
+  if (progress) {
+    transparentText(p5, {
+      text: "The sliders below modify the background animation.",
+      textSize: 16,
+      textLeading: 32,
+      horizontalAlignment: p5.CENTER,
+      verticalAlignment: p5.TOP,
+      xPosition: x + 20,
+      yPosition: 40,
+      width: maxWidth - 30,
+      height: 80,
+      progress: progress
+    })
+
+    // labels
+    transparentText(p5, {
+      text: "size -\npull -\nopacity -\nrandom -",
+      textSize: 16,
+      textLeading: 32,
+      horizontalAlignment: p5.RIGHT,
+      verticalAlignment: p5.TOP,
+      xPosition: x + 40,
+      yPosition: 75,
+      width: maxWidth - 340,
+      height: height - 40,
+      progress: progress
+    })
+
+    // descriptions
+    transparentText(p5, {
+      text: "size of shapes\nattraction to cursor\nshape transparenty\nfrequency of simulated movement",
+      textSize: 16,
+      textLeading: 32,
+      horizontalAlignment: p5.LEFT,
+      verticalAlignment: p5.TOP,
+      xPosition: x + 120,
+      yPosition: 75,
+      width: maxWidth - 120,
+      height: height - 40,
+      progress: progress
+    })
+  }
+}
+
+const drawTextBoxBackground = (p5, x, y, currentWidth, height, currentRadius) => {
   p5.noStroke()
   p5.fill(0, 0, 100)
   p5.rect(x, y, currentWidth, height - 3, currentRadius, 0, 0, currentRadius)

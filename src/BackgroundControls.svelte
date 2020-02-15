@@ -87,7 +87,6 @@
     }
 
     p5.draw = () => {
-      console.log(controlsHeight)
       drawBackgroundControls(p5, controlsWidth, controlsHeight, buttonParams)
     }
 
