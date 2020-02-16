@@ -33,9 +33,14 @@
 </script>
 
 <style>
+	:global(*) {
+		font-family: 'Major Mono Display', monospace;
+	}
+	
 	:global(body) {
 		padding: 0;
 	}
+
 	div {
 		height: 100%;
 		width: 100%;

@@ -85,6 +85,7 @@ export const setupCanvas = (p5, width, height, parentId) => {
   const canvas = p5.createCanvas(width, height)
   canvas.parent(parentId)
   p5.colorMode(p5.HSL, 360, 100, 100, 100)
+  p5.textFont('Major Mono Display')
 }
 
 export const getOpacity = (hover) => hover ? hoverOpacity : primaryOpacity

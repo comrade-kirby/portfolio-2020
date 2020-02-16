@@ -33,7 +33,7 @@
     hoverWritable: pullHover
   }
   let opacityButtonParams = {
-    text: 'opacity',
+    text: 'thin',
     progressWritable: opacityProgress,
     hoverWritable: opacityHover
   }

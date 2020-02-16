@@ -40,14 +40,14 @@
     transparentText(p5, {
       text: 'name',
       xPosition: 0,
-      yPosition: contactHeight - 260,
+      yPosition: contactHeight - 253,
       width: textWidth,
       height: 20
     })
     transparentText(p5, {
       text: 'email',
       xPosition: 0,
-      yPosition: contactHeight - 216,
+      yPosition: contactHeight - 214,
       width: textWidth,
       height: 20
     })
@@ -70,7 +70,6 @@
     p5.rect(xPosition, yPosition, rectWidth, rectHeight)
     p5.noErase()
     
-    // hover ? p5.fill(0, 0, 0, 20) : p5.fill(0, 0, 0, 15)
     p5.fill(0, 0, 0, opacity)
     p5.rect(xPosition, yPosition, rectWidth, rectHeight)
 
@@ -88,7 +87,7 @@
   
     transparentText(p5, {
       text: errorMessage,
-      textSize: 14,
+      textSize: 12,
       horizontalAlignment: p5.CENTER,
       verticalAlignment: p5.CENTER,
       xPosition: contactWidth - rectWidth - 40,
@@ -107,7 +106,7 @@
     p5.draw = () => {
       eraseArea(p5, 0, contactWidth, contactHeight)
       drawContainer(p5, contactWidth, contactHeight)
-      transparentTitle(p5, 'how might we.. work together? :)')
+      transparentTitle(p5, 'how Might we.. work together? :)')
       drawCloseButton(p5, contactWidth, $closeHover)
       if (!messageSent) {
         drawLabels(p5)

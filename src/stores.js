@@ -10,7 +10,7 @@ export const longestScreenDimension = writable(0)
 export const scrollPosition = writable(0)
 export const open = writable(true)
 export const closeHover = writable(false)
-export const currentView = writable('about')
+export const currentView = writable('home')
 export const closedOnce = writable(false)
 
 
@@ -39,8 +39,8 @@ const configs = [
   [0.03, 0.72, 0.21, 0.98]
 ]
 
-// const autoConfig = configs[Math.floor(Math.random() * configs.length)]
-const autoConfig = [Math.random(), Math.random(), Math.random(), Math.random()]
+const autoConfig = configs[Math.floor(Math.random() * configs.length)]
+// const autoConfig = [Math.random(), Math.random(), Math.random(), Math.random()]
 
 export const sizeValue = writable(autoConfig[0])
 const startPullValue = autoConfig[1]

@@ -52,7 +52,7 @@
 
   .content {
     position: relative;
-    min-width: 600px;
+    min-width: 750px;
     min-height: 500px;
     width: 50%;
     height: 50%;
@@ -108,9 +108,9 @@
     {/if}
   </div>
   <div class='buttons'>
-    <button class='nav-button' class:active={$currentView == 'home'} on:click={() => $currentView = 'home'}>HOME</button>
-    <button class='nav-button' class:active={$currentView == 'about'} on:click={() => $currentView = 'about'}>ABOUT</button>
-    <button class='nav-button' class:active={$currentView == 'contact'} on:click={() => $currentView = 'contact'}>CONTACT</button>
+    <button class='nav-button' class:active={$currentView == 'home'} on:click={() => $currentView = 'home'}>home</button>
+    <button class='nav-button' class:active={$currentView == 'about'} on:click={() => $currentView = 'about'}>about</button>
+    <button class='nav-button' class:active={$currentView == 'contact'} on:click={() => $currentView = 'contact'}>contact</button>
   </div>
   {/if}
 </div>

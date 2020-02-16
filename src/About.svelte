@@ -16,48 +16,48 @@
 
   const drawContent = (p5) => {
     transparentText(p5, {
-      text: "I create for the web.",
-      textSize: 18,
+      text: "i CREATE for the web",
+      textSize: 16,
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.CENTER,
       xPosition: 100,
-      yPosition: aboutHeight - 390,
+      yPosition: aboutHeight - 400,
       width: aboutWidth - 180,
       height: 20
     })
     transparentText(p5, {
-      text: "I am passionate about designing inovative and interactive experiences and work to make the internet more fun, more accessible, more human",
-      textSize: 18,
+      text: "i leverage ANIMATION and INTERACTION design to build visually informative and joyful applications",
+      textSize: 16,
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.CENTER,
       xPosition: 160,
-      yPosition: aboutHeight - 340,
+      yPosition: aboutHeight - 360,
       width: aboutWidth - 200,
       height: 60
     })
     transparentText(p5, {
-      text: "I value transparency, compassion, and curiosity",
-      textSize: 18,
+      text: "i VALUE transparency, compassion, and curiosity",
+      textSize: 16,
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.CENTER,
       xPosition: 100,
-      yPosition: aboutHeight - 250,
+      yPosition: aboutHeight - 280,
       width: aboutWidth - 140,
       height: 20
     })
     transparentText(p5, {
-      text: "I leverage animation and interaction design to build visually informative and joyful applications",
-      textSize: 18,
+      text: "i am passionate about designing inovative and interactive experiences and work to make the internet more fun, more accessible, more HUMAN",
+      textSize: 16,
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.CENTER,
       xPosition: 160,
-      yPosition: aboutHeight - 200,
+      yPosition: aboutHeight - 240,
       width: aboutWidth - 200,
-      height: 40
+      height: 90
     })
     transparentText(p5, {
-      text: "Call on me for technical experience, creative direction, and software consulting",
-      textSize: 18,
+      text: "CALL ON ME for technical experience, creative direction, and software consulting",
+      textSize: 16,
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.CENTER,
       xPosition: 100,
@@ -66,8 +66,8 @@
       height: 40
     })
     transparentText(p5, {
-      text: "Together we can build a better web :)",
-      textSize: 18,
+      text: "together WE can build a better web :)",
+      textSize: 16,
       horizontalAlignment: p5.RIGHT,
       verticalAlignment: p5.BOTTOM,
       xPosition: aboutWidth - 40,
@@ -84,7 +84,7 @@
     p5.draw = () => {
       eraseArea(p5, 0, aboutWidth, aboutHeight)
       drawContainer(p5, aboutWidth, aboutHeight)
-      transparentTitle(p5, "who am i? asking for a friend")
+      transparentTitle(p5, "who aM i? asking for a friend")
       drawContent(p5)
       drawCloseButton(p5, aboutWidth, $closeHover)
     }
