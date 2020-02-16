@@ -57,7 +57,7 @@
   const setButtonYPositions = () => {
     buttonParams.forEach((button, index) => {
       const count = buttonParams.length - index - 1
-      const heightOffset = 45 + (count * 70)
+      const heightOffset = 65 + (count * 70)
       button.yPosition = controlsHeight - heightOffset
     })
   }
@@ -166,7 +166,7 @@
   {#each buttonParams as button, index}
     <button
       class='canvas-button'
-      style='--bottom:{(buttonParams.length - 1) * 70 - index * 70}px'
+      style='--bottom:{(buttonParams.length - 1) * 77 - index * 70}px'
       on:click={() => {handleClick(button.text)}} 
       on:mouseover={() => { handleHover(button.text, true) }}
       on:mouseout={() => { handleHover(button.text, false) }} />
@@ -174,7 +174,7 @@
   {#if $sizeProgress}
     <input 
       class='canvas-input'
-      style='--bottom:240px'
+      style='--bottom:258px'
       type='range'
       min='0' max='1' step='0.01' 
       bind:value={$sizeValue} />
@@ -182,7 +182,7 @@
   {#if $pullProgress}
     <input 
       class='canvas-input'
-      style='--bottom:170px'
+      style='--bottom:188px'
       type='range'
       min='0' max='1' step='0.01' 
       bind:value={$pullValue} />
@@ -190,7 +190,7 @@
   {#if $thinProgress}
     <input 
       class='canvas-input'
-      style='--bottom:100px'
+      style='--bottom:118px'
       type='range'
       min='0' max='1' step='0.01' 
       bind:value={$thinValue} />
@@ -198,7 +198,7 @@
   {#if $autoProgress}
     <input 
       class='canvas-input'
-      style='--bottom:30px'
+      style='--bottom:48px'
       type='range'
       min='0' max='1' step='0.01' 
       bind:value={$autoValue} />

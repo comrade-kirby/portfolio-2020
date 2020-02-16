@@ -21,10 +21,6 @@ export const drawBackgroundControls = (p5, width, height, buttonParams) => {
   })
 }
 
-  
-
-  
-
   const drawControlButton = (p5, width, params) => {
     const { text, value, yPosition, progress, hover } = params
     const centerX = width - 30
