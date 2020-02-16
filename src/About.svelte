@@ -16,7 +16,7 @@
 
   const drawContent = (p5) => {
     transparentText(p5, {
-      text: "i CREATE for the web",
+      text: "i create for the web",
       textSize: 16,
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.CENTER,
@@ -26,7 +26,7 @@
       height: 20
     })
     transparentText(p5, {
-      text: "i leverage ANIMATION and INTERACTION design to build visually informative and joyful applications",
+      text: "i leverage animation and interaction design to build visually informative and joyful applications",
       textSize: 16,
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.CENTER,
@@ -36,7 +36,7 @@
       height: 60
     })
     transparentText(p5, {
-      text: "i VALUE transparency, compassion, and curiosity",
+      text: "i value transparency, compassion, and curiosity",
       textSize: 16,
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.CENTER,
@@ -46,7 +46,7 @@
       height: 20
     })
     transparentText(p5, {
-      text: "i am passionate about designing inovative and interactive experiences and work to make the internet more fun, more accessible, more HUMAN",
+      text: "i am passionate about designing inovative and interactive experiences and work to make the internet more fun, more accessible, more human",
       textSize: 16,
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.CENTER,
@@ -56,7 +56,7 @@
       height: 90
     })
     transparentText(p5, {
-      text: "CALL ON ME for technical experience, creative direction, and software consulting",
+      text: "call on me for technical experience, creative direction, and software consulting",
       textSize: 16,
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.CENTER,
@@ -66,7 +66,7 @@
       height: 40
     })
     transparentText(p5, {
-      text: "together WE can build a better web :)",
+      text: "together we can build a better web :)",
       textSize: 16,
       horizontalAlignment: p5.RIGHT,
       verticalAlignment: p5.BOTTOM,
