@@ -8,7 +8,7 @@
     infoProgress,
     sizeProgress,
     pullProgress,
-    opacityProgress,
+    thinProgress,
     autoProgress 
   } from './stores'
 
@@ -17,7 +17,7 @@
   let buttonProgresses = [infoProgress,
     sizeProgress,
     pullProgress,
-    opacityProgress,
+    thinProgress,
     autoProgress ]
   
   const handleOpen = () => {

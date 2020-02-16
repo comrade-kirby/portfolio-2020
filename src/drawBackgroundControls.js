@@ -99,8 +99,8 @@ export const drawBackgroundControls = (p5, width, height, buttonParams) => {
         case 'pull':
           drawPullIcon(p5, xPosition, yPosition, value, hover)
           break
-        case 'opacity':
-          drawOpacityIcon(p5, xPosition, yPosition, value, hover)
+        case 'thin':
+          drawThinIcon(p5, xPosition, yPosition, value, hover)
           break
         case 'auto':
           drawAutoIcon(p5, xPosition, yPosition, value, hover)
@@ -150,7 +150,7 @@ export const drawBackgroundControls = (p5, width, height, buttonParams) => {
           transparentShape(p5, pointer, options)
         }
 
-      const drawOpacityIcon = (p5, xPosition, yPosition, value, hover) => {
+      const drawThinIcon = (p5, xPosition, yPosition, value, hover) => {
         const maxOpacity = 100
         const opacity = value * maxOpacity
         drawCircle(p5, xPosition, yPosition, 20, hover, opacity)

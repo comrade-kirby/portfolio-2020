@@ -14,7 +14,7 @@
     currentView,
     sizeProgress,
     pullProgress,
-    opacityProgress,
+    thinProgress,
     autoProgress,
     closedOnce
   } from './stores.js'
@@ -24,7 +24,7 @@
     if (!$closedOnce) {
       sizeProgress.set(1, { delay: 400 })
       pullProgress.set(1, { delay: 300 })
-      opacityProgress.set(1, { delay: 200 })
+      thinProgress.set(1, { delay: 200 })
       autoProgress.set(1, { delay: 100 })
     }
 

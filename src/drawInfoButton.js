@@ -63,8 +63,8 @@ const drawTextBox = (p5, width, height, y, progress) => {
   
   if (progress) {
     transparentText(p5, {
-      text: "The sliders below modify the background animation.",
-      textSize: 16,
+      text: "the sliders below modify the animation",
+      textSize: 12,
       textLeading: 32,
       horizontalAlignment: p5.CENTER,
       verticalAlignment: p5.TOP,
@@ -77,8 +77,8 @@ const drawTextBox = (p5, width, height, y, progress) => {
 
     // labels
     transparentText(p5, {
-      text: "size -\npull -\nopacity -\nauto -",
-      textSize: 16,
+      text: "size -\npull -\nthin -\nauto -",
+      textSize: 12,
       textLeading: 32,
       horizontalAlignment: p5.RIGHT,
       verticalAlignment: p5.TOP,
@@ -92,7 +92,7 @@ const drawTextBox = (p5, width, height, y, progress) => {
     // descriptions
     transparentText(p5, {
       text: "size of shapes\nattraction to cursor\nshape transparenty\nfrequency of simulated movement",
-      textSize: 16,
+      textSize: 12,
       textLeading: 32,
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.TOP,

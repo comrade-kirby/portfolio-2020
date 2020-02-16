@@ -8,15 +8,15 @@
     screenHeight,
     sizeValue,
     pullValue,
-    opacityValue,
+    thinValue,
     autoValue,
     sizeProgress,
     pullProgress,
-    opacityProgress,
+    thinProgress,
     autoProgress,
     sizeHover,
     pullHover,
-    opacityHover,
+    thinHover,
     autoHover
   } from './stores.js'
 
@@ -32,10 +32,10 @@
     progressWritable: pullProgress,
     hoverWritable: pullHover
   }
-  let opacityButtonParams = {
+  let thinButtonParams = {
     text: 'thin',
-    progressWritable: opacityProgress,
-    hoverWritable: opacityHover
+    progressWritable: thinProgress,
+    hoverWritable: thinHover
   }
   let autoButtonParams = {
     text: 'auto',
@@ -43,7 +43,7 @@
     hoverWritable: autoHover
   }
 
-  let buttonParams = [sizeButtonParams, pullButtonParams, opacityButtonParams, autoButtonParams]
+  let buttonParams = [sizeButtonParams, pullButtonParams, thinButtonParams, autoButtonParams]
 
   const setButtonParams = (text, progress, hover, value=null) => {
     const button = buttonParams.find(button => button.text == text)
@@ -64,7 +64,7 @@
   
   $: setButtonParams('size', $sizeProgress, $sizeHover, $sizeValue)
   $: setButtonParams('pull', $pullProgress, $pullHover, $pullValue)
-  $: setButtonParams('opacity', $opacityProgress, $opacityHover, $opacityValue)
+  $: setButtonParams('thin', $thinProgress, $thinHover, $thinValue)
   $: setButtonParams('auto', $autoProgress, $autoHover, $autoValue)
 
   const handleClick = (buttonText) => {
@@ -101,7 +101,7 @@
     setButtonYPositions()
     setButtonParams('size', $sizeProgress, $sizeHover, $sizeValue)
     setButtonParams('pull', $pullProgress, $pullHover, $pullValue)
-    setButtonParams('opacity', $opacityProgress, $opacityHover, $opacityValue) 
+    setButtonParams('thin', $thinProgress, $thinHover, $thinValue) 
     setButtonParams('auto', $autoProgress, $autoHover, $autoValue)
   })
 </script>
@@ -187,13 +187,13 @@
       min='0' max='1' step='0.01' 
       bind:value={$pullValue} />
   {/if}
-  {#if $opacityProgress}
+  {#if $thinProgress}
     <input 
       class='canvas-input'
       style='--bottom:100px'
       type='range'
       min='0' max='1' step='0.01' 
-      bind:value={$opacityValue} />
+      bind:value={$thinValue} />
   {/if}
   {#if $autoProgress}
     <input 

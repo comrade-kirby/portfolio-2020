@@ -11,7 +11,7 @@
     backgroundHue,
     circleHue,
     sizeValue,
-    opacityValue,
+    thinValue,
 		autoValue
   } from './stores.js'
 
@@ -73,7 +73,7 @@
     const strokeLightness = 97
     const strokeAlpha = 100
     const fillLightness = 85
-    const fillAlpha = 100 - $opacityValue * 100
+    const fillAlpha = 100 - $thinValue * 100
 
     p5.stroke($backgroundHue, saturation, strokeLightness, strokeAlpha);
     p5.strokeWeight(1)
