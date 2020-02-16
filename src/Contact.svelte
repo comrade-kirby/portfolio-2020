@@ -174,6 +174,7 @@
   input, textarea {
     width: 70%;
     margin-right: 40px;
+    font-family: 'Montserrat'
   }
 
   textarea {
