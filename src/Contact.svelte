@@ -40,14 +40,14 @@
     transparentText(p5, {
       text: 'name',
       xPosition: 0,
-      yPosition: contactHeight - 253,
+      yPosition: contactHeight - 258,
       width: textWidth,
       height: 20
     })
     transparentText(p5, {
       text: 'email',
       xPosition: 0,
-      yPosition: contactHeight - 214,
+      yPosition: contactHeight - 216,
       width: textWidth,
       height: 20
     })
@@ -174,7 +174,9 @@
   input, textarea {
     width: 70%;
     margin-right: 40px;
-    font-family: 'Montserrat'
+    font-family: 'Montserrat';
+    color: darkslategray;
+    background-color: transparent;
   }
 
   textarea {
