@@ -17,7 +17,7 @@
   .home-button-container {
     position: relative;
     width: 60px;
-    height: 80px;
+    height: 70px;
   }
 
   .info-button-container {

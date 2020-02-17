@@ -14,11 +14,13 @@
 
   let homeButtonWidth, homeButtonHeight
   let homeHover = false
-  let buttonProgresses = [infoProgress,
+  let buttonProgresses = [
+    infoProgress,
     sizeProgress,
     pullProgress,
     thinProgress,
-    autoProgress ]
+    autoProgress 
+  ]
   
   const handleOpen = () => {
     open.set(true)

@@ -79,7 +79,7 @@
     color: white;
     border: none;
     font-size: 24px;
-    text-shadow: 0px 0px 5px hsl(0, 0%, 0%, 15%);
+    text-shadow: 1px 1px 1px hsl(0, 0%, 0%, 40%);
   }
 
   .active {

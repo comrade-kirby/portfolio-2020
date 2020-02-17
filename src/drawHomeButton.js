@@ -8,7 +8,7 @@ import {
 
 const drawHomeButton = (p5, width, height, hover) => {
   const iconX = width / 2
-  const iconY = height / 3
+  const iconY = 25
   const labelX = width / 2
   const labelY = height - 20
   const dividerX = 0
