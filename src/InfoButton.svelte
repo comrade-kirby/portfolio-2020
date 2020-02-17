@@ -3,13 +3,18 @@
   import P5Canvas from './P5Canvas.svelte'
   import drawInfoButton from './drawInfoButton.js'
   import { setupCanvas } from './helpers'
-  import { infoProgress } from './stores.js'
+  import { infoProgress, open } from './stores.js'
 
   let infoButtonWidth, infoButtonHeight
 
   let infoParams = {
     progressWritable: infoProgress,
     hover: false
+  }
+
+  const handleClick = () => {
+    infoProgress.set($infoProgress ? 0 : 1)
+    open.set(false)
   }
 
   $: infoParams.progress = $infoProgress
@@ -53,6 +58,6 @@
 </div>
 <button
   class='info-button'
-  on:click={() => { infoProgress.set($infoProgress ? 0 : 1) }} 
+  on:click={handleClick} 
   on:mouseover={() => { infoParams.hover = true }}
   on:mouseout={() => { infoParams.hover = false }} />

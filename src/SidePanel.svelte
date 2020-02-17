@@ -33,7 +33,7 @@
   }
 </style>
 
-{#if !$open}
+<!-- {#if !$open} -->
   <div class='side-panel' transition:fade>
     <div class='home-button-container'>
       <HomeButton />
@@ -45,4 +45,4 @@
       <BackgroundControls />
     </div>
   </div>
-{/if}
+<!-- {/if} -->
