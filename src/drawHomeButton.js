@@ -28,8 +28,7 @@ const drawMaximizeIcon = (p5, x, y, hover) => {
   p5.rectMode(p5.CENTER)
   const maximizeIcon = () => {
     p5.rect(x, y, 20, 20)
-    p5.rect(x, y, 10, 10)
-    p5.line(x - 3, y - 3, x + 3, y - 3)
+    p5.line(x - 8, y - 6, x + 8, y - 6)
   }
   
   const options = { stroke: true, opacity }
