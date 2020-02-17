@@ -4,8 +4,8 @@
   import P5Canvas from './P5Canvas.svelte'
   import { closeHover } from './stores.js'
   import {
-    drawCloseButton,
     drawContainer,
+    drawXIcon,
     eraseArea,
     getOpacity,
     transparentText,
@@ -107,7 +107,7 @@
       eraseArea(p5, 0, contactWidth, contactHeight)
       drawContainer(p5, contactWidth, contactHeight)
       transparentTitle(p5, 'how Might we.. work together? :)')
-      drawCloseButton(p5, contactWidth, $closeHover)
+      drawXIcon(p5, contactWidth - 50, 50, $closeHover)
       if (!messageSent) {
         drawLabels(p5)
         drawSubmitButton(p5)
@@ -177,6 +177,7 @@
     font-family: 'Montserrat';
     color: darkslategray;
     background-color: transparent;
+    border-radius: 0;
   }
 
   textarea {

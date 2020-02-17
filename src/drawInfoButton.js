@@ -28,7 +28,7 @@ const drawInfoButton = (p5, width, height, infoParams) => {
   drawControlTitle(p5, centerX, titleY, hover)
   drawTextBox(p5, width, height, textBoxY, progress)
   if (progress && hover) {
-    drawXIcon(p5, centerX, iconY, progress)
+    drawXIcon(p5, centerX, iconY, true, progress)
   } else {
     drawInfoIcon(p5, centerX, iconY, hover)
   }

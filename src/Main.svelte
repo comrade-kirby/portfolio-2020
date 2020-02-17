@@ -60,10 +60,10 @@
 
   .close-button {
     position: absolute;
-    right: 20px;
-    top: 18px;
-    height: 25px;
-    width: 25px;
+    right: 30px;
+    top: 30px;
+    height: 40px;
+    width: 40px;
     z-index: 1;
     opacity: 0;
   }

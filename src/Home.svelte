@@ -3,8 +3,8 @@
   import P5Canvas from './P5Canvas.svelte'
   import { closeHover } from './stores.js'
   import {
-    drawCloseButton,
     drawContainer,
+    drawXIcon,
     eraseArea,
     setupCanvas,
     transparentText,
@@ -33,7 +33,8 @@
       drawContainer(p5, homeWidth, homeHeight)
       transparentTitle(p5, 'developMent | design | consulting')
       drawName(p5)
-      drawCloseButton(p5, homeWidth, $closeHover)
+      // console.log($closeHover)
+      drawXIcon(p5, homeWidth - 50, 50, $closeHover)
     }
 
     p5.windowResized = () => {

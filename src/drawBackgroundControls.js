@@ -29,7 +29,7 @@ export const drawBackgroundControls = (p5, width, height, buttonParams) => {
     drawLabel(p5, text, centerX, labelY, hover)
     
     if (hover && progress) {
-      drawXIcon(p5, centerX, yPosition, progress)
+      drawXIcon(p5, centerX, yPosition, true, progress)
     } else if (progress) {
       transparentText(p5, {
         text: (value * 100).toFixed(0),

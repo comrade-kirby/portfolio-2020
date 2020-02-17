@@ -5,7 +5,7 @@
   import { closeHover } from './stores.js'
   import { 
     drawContainer,
-    drawCloseButton,
+    drawXIcon,
     eraseArea,
     transparentText,
     transparentTitle,
@@ -86,7 +86,7 @@
       drawContainer(p5, aboutWidth, aboutHeight)
       transparentTitle(p5, "who aM i? asking for a friend")
       drawContent(p5)
-      drawCloseButton(p5, aboutWidth, $closeHover)
+      drawXIcon(p5, aboutWidth - 50, 50, $closeHover)
     }
 
     p5.windowResized = () => {

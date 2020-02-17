@@ -52,25 +52,6 @@ export const drawContainer = (p5, width, height, xPosition = 0) => {
   p5.rect(xPosition, 0, width, height)
 }
 
-export const drawCloseButton = (p5, width, hover) => {
-  const xPosition = width - 40
-  const yPosition = 20
-  const opacity = getOpacity(hover)
-
-  p5.strokeWeight(2)
-  p5.stroke(0, 0, 0, opacity)
-  p5.erase(0, 255)
-  p5.line(xPosition + 5, yPosition + 5, xPosition + 15, yPosition + 15)
-  p5.line(xPosition + 5, yPosition + 15, xPosition + 15, yPosition + 5)
-  p5.rect(xPosition, yPosition, 20, 20)
-  p5.noErase()
-  
-  p5.noFill()
-  p5.line(xPosition + 5, yPosition + 5, xPosition + 15, yPosition + 15)
-  p5.line(xPosition + 5, yPosition + 15, xPosition + 15, yPosition + 5)
-  p5.rect(xPosition, yPosition, 20, 20)
-}
-
 export const logStiffness = (value) => {
   const stiffnessMinPower = - 6
   return 10 ** ((1 - value) * stiffnessMinPower)
@@ -139,9 +120,9 @@ export const eraseArea = (p5, y, width, height) => {
   transparentShape(p5, sliderArea, sliderOptions)
 }
 
-export const drawXIcon = (p5, x, y, progress) => {
-  const opacity = getOpacity(true) * progress
-  
+export const drawXIcon = (p5, x, y, hover, progress=1) => {
+
+  const opacity = getOpacity(hover) * progress
   p5.strokeWeight(2)
   const xIcon = () => {
     p5.line(x - 10, y - 10, x + 10, y + 10)
