@@ -3,7 +3,6 @@
   import BackgroundControls from './BackgroundControls.svelte'
   import HomeButton from './HomeButton.svelte'
   import InfoButton from './InfoButton.svelte'
-  import { open } from './stores'
 </script>
 
 <style>
@@ -33,16 +32,14 @@
   }
 </style>
 
-<!-- {#if !$open} -->
-  <div class='side-panel' transition:fade>
-    <div class='home-button-container'>
-      <HomeButton />
-    </div>
-    <div class='info-button-container'>
-      <InfoButton />
-    </div>
-    <div class='controls-container'>
-      <BackgroundControls />
-    </div>
+<div class='side-panel' transition:fade>
+  <div class='home-button-container'>
+    <HomeButton />
   </div>
-<!-- {/if} -->
+  <div class='info-button-container'>
+    <InfoButton />
+  </div>
+  <div class='controls-container'>
+    <BackgroundControls />
+  </div>
+</div>

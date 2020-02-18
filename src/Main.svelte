@@ -1,22 +1,21 @@
 <script>
   import { fade } from 'svelte/transition'
 
-  import { open } from './stores.js'
+  import { mobileLayout, open } from './stores.js'
   import Home from './Home.svelte'
   import About from './About.svelte'
   import Contact from './Contact.svelte'
   import SidePanel from './SidePanel.svelte'
-
   import { 
     screenHeight,
-    scrollPosition,
     closeHover,
+    closedOnce,
     currentView,
+    smallDimensions,
     sizeProgress,
     pullProgress,
     thinProgress,
     autoProgress,
-    closedOnce
   } from './stores.js'
 
   const handleClose = () => {
@@ -52,7 +51,7 @@
 
   .content {
     position: relative;
-    min-width: 750px;
+    min-width: var(--minWidth);
     min-height: 500px;
     width: 50%;
     height: 50%;
@@ -80,6 +79,7 @@
     border: none;
     font-size: 24px;
     text-shadow: 1px 1px 1px hsl(0, 0%, 0%, 40%);
+    z-index: 1;
   }
 
   .active {
@@ -89,11 +89,13 @@
 </style>
 
 <div class='main'>
-  <div class='side-panel'>
-    <SidePanel />
-  </div>
+  {#if !$mobileLayout || !$open}
+    <div class='side-panel'>
+      <SidePanel />
+    </div>
+  {/if}
   {#if $open}
-  <div class='content'>
+  <div class='content' style='--minWidth:{$smallDimensions ? 350 : 750}px'>
     <button 
       class='close-button'
       on:click={handleClose} 

@@ -5,17 +5,19 @@
 	import Main from './Main.svelte'
 	import About from './About.svelte'
 	import { logStiffness, logDamping } from './helpers.js'
-	import { screenHeight,
-		screenWidth,
-		longestScreenDimension,
+	import { 
 		circleLocation,
-		scrollPosition,
-		pullValue
+		longestScreenDimension,
+		mobileLayout,
+		pullValue,
+		screenHeight,
+		screenWidth,
+		smallDimensions
 	} from './stores.js'
 
 	let canvasHeight
 	let canvasWidth
-	let scroll
+	
 	const handleMouseMove = (e) => {
 		circleLocation.set({ x: e.clientX, y: e.clientY })
 		circleLocation.stiffness = logStiffness($pullValue)
@@ -25,7 +27,8 @@
 	afterUpdate(() => {
 		screenHeight.set(canvasHeight)	 
 		screenWidth.set(canvasWidth)	 
-		scrollPosition.set(scroll)
+		canvasWidth < 1000 ? mobileLayout.set(true) : mobileLayout.set(false)
+		canvasWidth < 750 ? smallDimensions.set(true) : smallDimensions.set(false)
 
 		const longestDimension = $screenWidth >= $screenHeight ? $screenWidth : $screenHeight
 		longestScreenDimension.set(longestDimension)
@@ -47,7 +50,6 @@
 	}
 </style>
 
-<svelte:window bind:scrollY={scroll}/>
 <div 
 	class='index-container'
 	bind:clientHeight={canvasHeight}

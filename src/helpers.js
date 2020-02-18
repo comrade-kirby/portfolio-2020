@@ -35,14 +35,17 @@ export const transparentText = (p5, options) => {
   p5.text(text, xPosition, yPosition, width, height)
 }
 
-export const transparentTitle = (p5, text) => {
+export const transparentTitle = (p5, text, smallDimensions) => {
+  const size = smallDimensions ? 11 : 24
+  const margin = smallDimensions ? 20 : 40
+
   transparentText(p5, {
     text: text,
-    textSize: 24,
+    textSize: size,
     horizontalAlignment: p5.LEFT,
     verticalAlignment: p5.TOP,
-    xPosition: 40,
-    yPosition: 40,
+    xPosition: margin,
+    yPosition: margin,
   })
 }
 
@@ -50,16 +53,6 @@ export const drawContainer = (p5, width, height, xPosition = 0) => {
   p5.fill(0, 0, 100, 90)
   p5.noStroke()
   p5.rect(xPosition, 0, width, height)
-}
-
-export const logStiffness = (value) => {
-  const stiffnessMinPower = - 6
-  return 10 ** ((1 - value) * stiffnessMinPower)
-}
-
-export const logDamping = (value) => {
-  const dampingMinPower = - 4
-  return 10 ** ((1 - value) * dampingMinPower)
 }
 
 export const setupCanvas = (p5, width, height, parentId) => {
@@ -121,8 +114,8 @@ export const eraseArea = (p5, y, width, height) => {
 }
 
 export const drawXIcon = (p5, x, y, hover, progress=1) => {
-
   const opacity = getOpacity(hover) * progress
+
   p5.strokeWeight(2)
   const xIcon = () => {
     p5.line(x - 10, y - 10, x + 10, y + 10)
@@ -131,4 +124,18 @@ export const drawXIcon = (p5, x, y, hover, progress=1) => {
 
   const options = { stroke: true, opacity }
   transparentShape(p5, xIcon, options)
+}
+
+export const logStiffness = (value) => {
+  const stiffnessMinPower = - 6
+  return 10 ** ((1 - value) * stiffnessMinPower)
+}
+
+export const logDamping = (value) => {
+  const dampingMinPower = - 4
+  return 10 ** ((1 - value) * dampingMinPower)
+}
+
+export const closeButtonMargin = (smallDimensions) => {
+  return smallDimensions ? 30 : 50
 }

@@ -7,12 +7,12 @@ import { logStiffness, logDamping } from './helpers.js'
 export const screenHeight = writable(0)
 export const screenWidth = writable(0)
 export const longestScreenDimension = writable(0)
-export const scrollPosition = writable(0)
 export const open = writable(true)
 export const closeHover = writable(false)
 export const currentView = writable('home')
 export const closedOnce = writable(false)
-
+export const mobileLayout = writable(true)
+export const smallDimensions = writable(false)
 
 export const circleHue = tweened(90, {
   duration: 3000,
@@ -47,12 +47,6 @@ const startPullValue = autoConfig[1]
 export const pullValue = writable(startPullValue)
 export const thinValue = writable(autoConfig[2])
 export const autoValue = writable(autoConfig[3])
-
-// export const sizeValue = writable(.9)
-// const startPullValue = 0.1
-// export const pullValue = writable(startPullValue)
-// export const thinValue = writable(.93)
-// export const autoValue = writable(.5)
 
 export const infoProgress = tweened(0, { easing: cubicIn })
 export const sizeProgress = tweened(0, { easing: cubicIn })

@@ -1,8 +1,9 @@
 <script>
   import { fade } from 'svelte/transition'
   import P5Canvas from './P5Canvas.svelte'
-  import { closeHover } from './stores.js'
+  import { closeHover, smallDimensions } from './stores.js'
   import {
+    closeButtonMargin,
     drawContainer,
     drawXIcon,
     eraseArea,
@@ -14,27 +15,29 @@
   let homeHeight, homeWidth
 
   const drawName = (p5) => {
-    p5.textSize(40)
+    const textSize = smallDimensions ? 36 : 40
+    const margin = smallDimensions ? 20 : 40
+    
+    p5.textSize(textSize)
     p5.textAlign(p5.RIGHT, p5.BOTTOM)
-    transparentText(p5, { text: 'Max', xPosition: homeWidth - 40, yPosition: homeHeight - 120 })
-    transparentText(p5, { text: 'houston', xPosition: homeWidth - 40, yPosition: homeHeight - 80 })
-    transparentText(p5, { text: 'oppenheiMer', xPosition: homeWidth - 40, yPosition: homeHeight - 40 })
+    transparentText(p5, { text: 'Max', xPosition: homeWidth - margin, yPosition: homeHeight - margin - 80 })
+    transparentText(p5, { text: 'houston', xPosition: homeWidth - margin, yPosition: homeHeight - margin - 40 })
+    transparentText(p5, { text: 'oppenheiMer', xPosition: homeWidth - margin, yPosition: homeHeight - margin })
   }
 
   const sketch = (p5) => {
 	  p5.setup = () => {
       setupCanvas(p5, homeWidth, homeHeight, 'home')
       p5.frameRate(10)
-
     }
     
     p5.draw = () => {
       eraseArea(p5, 0, homeWidth, homeHeight)
       drawContainer(p5, homeWidth, homeHeight)
-      transparentTitle(p5, 'developMent | design | consulting')
+      transparentTitle(p5, 'developMent | design | consulting', $smallDimensions)
       drawName(p5)
-      // console.log($closeHover)
-      drawXIcon(p5, homeWidth - 50, 50, $closeHover)
+      const margin = closeButtonMargin($smallDimensions)
+      drawXIcon(p5, homeWidth - margin, margin, $closeHover)
     }
 
     p5.windowResized = () => {
