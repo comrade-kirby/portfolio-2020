@@ -95,7 +95,7 @@
     </div>
   {/if}
   {#if $open}
-  <div class='content' style='--minWidth:{$smallDimensions ? 350 : 750}px; --screenPercentage:{$smallDimensions ? 75 : 50}%'>
+  <div class='content' style='--minWidth:{$smallDimensions ? 350 : 700}px; --screenPercentage:{$smallDimensions ? 75 : 50}%'>
     <button 
       class='close-button'
       style='--position:{$smallDimensions ? 10 : 30}px'
