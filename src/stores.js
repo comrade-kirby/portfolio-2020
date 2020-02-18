@@ -12,7 +12,7 @@ export const closeHover = writable(false)
 export const currentView = writable('home')
 export const closedOnce = writable(false)
 export const mobileLayout = writable(true)
-export const smallDimensions = writable(false)
+export const smallDimensions = writable(true)
 
 export const circleHue = tweened(90, {
   duration: 3000,

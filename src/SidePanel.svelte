@@ -3,6 +3,7 @@
   import BackgroundControls from './BackgroundControls.svelte'
   import HomeButton from './HomeButton.svelte'
   import InfoButton from './InfoButton.svelte'
+  import { smallDimensions } from './stores.js'
 </script>
 
 <style>
@@ -21,7 +22,7 @@
 
   .info-button-container {
     position: relative;
-    width: 480px;
+    width: var(--infoWidth);
     height: 220px;
   }
 
@@ -36,7 +37,8 @@
   <div class='home-button-container'>
     <HomeButton />
   </div>
-  <div class='info-button-container'>
+  <div class='info-button-container' 
+    style='--infoWidth:{$smallDimensions ? 375 : 480}px'>
     <InfoButton />
   </div>
   <div class='controls-container'>

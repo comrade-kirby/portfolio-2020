@@ -26,7 +26,7 @@ const drawInfoButton = (p5, width, height, infoParams, smallDimensions) => {
 
   drawContainer(p5, containerWidth, height, containerX)
   drawControlTitle(p5, centerX, titleY, hover)
-  drawTextBox(p5, width, height, textBoxY, progress)
+  drawTextBox(p5, width, height, textBoxY, progress, smallDimensions)
   if (progress && hover) {
     drawXIcon(p5, centerX, iconY, true, progress)
   } else {
@@ -50,7 +50,8 @@ const drawControlTitle = (p5, x, y, hover) => {
   })
 }
 
-const drawTextBox = (p5, width, height, y, progress) => {
+const drawTextBox = (p5, width, height, y, progress, smallDimensions) => {
+
   const maxWidth = width - 60
   const maxRadius = 25
 
@@ -62,15 +63,23 @@ const drawTextBox = (p5, width, height, y, progress) => {
   drawTextBoxBackground(p5, x, y, currentWidth, height, currentRadius)
   
   if (progress) {
+    const textSize = smallDimensions ? 10 : 12
+    const headerWidth = maxWidth - (smallDimensions ? 0 : 30)
+    const labelWidth = maxWidth - (smallDimensions ? 260 : 340)
+    const descriptionWidth = maxWidth - (smallDimensions ? 40 : 120)
+    
+    const headerX = smallDimensions ? x + 5 : x + 20
+    const labelX = smallDimensions ? x + 25 : x + 40
+    const descriptionX = smallDimensions ? x + 80 : x + 120
     transparentText(p5, {
       text: "the sliders below modify the animation",
-      textSize: 12,
+      textSize: textSize,
       textLeading: 32,
       horizontalAlignment: p5.CENTER,
       verticalAlignment: p5.TOP,
-      xPosition: x + 20,
+      xPosition: headerX,
       yPosition: 40,
-      width: maxWidth - 30,
+      width: headerWidth,
       height: 80,
       progress: progress
     })
@@ -78,13 +87,13 @@ const drawTextBox = (p5, width, height, y, progress) => {
     // labels
     transparentText(p5, {
       text: "size -\npull -\nthin -\nauto -",
-      textSize: 12,
+      textSize: textSize,
       textLeading: 32,
       horizontalAlignment: p5.RIGHT,
       verticalAlignment: p5.TOP,
-      xPosition: x + 40,
+      xPosition: labelX,
       yPosition: 75,
-      width: maxWidth - 340,
+      width: labelWidth,
       height: height - 40,
       progress: progress
     })
@@ -92,13 +101,13 @@ const drawTextBox = (p5, width, height, y, progress) => {
     // descriptions
     transparentText(p5, {
       text: "size of shapes\nattraction to cursor\nshape transparenty\nfrequency of simulated movement",
-      textSize: 12,
+      textSize: textSize,
       textLeading: 32,
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.TOP,
-      xPosition: x + 120,
+      xPosition: descriptionX,
       yPosition: 75,
-      width: maxWidth - 120,
+      width: descriptionWidth,
       height: height - 40,
       progress: progress
     })
