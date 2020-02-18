@@ -59,8 +59,8 @@
 
   .close-button {
     position: absolute;
-    right: 30px;
-    top: 30px;
+    right: var(--position);
+    top: var(--position);
     height: 40px;
     width: 40px;
     z-index: 1;
@@ -77,7 +77,7 @@
     background: none;
     color: white;
     border: none;
-    font-size: 24px;
+    font-size: var(--size);
     text-shadow: 1px 1px 1px hsl(0, 0%, 0%, 40%);
     z-index: 1;
   }
@@ -98,6 +98,7 @@
   <div class='content' style='--minWidth:{$smallDimensions ? 350 : 750}px'>
     <button 
       class='close-button'
+      style='--position:{$smallDimensions ? 10 : 30}px'
       on:click={handleClose} 
       on:mouseover={() => { $closeHover = true }}
       on:mouseout={() => { $closeHover = false }} />
@@ -109,7 +110,7 @@
       <Contact />
     {/if}
   </div>
-  <div class='buttons'>
+  <div class='buttons' style='--size:{ $smallDimensions ? 18 : 24 }px'>
     <button class='nav-button' class:active={$currentView == 'home'} on:click={() => $currentView = 'home'}>home</button>
     <button class='nav-button' class:active={$currentView == 'about'} on:click={() => $currentView = 'about'}>about</button>
     <button class='nav-button' class:active={$currentView == 'contact'} on:click={() => $currentView = 'contact'}>contact</button>

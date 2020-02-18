@@ -16,7 +16,7 @@
   let aboutHeight, aboutWidth
 
   const drawContent = (p5) => {
-    const textSize = $smallDimensions ? 10 : 16
+    const textSize = $smallDimensions ? 12 : 16
     const margin = $smallDimensions ? 20 : 40
     const leftX = $smallDimensions ? 50 : 100
     const rightX = $smallDimensions ? 100 : 160
@@ -77,10 +77,12 @@
     transparentText(p5, {
       text: "together we can build a better web :)",
       textSize: textSize,
-      horizontalAlignment: p5.RIGHT,
-      verticalAlignment: p5.BOTTOM,
-      xPosition: aboutWidth - margin,
-      yPosition: aboutHeight - margin,
+      horizontalAlignment: p5.LEFT,
+      verticalAlignment: p5.CENTER,
+      xPosition: rightX,
+      yPosition: aboutHeight - margin - 40,
+      width: rightWidth,
+      height: 40
     })
   }
 
