@@ -30,7 +30,7 @@
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.CENTER,
       xPosition: leftX,
-      yPosition: aboutHeight - margin - 360,
+      yPosition: aboutHeight - margin - 380,
       width: leftWidth,
       height: 20
     })
@@ -40,7 +40,7 @@
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.CENTER,
       xPosition: rightX,
-      yPosition: aboutHeight - margin - 320,
+      yPosition: aboutHeight - margin - 340,
       width: rightWidth,
       height: 60
     })
@@ -50,7 +50,7 @@
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.CENTER,
       xPosition: leftX,
-      yPosition: aboutHeight - margin - 250,
+      yPosition: aboutHeight - margin - 270,
       width: leftWidth,
       height: 40
     })
@@ -60,7 +60,7 @@
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.CENTER,
       xPosition: rightX,
-      yPosition: aboutHeight - margin - 200,
+      yPosition: aboutHeight - margin - 220,
       width: rightWidth,
       height: 90
     })
@@ -70,14 +70,14 @@
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.CENTER,
       xPosition: leftX,
-      yPosition: aboutHeight - margin - 90,
+      yPosition: aboutHeight - margin -110,
       width: leftWidth,
-      height: 40
+      height: 60
     })
     transparentText(p5, {
       text: "together we can build a better web :)",
       textSize: textSize,
-      horizontalAlignment: p5.LEFT,
+      horizontalAlignment: p5.RIGHT,
       verticalAlignment: p5.CENTER,
       xPosition: rightX,
       yPosition: aboutHeight - margin - 40,

@@ -65,6 +65,7 @@
   }
   
   const drawSubmitButton = (p5) => {
+    const textSize = $smallDimensions ? 12 : 20
     const margin = $smallDimensions ? 20 : 40
     const rectWidth = contactWidth * 0.70
     const rectHeight = 32
@@ -82,7 +83,7 @@
 
     p5.fill(50, 50, 100)
     p5.noStroke()
-    p5.textSize(20)
+    p5.textSize(textSize)
     p5.textAlign(p5.CENTER, p5.CENTER)
     p5.text(buttonText, xPosition, yPosition, rectWidth, rectHeight)
   }
