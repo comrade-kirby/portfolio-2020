@@ -6,6 +6,7 @@
   import { setupCanvas } from './helpers'
   import { 
     screenHeight,
+    smallDimensions,
     sizeValue,
     pullValue,
     thinValue,
@@ -87,7 +88,7 @@
     }
 
     p5.draw = () => {
-      drawBackgroundControls(p5, controlsWidth, controlsHeight, buttonParams)
+      drawBackgroundControls(p5, controlsWidth, controlsHeight, buttonParams, smallDimensions)
     }
 
     p5.windowResized = () => {

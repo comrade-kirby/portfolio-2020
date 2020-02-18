@@ -53,7 +53,7 @@
     position: relative;
     min-width: var(--minWidth);
     min-height: 500px;
-    width: 50%;
+    width: var(--screenPercentage);
     height: 50%;
   }
 
@@ -95,7 +95,7 @@
     </div>
   {/if}
   {#if $open}
-  <div class='content' style='--minWidth:{$smallDimensions ? 350 : 750}px'>
+  <div class='content' style='--minWidth:{$smallDimensions ? 350 : 750}px; --screenPercentage:{$smallDimensions ? 75 : 50}%'>
     <button 
       class='close-button'
       style='--position:{$smallDimensions ? 10 : 30}px'

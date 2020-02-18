@@ -9,7 +9,7 @@ import {
   transparentText
 } from './helpers'
 
-const drawInfoButton = (p5, width, height, infoParams) => {
+const drawInfoButton = (p5, width, height, infoParams, smallDimensions) => {
   const hover = infoParams.hover
   const progress = infoParams.progress
 
@@ -32,7 +32,7 @@ const drawInfoButton = (p5, width, height, infoParams) => {
   } else {
     drawInfoIcon(p5, centerX, iconY, hover)
   }
-  drawLabel(p5, 'info', centerX, labelY, hover)
+  drawLabel(p5, 'info', centerX, labelY, hover, smallDimensions)
   drawDivider(p5, dividerX, dividerY, hover)
 }
 

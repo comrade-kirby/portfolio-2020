@@ -10,23 +10,23 @@ import {
   transparentText
 } from './helpers'
 
-export const drawBackgroundControls = (p5, width, height, buttonParams) => {
+export const drawBackgroundControls = (p5, width, height, buttonParams, smallDimensions) => {
   const containerWidth = 60
   const containerX = width - containerWidth
   eraseArea(p5, 0, width, height)
   drawContainer(p5, containerWidth, height, containerX)
 
   buttonParams.forEach(button => {
-    drawControlButton(p5, width, button)
+    drawControlButton(p5, width, button, smallDimensions)
   })
 }
 
-  const drawControlButton = (p5, width, params) => {
+  const drawControlButton = (p5, width, params, smallDimensions) => {
     const { text, value, yPosition, progress, hover } = params
     const centerX = width - 30
     const valueY = yPosition + 5
     const labelY = yPosition + 30
-    drawLabel(p5, text, centerX, labelY, hover)
+    drawLabel(p5, text, centerX, labelY, hover, smallDimensions)
     
     if (hover && progress) {
       drawXIcon(p5, centerX, yPosition, true, progress)

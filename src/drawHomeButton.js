@@ -6,7 +6,7 @@ import {
   transparentShape 
 } from './helpers'
 
-const drawHomeButton = (p5, width, height, hover) => {
+const drawHomeButton = (p5, width, height, hover, smallDimensions) => {
   const iconX = width / 2
   const iconY = 25
   const labelX = width / 2
@@ -16,7 +16,7 @@ const drawHomeButton = (p5, width, height, hover) => {
   
   drawContainer(p5, width, height)
   drawMaximizeIcon(p5, iconX, iconY, hover)
-  drawLabel(p5, 'home', labelX, labelY, hover)
+  drawLabel(p5, 'home', labelX, labelY, hover, smallDimensions)
   drawDivider(p5, dividerX, dividerY, hover)
 }
 

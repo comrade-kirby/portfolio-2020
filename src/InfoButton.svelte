@@ -3,7 +3,7 @@
   import P5Canvas from './P5Canvas.svelte'
   import drawInfoButton from './drawInfoButton.js'
   import { setupCanvas } from './helpers'
-  import { infoProgress, open } from './stores.js'
+  import { infoProgress, open, smallDimensions } from './stores.js'
 
   let infoButtonWidth, infoButtonHeight
 
@@ -25,7 +25,7 @@
     }
 
     p5.draw = () => {
-      drawInfoButton(p5, infoButtonWidth, infoButtonHeight, infoParams)
+      drawInfoButton(p5, infoButtonWidth, infoButtonHeight, infoParams, $smallDimensions)
     }
   }
 
