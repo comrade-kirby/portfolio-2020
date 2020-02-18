@@ -140,3 +140,10 @@ export const logDamping = (value) => {
 export const closeButtonMargin = (smallDimensions) => {
   return smallDimensions ? 30 : 50
 }
+
+export const openControlButtons = (controlButtons) => {
+  controlButtons.forEach((button, index) => {
+    const delay = (controlButtons.length - index) * 100
+    button.set(1, { delay })
+  })
+}

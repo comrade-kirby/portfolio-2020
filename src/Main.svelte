@@ -1,33 +1,32 @@
 <script>
   import { fade } from 'svelte/transition'
 
-  import { mobileLayout, open } from './stores.js'
   import Home from './Home.svelte'
   import About from './About.svelte'
   import Contact from './Contact.svelte'
   import SidePanel from './SidePanel.svelte'
+  import { openControlButtons } from './helpers'
   import { 
     screenHeight,
     closeHover,
     closedOnce,
     currentView,
+    mobileLayout,
+    open,
     smallDimensions,
     sizeProgress,
     pullProgress,
     thinProgress,
-    autoProgress,
+    autoProgress
   } from './stores.js'
 
+  const controlButtons = [sizeProgress, pullProgress, thinProgress, autoProgress]
   const handleClose = () => {
     open.set(false)
     if (!$closedOnce) {
-      sizeProgress.set(1, { delay: 400 })
-      pullProgress.set(1, { delay: 300 })
-      thinProgress.set(1, { delay: 200 })
-      autoProgress.set(1, { delay: 100 })
+      openControlButtons(controlButtons)
+      closedOnce.set(true)
     }
-
-    closedOnce.set(true)
   }
 </script>
 

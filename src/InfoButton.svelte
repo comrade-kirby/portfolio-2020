@@ -2,8 +2,19 @@
   import { onMount } from 'svelte'
   import P5Canvas from './P5Canvas.svelte'
   import drawInfoButton from './drawInfoButton.js'
-  import { setupCanvas } from './helpers'
-  import { infoProgress, open, smallDimensions } from './stores.js'
+  import { openControlButtons, setupCanvas } from './helpers'
+  import {
+    closedOnce,
+    infoProgress,
+    open,
+    smallDimensions,
+    sizeProgress,
+    pullProgress,
+    thinProgress,
+    autoProgress
+  } from './stores.js'
+
+  const controlButtons = [sizeProgress, pullProgress, thinProgress, autoProgress]
 
   let infoButtonWidth, infoButtonHeight
 
@@ -15,6 +26,10 @@
   const handleClick = () => {
     infoProgress.set($infoProgress ? 0 : 1)
     open.set(false)
+    if (!$closedOnce) {
+      openControlButtons(controlButtons)
+      closedOnce.set(true)
+    }
   }
 
   $: infoParams.progress = $infoProgress
