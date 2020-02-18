@@ -2,8 +2,9 @@
   import { fade } from 'svelte/transition'
 
   import P5Canvas from './P5Canvas.svelte'
-  import { closeHover } from './stores.js'
+  import { closeHover, smallDimensions } from './stores.js'
   import {
+    closeButtonMargin,
     drawContainer,
     drawXIcon,
     eraseArea,
@@ -32,39 +33,43 @@
   }
 
   const drawLabels = (p5) => {
-    const textWidth = contactWidth * 0.30 - 45
-
-    p5.textSize(20)
+    const textWidthLarge = contactWidth * 0.30 - 45
+    const textWidthSmall = contactWidth * 0.30 - 20
+    const textWidth = $smallDimensions ? textWidthSmall : textWidthLarge
+    const yOffset = $smallDimensions ? 158: 174
+    const textSize = $smallDimensions ? 12 : 20
+    p5.textSize(textSize)
     p5.textAlign(p5.RIGHT, p5.CENTER)
     
     transparentText(p5, {
       text: 'name',
       xPosition: 0,
-      yPosition: contactHeight - 258,
+      yPosition: contactHeight - yOffset - 86,
       width: textWidth,
       height: 20
     })
     transparentText(p5, {
       text: 'email',
       xPosition: 0,
-      yPosition: contactHeight - 216,
+      yPosition: contactHeight - yOffset - 43,
       width: textWidth,
       height: 20
     })
     transparentText(p5, {
       text: 'message',
       xPosition: 0,
-      yPosition: contactHeight - 176,
+      yPosition: contactHeight - yOffset,
       width: textWidth,
       height: 20
     })
   }
   
   const drawSubmitButton = (p5) => {
+    const margin = $smallDimensions ? 20 : 40
     const rectWidth = contactWidth * 0.70
     const rectHeight = 32
-    const xPosition = contactWidth - rectWidth - 40
-    const yPosition = contactHeight - 74
+    const xPosition = contactWidth - rectWidth - margin
+    const yPosition = contactHeight - margin - 34
     const opacity = getOpacity(hover)
     p5.erase()
     p5.rect(xPosition, yPosition, rectWidth, rectHeight)
@@ -106,8 +111,9 @@
     p5.draw = () => {
       eraseArea(p5, 0, contactWidth, contactHeight)
       drawContainer(p5, contactWidth, contactHeight)
-      transparentTitle(p5, 'how Might we.. work together? :)')
-      drawXIcon(p5, contactWidth - 50, 50, $closeHover)
+      transparentTitle(p5, 'how Might we.. work together? :)', $smallDimensions)
+      const margin = closeButtonMargin($smallDimensions)
+      drawXIcon(p5, contactWidth - margin, margin, $closeHover)
       if (!messageSent) {
         drawLabels(p5)
         drawSubmitButton(p5)
@@ -167,13 +173,13 @@
     align-items: flex-end;
     position: absolute;
     width: 100%;
+    margin-right: var(--margin);
     bottom: 0;
     right: 0;
   }
 
   input, textarea {
     width: 70%;
-    margin-right: 40px;
     font-family: 'Montserrat';
     color: darkslategray;
     background-color: transparent;
@@ -186,7 +192,8 @@
   }
 
   button {
-    margin: 0 40px 40px 0;
+    
+    margin: 0 0 var(--margin) 0;
     width: 70%;
     align-self: flex-end;
     opacity: 0;
@@ -199,7 +206,7 @@
 	bind:clientWidth={contactWidth}
 >
   {#if !messageSent}
-    <form>
+    <form style='--margin:{$smallDimensions ? 20 : 40}px'>
         <input bind:value={name} type='text' name='name'>
         <input bind:value={email} type='email' name='email'>
         <input bind:value={honeypot} type="hidden" name='honeypot'>
