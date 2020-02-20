@@ -16,7 +16,9 @@
 
   const controlButtons = [sizeProgress, pullProgress, thinProgress, autoProgress]
 
-  let infoButtonWidth, infoButtonHeight
+  let infoButtonWidth = 60
+  let infoButtonHeight = 220
+  let infoButtonXOffset = 0
 
   let infoParams = {
     progressWritable: infoProgress,
@@ -32,8 +34,14 @@
     }
   }
 
-  $: infoParams.progress = $infoProgress
-  
+  const setInfoButtonWidth = (smallDimensions) => {
+    infoButtonWidth = smallDimensions ? 375 : 480
+  }
+
+  const slideInfoButton = (infoProgress) => {
+    infoButtonXOffset = (60 - infoButtonWidth) * (1 - infoProgress) 
+  }
+
   const sketch = (p5) => {
     p5.setup = () => {
       setupCanvas(p5, infoButtonWidth, infoButtonHeight, 'info-button-canvas-container')
@@ -44,37 +52,48 @@
     }
   }
 
-  onMount(() => {
+  $: infoParams.progress = $infoProgress
+  $: setInfoButtonWidth($smallDimensions)
+  $: slideInfoButton($infoProgress)
+
+  onMount(() => { 
     infoParams.progress = $infoProgress
+    setInfoButtonWidth($smallDimensions)
+    slideInfoButton($infoProgress)
   })
 </script>
 
 <style>
   #info-button-canvas-container {
-    position: relative;
-    height: 220px;
-    width: var(--infoWidth);
+    position: absolute;
+    top: 70px;
+    right: var(--infoButtonXOffset);
+    height: var(--infoButtonHeight);
+    width: var(--infoButtonWidth);
   }
 
   .info-button { 
     position: absolute;
     top: 0;
     right: 0;
-    height: 100%;
-    width: 60px;
+    height: var(--infoButtonHeight);
+    width: var(--infoButtonWidth);
     opacity: 0;
   }
 </style>
 
 <div 
   id='info-button-canvas-container'
-  style='--infoWidth:{$smallDimensions ? 375 : 480}px'
-  bind:clientHeight={infoButtonHeight}
-  bind:clientWidth={infoButtonWidth}>
+  style='
+    --infoButtonWidth:{infoButtonWidth}px; 
+    --infoButtonHeight:{infoButtonHeight}px;
+    --infoButtonXOffset:{infoButtonXOffset}px;
+  '
+>
   <P5Canvas sketch={sketch}/>
+  <button
+    class='info-button'
+    on:click={handleClick} 
+    on:mouseover={() => { infoParams.hover = true }}
+    on:mouseout={() => { infoParams.hover = false }} />
 </div>
-<button
-  class='info-button'
-  on:click={handleClick} 
-  on:mouseover={() => { infoParams.hover = true }}
-  on:mouseout={() => { infoParams.hover = false }} />

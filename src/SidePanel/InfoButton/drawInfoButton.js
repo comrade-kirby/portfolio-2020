@@ -13,26 +13,23 @@ const drawInfoButton = (p5, width, height, infoParams, smallDimensions) => {
   const hover = infoParams.hover
   const progress = infoParams.progress
 
-  const containerWidth = 60
-  const containerX = width - containerWidth
-  const centerX = width - 30
-  
+  const titleX = 30 + (progress * (width - 60))
   const titleY = 10
   const textBoxY = 1
   const iconY = 170
   const labelY = 200
-  const dividerX = width - 60
+  const dividerX = (progress * (width - 60))
   const dividerY = 219
 
-  drawContainer(p5, containerWidth, height, containerX)
-  drawControlTitle(p5, centerX, titleY, hover)
+  drawContainer(p5, width, height)
   drawTextBox(p5, width, height, textBoxY, progress, smallDimensions)
+  drawControlTitle(p5, titleX, titleY, hover)
   if (progress && hover) {
-    drawXIcon(p5, centerX, iconY, true, progress)
+    drawXIcon(p5, titleX, iconY, true, progress)
   } else {
-    drawInfoIcon(p5, centerX, iconY, hover)
+    drawInfoIcon(p5, titleX, iconY, hover)
   }
-  drawLabel(p5, 'info', centerX, labelY, hover, smallDimensions)
+  drawLabel(p5, 'info', titleX, labelY, hover, smallDimensions)
   drawDivider(p5, dividerX, dividerY, hover)
 }
 
@@ -51,16 +48,12 @@ const drawControlTitle = (p5, x, y, hover) => {
 }
 
 const drawTextBox = (p5, width, height, y, progress, smallDimensions) => {
-
   const maxWidth = width - 60
   const maxRadius = 25
-
-  const currentWidth = progress * maxWidth
   const currentRadius = progress * maxRadius
-  const x = maxWidth - currentWidth
   
   eraseArea(p5, y, maxWidth, height)
-  drawTextBoxBackground(p5, x, y, currentWidth, height, currentRadius)
+  drawTextBoxBackground(p5, y, maxWidth, height, currentRadius)
   
   if (progress) {
     const textSize = smallDimensions ? 10 : 12
@@ -68,9 +61,10 @@ const drawTextBox = (p5, width, height, y, progress, smallDimensions) => {
     const labelWidth = maxWidth - (smallDimensions ? 260 : 340)
     const descriptionWidth = maxWidth - (smallDimensions ? 40 : 120)
     
-    const headerX = smallDimensions ? x + 5 : x + 20
-    const labelX = smallDimensions ? x + 25 : x + 40
-    const descriptionX = smallDimensions ? x + 80 : x + 120
+    const headerX = smallDimensions ? 5 : 20
+    const labelX = smallDimensions ? 25 : 40
+    const descriptionX = smallDimensions ? 80 : 120
+
     transparentText(p5, {
       text: "the sliders below modify the animation",
       textSize: textSize,
@@ -114,10 +108,10 @@ const drawTextBox = (p5, width, height, y, progress, smallDimensions) => {
   }
 }
 
-const drawTextBoxBackground = (p5, x, y, currentWidth, height, currentRadius) => {
+const drawTextBoxBackground = (p5, y, currentWidth, height, currentRadius) => {
   p5.noStroke()
   p5.fill(0, 0, 100)
-  p5.rect(x, y, currentWidth, height - 3, currentRadius, 0, 0, currentRadius)
+  p5.rect(0, y, currentWidth, height - 3, currentRadius, 0, 0, currentRadius)
 }
 
 const drawInfoIcon = (p5, x, y, hover) => {

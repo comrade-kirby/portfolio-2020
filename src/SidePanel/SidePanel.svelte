@@ -15,11 +15,12 @@
     align-items: flex-end;
     height: 100%;
     z-index: 1;
+    background-color: red;
   }
 </style>
 
 <div class='side-panel' transition:fade>
   <HomeButton />
   <InfoButton />
-  <BackgroundControls />
+  <!-- <BackgroundControls /> -->
 </div>
