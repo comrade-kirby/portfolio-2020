@@ -4,12 +4,14 @@
 	import Background from './Background.svelte'
 	import Main from './Main.svelte'
 	import About from './About.svelte'
-	import { logStiffness, logDamping } from './helpers.js'
+	import SidePanel from './SidePanel.svelte'
 	import { 
+		autoInterval,
+		autoValue,
 		circleLocation,
 		longestScreenDimension,
 		mobileLayout,
-		pullValue,
+		open,
 		screenHeight,
 		screenWidth,
 		smallDimensions
@@ -18,12 +20,6 @@
 	let canvasHeight
 	let canvasWidth
 	
-	const handleMouseMove = (e) => {
-		circleLocation.set({ x: e.clientX, y: e.clientY })
-		circleLocation.stiffness = logStiffness($pullValue)
-		circleLocation.damping = logDamping($pullValue)
-  }
-
 	afterUpdate(() => {
 		screenHeight.set(canvasHeight)	 
 		screenWidth.set(canvasWidth)	 
@@ -44,18 +40,30 @@
 		padding: 0;
 	}
 
+	:global(button) {
+		cursor: pointer;
+	}
+
 	div {
 		height: 100%;
 		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
+
 </style>
 
 <div 
-	class='index-container'
 	bind:clientHeight={canvasHeight}
 	bind:clientWidth={canvasWidth}
-	on:mousemove={handleMouseMove}
+
 >
-	<Main />
+  {#if $open}
+		<Main />
+	{/if}
+	{#if !$mobileLayout || !$open}
+    <SidePanel />
+  {/if}
 	<Background />
 </div>

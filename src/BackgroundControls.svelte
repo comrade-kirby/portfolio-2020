@@ -3,8 +3,9 @@
 
   import P5Canvas from './P5Canvas.svelte'
   import drawBackgroundControls from './drawBackgroundControls.js'
-  import { setupCanvas } from './helpers'
+  import { setupCanvas, logStiffness, logDamping } from './helpers'
   import { 
+    circleLocation,
     screenHeight,
     smallDimensions,
     sizeValue,
@@ -80,6 +81,12 @@
   const handleHover = (buttonText, hoverOn) => {
     const button = buttonParams.find(button => button.text == buttonText)
     button.hoverWritable.set(hoverOn ? true : false)
+  }
+
+  const setCirclePull = (e) => {
+    const value = e.target.value
+    circleLocation.stiffness = logStiffness(value)
+    circleLocation.damping = logDamping(value)
   }
 
   const sketch = (p5) => {
@@ -185,7 +192,8 @@
       class='canvas-input'
       style='--bottom:188px'
       type='range'
-      min='0' max='1' step='0.01' 
+      min='0' max='1' step='0.01'
+      on:input={setCirclePull} 
       bind:value={$pullValue} />
   {/if}
   {#if $thinProgress}

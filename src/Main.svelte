@@ -32,20 +32,12 @@
 
 <style>
   .main { 
-    height: 100%;
-    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
     z-index: 1;
-  }
-
-  .side-panel {
-    position: absolute;
-    right: 0;
-    height: 100%;
   }
 
   .content {
@@ -88,12 +80,6 @@
 </style>
 
 <div class='main'>
-  {#if !$mobileLayout || !$open}
-    <div class='side-panel'>
-      <SidePanel />
-    </div>
-  {/if}
-  {#if $open}
   <div class='content' style='--minWidth:{$smallDimensions ? 350 : 700}px; --screenPercentage:{$smallDimensions ? 75 : 50}%'>
     <button 
       class='close-button'
@@ -114,5 +100,4 @@
     <button class='nav-button' class:active={$currentView == 'about'} on:click={() => $currentView = 'about'}>about</button>
     <button class='nav-button' class:active={$currentView == 'contact'} on:click={() => $currentView = 'contact'}>contact</button>
   </div>
-  {/if}
 </div>

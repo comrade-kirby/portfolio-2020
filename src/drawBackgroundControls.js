@@ -5,7 +5,6 @@ import {
   drawXIcon,
   eraseArea,
   getOpacity,
-  transparentObject,
   transparentShape,
   transparentText
 } from './helpers'

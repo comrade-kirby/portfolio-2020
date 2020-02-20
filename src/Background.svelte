@@ -12,10 +12,13 @@
     circleHue,
     sizeValue,
     thinValue,
-		autoValue
+    autoValue
   } from './stores.js'
 
   const hueMaxValue = 360
+  let mousePull = false
+  let mouseLocation = {x: 0, y: 0}
+  let cursorStyle = 'pointer'
   let interval
   
   $: {
@@ -122,6 +125,22 @@
     interval = setInterval(() => { setAutoCircleLocation(5) }, milliseconds)
   }
 
+  const setMousePull = (pull) => {
+    if (pull) {
+     setAutoInterval(0)
+     cursorStyle = 'cell'
+    } else {
+      setAutoInterval($autoValue)
+      cursorStyle = 'pointer'
+    }
+    mousePull = pull
+  }
+
+  const handleMousemove = (e) => {
+    mouseLocation.x = e.clientX
+    mouseLocation.y = e.clientY
+  }
+
   onMount(async () => {
     await $screenWidth && $screenHeight
 
@@ -134,6 +153,12 @@
     circleHue.set(hueMaxValue * $circleLocation.x / $screenWidth)
     backgroundHue.set(hueMaxValue * $circleLocation.y / $screenHeight)
   }, 1000);
+
+  setInterval(() => {
+    if (mousePull) {
+      circleLocation.set(mouseLocation)
+    }
+  }, 10)
 </script>
 
 <style>       
@@ -143,12 +168,16 @@
     background-color: hsl(var(--backgroundHue), 50%, 95%);
     position: fixed;
     top: 0;
+    cursor: var(--cursorStyle);
   }
 </style>
 
 <div
   id='background-holder'
-  style='--backgroundHue:{$backgroundHue};'
+  style='--backgroundHue:{$backgroundHue}; --cursorStyle:{cursorStyle};'
+  on:mousedown={() => setMousePull(true)}
+  on:mouseup={() => setMousePull(false)}
+  on:mousemove={handleMousemove}
 >
   <P5Canvas sketch={sketch} />
 </div>

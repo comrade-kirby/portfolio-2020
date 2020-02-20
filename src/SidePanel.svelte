@@ -8,10 +8,13 @@
 
 <style>
   .side-panel {
+    position: absolute;
+    right: 0;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     height: 100%;
+    z-index: 1;
   }
 
   .home-button-container {
