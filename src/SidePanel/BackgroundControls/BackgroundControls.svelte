@@ -118,7 +118,9 @@
   #controls-canvas-container {
     min-height: 280px;
     height: 100%;
-    width: 100%;
+    width: 300px;
+    flex: 1;
+    overflow: scroll;
   }
     
   .canvas-button {

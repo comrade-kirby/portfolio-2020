@@ -16,35 +16,10 @@
     height: 100%;
     z-index: 1;
   }
-
-  .home-button-container {
-    position: relative;
-    width: 60px;
-    height: 70px;
-  }
-
-  .info-button-container {
-    position: relative;
-    width: var(--infoWidth);
-    height: 220px;
-  }
-
-  .controls-container {
-    flex: 1;
-    overflow: scroll;
-    width: 300px;
-  }
 </style>
 
 <div class='side-panel' transition:fade>
-  <div class='home-button-container'>
-    <HomeButton />
-  </div>
-  <div class='info-button-container' 
-    style='--infoWidth:{$smallDimensions ? 375 : 480}px'>
-    <InfoButton />
-  </div>
-  <div class='controls-container'>
-    <BackgroundControls />
-  </div>
+  <HomeButton />
+  <InfoButton />
+  <BackgroundControls />
 </div>

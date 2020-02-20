@@ -51,8 +51,9 @@
 
 <style>
   #info-button-canvas-container {
-    height: 100%;
-    width: 100%;
+    position: relative;
+    height: 220px;
+    width: var(--infoWidth);
   }
 
   .info-button { 
@@ -67,6 +68,7 @@
 
 <div 
   id='info-button-canvas-container'
+  style='--infoWidth:{$smallDimensions ? 375 : 480}px'
   bind:clientHeight={infoButtonHeight}
   bind:clientWidth={infoButtonWidth}>
   <P5Canvas sketch={sketch}/>

@@ -42,15 +42,17 @@
 
 <style>
   #home-button-canvas-container {
+    position: relative;
     height: 100%;
-    width: 100%;
+    width: 60px;
+    height: 70px;
   }
   
   .home-button { 
     position: absolute;
     top: 0;
-    height: 100%;
-    width: 100%;
+    height: 70px;
+    width: 60px;
     opacity: 0;
   }
 </style>
