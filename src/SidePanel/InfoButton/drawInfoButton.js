@@ -21,7 +21,7 @@ const drawInfoButton = (p5, width, height, infoParams, smallDimensions) => {
   const dividerX = (progress * (width - 60))
   const dividerY = 219
 
-  drawContainer(p5, width, height)
+  // drawContainer(p5, width, height)
   drawTextBox(p5, width, height, textBoxY, progress, smallDimensions)
   drawControlTitle(p5, titleX, titleY, hover)
   if (progress && hover) {
@@ -48,7 +48,7 @@ const drawControlTitle = (p5, x, y, hover) => {
 }
 
 const drawTextBox = (p5, width, height, y, progress, smallDimensions) => {
-  const maxWidth = width - 60
+  const maxWidth = width
   const maxRadius = 25
   const currentRadius = progress * maxRadius
   
@@ -57,9 +57,9 @@ const drawTextBox = (p5, width, height, y, progress, smallDimensions) => {
   
   if (progress) {
     const textSize = smallDimensions ? 10 : 12
-    const headerWidth = maxWidth - (smallDimensions ? 0 : 30)
-    const labelWidth = maxWidth - (smallDimensions ? 260 : 340)
-    const descriptionWidth = maxWidth - (smallDimensions ? 40 : 120)
+    const headerWidth = maxWidth - (smallDimensions ? 60 : 90)
+    const labelWidth = maxWidth - (smallDimensions ? 320 : 400)
+    const descriptionWidth = maxWidth - (smallDimensions ? 100 : 180)
     
     const headerX = smallDimensions ? 5 : 20
     const labelX = smallDimensions ? 25 : 40
@@ -110,7 +110,7 @@ const drawTextBox = (p5, width, height, y, progress, smallDimensions) => {
 
 const drawTextBoxBackground = (p5, y, currentWidth, height, currentRadius) => {
   p5.noStroke()
-  p5.fill(0, 0, 100)
+  p5.fill(0, 0, 100, 90)
   p5.rect(0, y, currentWidth, height - 3, currentRadius, 0, 0, currentRadius)
 }
 

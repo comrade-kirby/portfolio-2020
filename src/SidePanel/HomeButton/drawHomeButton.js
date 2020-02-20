@@ -3,7 +3,8 @@ import {
   drawDivider,
   drawLabel,
   getOpacity,
-  transparentShape 
+  transparentShape, 
+  eraseArea
 } from '../../helpers'
 
 const drawHomeButton = (p5, width, height, hover, smallDimensions) => {
@@ -14,6 +15,7 @@ const drawHomeButton = (p5, width, height, hover, smallDimensions) => {
   const dividerX = 0
   const dividerY = height - 1
   
+  eraseArea(p5, 0, width, height)
   drawContainer(p5, width, height)
   drawMaximizeIcon(p5, iconX, iconY, hover)
   drawLabel(p5, 'home', labelX, labelY, hover, smallDimensions)
