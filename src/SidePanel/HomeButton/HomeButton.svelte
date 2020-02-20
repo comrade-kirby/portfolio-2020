@@ -1,7 +1,7 @@
 <script>
-  import P5Canvas from './P5Canvas.svelte'
+  import P5Canvas from '../../P5Canvas.svelte'
   import drawHomeButton from './drawHomeButton'
-  import { setupCanvas } from './helpers'
+  import { setupCanvas } from '../../helpers'
   import {
     open,
     currentView,
@@ -11,7 +11,7 @@
     pullProgress,
     thinProgress,
     autoProgress 
-  } from './stores'
+  } from '../../stores'
 
   let homeButtonWidth, homeButtonHeight
   let homeHover = false

@@ -1,8 +1,8 @@
 <script>
   import { onMount } from 'svelte'
 
-  import { setupCanvas } from './helpers.js'
-  import P5Canvas from './P5Canvas.svelte'
+  import { setupCanvas } from '../helpers.js'
+  import P5Canvas from '../P5Canvas.svelte'
   import { 
     screenHeight,
     screenWidth,
@@ -13,7 +13,7 @@
     sizeValue,
     thinValue,
     autoValue
-  } from './stores.js'
+  } from '../stores.js'
 
   const hueMaxValue = 360
   let mousePull = false

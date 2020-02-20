@@ -7,7 +7,7 @@ import {
   getOpacity,
   transparentShape,
   transparentText
-} from './helpers'
+} from '../../helpers'
 
 const drawInfoButton = (p5, width, height, infoParams, smallDimensions) => {
   const hover = infoParams.hover

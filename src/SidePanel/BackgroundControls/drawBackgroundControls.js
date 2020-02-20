@@ -7,7 +7,7 @@ import {
   getOpacity,
   transparentShape,
   transparentText
-} from './helpers'
+} from '../../helpers'
 
 export const drawBackgroundControls = (p5, width, height, buttonParams, smallDimensions) => {
   const containerWidth = 60

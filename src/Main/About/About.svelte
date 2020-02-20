@@ -1,8 +1,8 @@
 <script>
   import { fade } from 'svelte/transition'
   
-  import P5Canvas from './P5Canvas.svelte'
-  import { closeHover, smallDimensions } from './stores.js'
+  import P5Canvas from '../../P5Canvas.svelte'
+  import { closeHover, smallDimensions } from '../../stores.js'
   import { 
     closeButtonMargin,
     drawContainer,
@@ -11,7 +11,7 @@
     transparentText,
     transparentTitle,
     setupCanvas
-  } from './helpers.js'
+  } from '../../helpers.js'
   
   let aboutHeight, aboutWidth
 

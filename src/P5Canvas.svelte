@@ -8,6 +8,3 @@
 	  new p5(sketch)
 	})
 </script>
-
-<style>
-</style> 

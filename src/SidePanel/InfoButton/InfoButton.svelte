@@ -1,8 +1,8 @@
 <script>
   import { onMount } from 'svelte'
-  import P5Canvas from './P5Canvas.svelte'
+  import P5Canvas from '../../P5Canvas.svelte'
   import drawInfoButton from './drawInfoButton.js'
-  import { openControlButtons, setupCanvas } from './helpers'
+  import { openControlButtons, setupCanvas } from '../../helpers'
   import {
     closedOnce,
     infoProgress,
@@ -12,7 +12,7 @@
     pullProgress,
     thinProgress,
     autoProgress
-  } from './stores.js'
+  } from '../../stores.js'
 
   const controlButtons = [sizeProgress, pullProgress, thinProgress, autoProgress]
 

@@ -1,9 +1,9 @@
 <script>
   import { fade } from 'svelte/transition'
-  import BackgroundControls from './BackgroundControls.svelte'
-  import HomeButton from './HomeButton.svelte'
-  import InfoButton from './InfoButton.svelte'
-  import { smallDimensions } from './stores.js'
+  import BackgroundControls from './BackgroundControls/BackgroundControls.svelte'
+  import HomeButton from './HomeButton/HomeButton.svelte'
+  import InfoButton from './InfoButton/InfoButton.svelte'
+  import { smallDimensions } from '../stores.js'
 </script>
 
 <style>

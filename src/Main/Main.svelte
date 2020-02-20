@@ -1,11 +1,10 @@
 <script>
   import { fade } from 'svelte/transition'
 
-  import Home from './Home.svelte'
-  import About from './About.svelte'
-  import Contact from './Contact.svelte'
-  import SidePanel from './SidePanel.svelte'
-  import { openControlButtons } from './helpers'
+  import Home from './Home/Home.svelte'
+  import About from './About/About.svelte'
+  import Contact from './Contact/Contact.svelte'
+  import { openControlButtons } from '../helpers'
   import { 
     screenHeight,
     closeHover,
@@ -18,7 +17,7 @@
     pullProgress,
     thinProgress,
     autoProgress
-  } from './stores.js'
+  } from '../stores.js'
 
   const controlButtons = [sizeProgress, pullProgress, thinProgress, autoProgress]
   const handleClose = () => {

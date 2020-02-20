@@ -4,7 +4,7 @@ import {
   drawLabel,
   getOpacity,
   transparentShape 
-} from './helpers'
+} from '../../helpers'
 
 const drawHomeButton = (p5, width, height, hover, smallDimensions) => {
   const iconX = width / 2

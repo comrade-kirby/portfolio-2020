@@ -1,10 +1,9 @@
 <script>
 	import { afterUpdate } from 'svelte'
 
-	import Background from './Background.svelte'
-	import Main from './Main.svelte'
-	import About from './About.svelte'
-	import SidePanel from './SidePanel.svelte'
+	import Background from './Background/Background.svelte'
+	import Main from './Main/Main.svelte'
+	import SidePanel from './SidePanel/SidePanel.svelte'
 	import { 
 		autoInterval,
 		autoValue,

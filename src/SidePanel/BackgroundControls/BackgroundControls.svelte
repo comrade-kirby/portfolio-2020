@@ -1,9 +1,9 @@
 <script>
   import { onMount } from 'svelte'
 
-  import P5Canvas from './P5Canvas.svelte'
+  import P5Canvas from '../../P5Canvas.svelte'
   import drawBackgroundControls from './drawBackgroundControls.js'
-  import { setupCanvas, logStiffness, logDamping } from './helpers'
+  import { setupCanvas, logStiffness, logDamping } from '../../helpers'
   import { 
     circleLocation,
     screenHeight,
@@ -20,7 +20,7 @@
     pullHover,
     thinHover,
     autoHover
-  } from './stores.js'
+  } from '../../stores.js'
 
   let controlsHeight, controlsWidth
 
