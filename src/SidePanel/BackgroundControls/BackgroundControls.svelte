@@ -6,17 +6,17 @@
   import { 
     circleLocation,
     sizeValue,
-    pullValue,
-    thinValue,
-    autoValue,
+    speedValue,
+    opacityValue,
+    frequencyValue,
     sizeProgress,
-    pullProgress,
-    thinProgress,
-    autoProgress,
+    speedProgress,
+    opacityProgress,
+    frequencyProgress,
     sizeHover,
-    pullHover,
-    thinHover,
-    autoHover
+    speedHover,
+    opacityHover,
+    frequencyHover
   } from '../../stores.js'
 
   let controlsHeight, controlsWidth
@@ -25,20 +25,20 @@
     text: 'size',
     progressWritable: sizeProgress,
   }
-  let pullButtonParams = {
-    text: 'pull',
-    progressWritable: pullProgress,
+  let speedButtonParams = {
+    text: 'speed',
+    progressWritable: speedProgress,
   }
-  let thinButtonParams = {
-    text: 'thin',
-    progressWritable: thinProgress,
+  let opacityButtonParams = {
+    text: 'opac',
+    progressWritable: opacityProgress,
   }
-  let autoButtonParams = {
-    text: 'auto',
-    progressWritable: autoProgress,
+  let frequencyButtonParams = {
+    text: 'freq',
+    progressWritable: frequencyProgress,
   }
 
-  let buttonParams = [sizeButtonParams, pullButtonParams, thinButtonParams, autoButtonParams]
+  let buttonParams = [sizeButtonParams, speedButtonParams, opacityButtonParams, frequencyButtonParams]
 
   const setButtonParams = (text, progress, hover, value=null) => {
     const button = buttonParams.find(button => button.text == text)
@@ -49,11 +49,11 @@
   }
 
   $: setButtonParams('size', $sizeProgress, $sizeHover, $sizeValue)
-  $: setButtonParams('pull', $pullProgress, $pullHover, $pullValue)
-  $: setButtonParams('thin', $thinProgress, $thinHover, $thinValue)
-  $: setButtonParams('auto', $autoProgress, $autoHover, $autoValue)
+  $: setButtonParams('speed', $speedProgress, $speedHover, $speedValue)
+  $: setButtonParams('opac', $opacityProgress, $opacityHover, $opacityValue)
+  $: setButtonParams('freq', $frequencyProgress, $frequencyHover, $frequencyValue)
 
-  const setCirclePull = (e) => {
+  const setCircleSpeed = (e) => {
     const value = e.target.value
     circleLocation.stiffness = logStiffness(value)
     circleLocation.damping = logDamping(value)
@@ -61,9 +61,9 @@
 
   onMount(() => {
     setButtonParams('size', $sizeProgress, $sizeHover, $sizeValue)
-    setButtonParams('pull', $pullProgress, $pullHover, $pullValue)
-    setButtonParams('thin', $thinProgress, $thinHover, $thinValue) 
-    setButtonParams('auto', $autoProgress, $autoHover, $autoValue)
+    setButtonParams('speed', $speedProgress, $speedHover, $speedValue)
+    setButtonParams('opac', $opacityProgress, $opacityHover, $opacityValue) 
+    setButtonParams('freq', $frequencyProgress, $frequencyHover, $frequencyValue)
   })
 </script>
 
@@ -96,16 +96,16 @@
       progress={$sizeProgress}
       bind:value={$sizeValue}/>
     <ControlSlider
-      button={pullButtonParams} 
-      progress={$pullProgress}
-      inputCallback={setCirclePull}
-      bind:value={$pullValue}/>
+      button={speedButtonParams} 
+      progress={$speedProgress}
+      inputCallback={setCircleSpeed}
+      bind:value={$speedValue}/>
     <ControlSlider
-      button={thinButtonParams} 
-      progress={$thinProgress}
-      bind:value={$thinValue}/>
+      button={opacityButtonParams} 
+      progress={$opacityProgress}
+      bind:value={$opacityValue}/>
     <ControlSlider
-      button={autoButtonParams} 
-      progress={$autoProgress}
-      bind:value={$autoValue}/>
+      button={frequencyButtonParams} 
+      progress={$frequencyProgress}
+      bind:value={$frequencyValue}/>
 </div>

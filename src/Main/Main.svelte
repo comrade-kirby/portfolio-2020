@@ -14,12 +14,12 @@
     open,
     smallDimensions,
     sizeProgress,
-    pullProgress,
-    thinProgress,
-    autoProgress
+    speedProgress,
+    opacityProgress,
+    frequencyProgress
   } from '../stores.js'
 
-  const controlButtons = [sizeProgress, pullProgress, thinProgress, autoProgress]
+  const controlButtons = [sizeProgress, speedProgress, opacityProgress, frequencyProgress]
   const handleClose = () => {
     open.set(false)
     if (!$closedOnce) {

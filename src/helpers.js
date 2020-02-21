@@ -36,7 +36,7 @@ export const transparentText = (p5, options) => {
 }
 
 export const transparentTitle = (p5, text, smallDimensions) => {
-  const size = smallDimensions ? 11 : 24
+  const size = smallDimensions ? 11 : 20
   const margin = smallDimensions ? 20 : 40
 
   transparentText(p5, {

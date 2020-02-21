@@ -8,9 +8,9 @@
     smallDimensions,
     infoProgress,
     sizeProgress,
-    pullProgress,
-    thinProgress,
-    autoProgress 
+    speedProgress,
+    opacityProgress,
+    frequencyProgress 
   } from '../../stores'
 
   let homeButtonWidth, homeButtonHeight
@@ -18,9 +18,9 @@
   let buttonProgresses = [
     infoProgress,
     sizeProgress,
-    pullProgress,
-    thinProgress,
-    autoProgress 
+    speedProgress,
+    opacityProgress,
+    frequencyProgress 
   ]
   
   const handleOpen = () => {

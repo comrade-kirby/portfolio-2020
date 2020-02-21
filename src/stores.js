@@ -44,23 +44,23 @@ const autoConfig = configs[Math.floor(Math.random() * configs.length)]
 // const autoConfig = [Math.random(), Math.random(), Math.random(), Math.random()]
 
 export const sizeValue = writable(autoConfig[0])
-const startPullValue = autoConfig[1]
-export const pullValue = writable(startPullValue)
-export const thinValue = writable(autoConfig[2])
-export const autoValue = writable(autoConfig[3])
+const startSpeedValue = autoConfig[1]
+export const speedValue = writable(startSpeedValue)
+export const opacityValue = writable(autoConfig[2])
+export const frequencyValue = writable(autoConfig[3])
 
 export const infoProgress = tweened(0, { easing: cubicIn })
 export const sizeProgress = tweened(0, { easing: cubicIn })
-export const pullProgress = tweened(0, { easing: cubicIn })
-export const thinProgress = tweened(0, { easing: cubicIn })
-export const autoProgress = tweened(0, { easing: cubicIn })
+export const speedProgress = tweened(0, { easing: cubicIn })
+export const opacityProgress = tweened(0, { easing: cubicIn })
+export const frequencyProgress = tweened(0, { easing: cubicIn })
 
 export const sizeHover = writable(false)
-export const pullHover = writable(false)
-export const thinHover = writable(false)
-export const autoHover = writable(false)
+export const speedHover = writable(false)
+export const opacityHover = writable(false)
+export const frequencyHover = writable(false)
 
 export const  circleLocation = spring({ x: 0, y: 0 }, {
-  stiffness: logStiffness(startPullValue),
-  damping: logDamping(startPullValue)
+  stiffness: logStiffness(startSpeedValue),
+  damping: logDamping(startSpeedValue)
 })

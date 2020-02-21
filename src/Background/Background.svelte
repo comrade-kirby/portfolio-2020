@@ -11,8 +11,8 @@
     backgroundHue,
     circleHue,
     sizeValue,
-    thinValue,
-    autoValue
+    opacityValue,
+    frequencyValue
   } from '../stores.js'
 
   const hueMaxValue = 360
@@ -22,7 +22,7 @@
   let interval
   
   $: {
-    setAutoInterval($autoValue)
+    setFrequency($frequencyValue)
   }
 
   const generateCoordinates = (p5) => {
@@ -76,7 +76,7 @@
     const strokeLightness = 97
     const strokeAlpha = 100
     const fillLightness = 85
-    const fillAlpha = 100 - $thinValue * 100
+    const fillAlpha = $opacityValue * 100
 
     p5.stroke($backgroundHue, saturation, strokeLightness, strokeAlpha);
     p5.strokeWeight(1)
@@ -109,28 +109,29 @@
     }
   }
 
-  const setAutoCircleLocation = (divisions) => {
-    const autoNumber = () => { return Math.random() * divisions }
-    const xPosition = $screenWidth / divisions * autoNumber()
-    const yPosition = $screenHeight / divisions * autoNumber()
+  const setRandomCircleCoords = () => {
+    const divisions = 5
+    const randomNum = () => { return Math.random() * divisions }
+    const xPosition = $screenWidth / divisions * randomNum()
+    const yPosition = $screenHeight / divisions * randomNum()
 
     circleLocation.set({ x: xPosition, y: yPosition })
   }
   
-  const setAutoInterval = (autoValue) => {
+  const setFrequency = (frequencyValue) => {
     clearInterval(interval)
-    if (autoValue == 0) { return }
+    if (frequencyValue == 0) { return }
     
-    const milliseconds = (1 - autoValue) * 5000
-    interval = setInterval(() => { setAutoCircleLocation(5) }, milliseconds)
+    const milliseconds = (1 - frequencyValue) * 5000
+    interval = setInterval(() => { setRandomCircleCoords() }, milliseconds)
   }
 
   const setMousePull = (pull) => {
     if (pull) {
-     setAutoInterval(0)
+     setFrequency(0)
      cursorStyle = 'cell'
     } else {
-      setAutoInterval($autoValue)
+      setFrequency($frequencyValue)
       cursorStyle = 'pointer'
     }
     mousePull = pull

@@ -84,14 +84,14 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
         case 'size':
           drawSizeIcon(p5, xPosition, yPosition, value, hover)
           break
-        case 'pull':
-          drawPullIcon(p5, xPosition, yPosition, value, hover)
+        case 'speed':
+          drawSpeedIcon(p5, xPosition, yPosition, value, hover)
           break
-        case 'thin':
-          drawThinIcon(p5, xPosition, yPosition, value, hover)
+        case 'opac':
+          drawOpacityIcon(p5, xPosition, yPosition, value, hover)
           break
-        case 'auto':
-          drawAutoIcon(p5, xPosition, yPosition, value, hover)
+        case 'freq':
+          drawFrequencyIcon(p5, xPosition, yPosition, value, hover)
           break
       }
     }
@@ -103,7 +103,7 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
         drawCircle(p5, xPosition, yPosition, size, hover)
       }
   
-      const drawPullIcon = (p5, xPosition, yPosition, value, hover) => {
+      const drawSpeedIcon = (p5, xPosition, yPosition, value, hover) => {
         const maxDistance = 10
         const distance = (1 - value) * maxDistance
         
@@ -138,13 +138,13 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
           transparentShape(p5, pointer, options)
         }
 
-      const drawThinIcon = (p5, xPosition, yPosition, value, hover) => {
+      const drawOpacityIcon = (p5, xPosition, yPosition, value, hover) => {
         const maxOpacity = 100
-        const opacity = value * maxOpacity
+        const opacity = 100 - (value * maxOpacity)
         drawCircle(p5, xPosition, yPosition, 20, hover, opacity)
       }
 
-      const drawAutoIcon = (p5, xPosition, yPosition, value, hover) => {
+      const drawFrequencyIcon = (p5, xPosition, yPosition, value, hover) => {
         const opacity = getOpacity(hover)
       
         

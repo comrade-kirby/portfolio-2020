@@ -5,8 +5,8 @@
 	import Main from './Main/Main.svelte'
 	import SidePanel from './SidePanel/SidePanel.svelte'
 	import { 
-		autoInterval,
-		autoValue,
+		frequencyInterval,
+		frequencyValue,
 		circleLocation,
 		longestScreenDimension,
 		mobileLayout,
