@@ -65,8 +65,7 @@
 
 <style>
   #info-button-canvas-container {
-    position: absolute;
-    top: 70px;
+    position: relative;
     right: var(--infoButtonXOffset);
     height: var(--infoButtonHeight);
     width: var(--infoButtonWidth);

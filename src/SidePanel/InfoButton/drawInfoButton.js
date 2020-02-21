@@ -21,7 +21,6 @@ const drawInfoButton = (p5, width, height, infoParams, smallDimensions) => {
   const dividerX = (progress * (width - 60))
   const dividerY = 219
 
-  // drawContainer(p5, width, height)
   drawTextBox(p5, width, height, textBoxY, progress, smallDimensions)
   drawControlTitle(p5, titleX, titleY, hover)
   if (progress && hover) {

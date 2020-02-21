@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte'
 
-  import P5Canvas from '../../P5Canvas.svelte'
+  import ControlSlider from './ControlSlider/ControlSlider.svelte'
   import drawBackgroundControls from './drawBackgroundControls.js'
   import { setupCanvas, logStiffness, logDamping } from '../../helpers'
   import { 
@@ -27,22 +27,18 @@
   let sizeButtonParams = {
     text: 'size',
     progressWritable: sizeProgress,
-    hoverWritable: sizeHover
   }
   let pullButtonParams = {
     text: 'pull',
     progressWritable: pullProgress,
-    hoverWritable: pullHover
   }
   let thinButtonParams = {
     text: 'thin',
     progressWritable: thinProgress,
-    hoverWritable: thinHover
   }
   let autoButtonParams = {
     text: 'auto',
     progressWritable: autoProgress,
-    hoverWritable: autoHover
   }
 
   let buttonParams = [sizeButtonParams, pullButtonParams, thinButtonParams, autoButtonParams]
@@ -53,17 +49,8 @@
     button.text = text
     button.value = value
     button.progress = progress
-    button.hover = hover
   }
 
-  const setButtonYPositions = () => {
-    buttonParams.forEach((button, index) => {
-      const count = buttonParams.length - index - 1
-      const heightOffset = 65 + (count * 70)
-      button.yPosition = controlsHeight - heightOffset
-    })
-  }
-  
   $: setButtonParams('size', $sizeProgress, $sizeHover, $sizeValue)
   $: setButtonParams('pull', $pullProgress, $pullHover, $pullValue)
   $: setButtonParams('thin', $thinProgress, $thinHover, $thinValue)
@@ -78,35 +65,30 @@
     }
   }
 
-  const handleHover = (buttonText, hoverOn) => {
-    const button = buttonParams.find(button => button.text == buttonText)
-    button.hoverWritable.set(hoverOn ? true : false)
-  }
-
   const setCirclePull = (e) => {
     const value = e.target.value
     circleLocation.stiffness = logStiffness(value)
     circleLocation.damping = logDamping(value)
   }
 
-  const sketch = (p5) => {
-    p5.setup = () => {
-      setupCanvas(p5, controlsWidth, controlsHeight, 'controls-canvas-container')
-    }
+  // const sketch = (p5) => {
+    // p5.setup = () => {
+    //   setupCanvas(p5, controlsWidth, controlsHeight, 'controls-canvas-container')
+    // }
 
-    p5.draw = () => {
-      drawBackgroundControls(p5, controlsWidth, controlsHeight, buttonParams, smallDimensions)
-    }
+    // p5.draw = () => {
+    //   drawBackgroundControls(p5, controlsWidth, controlsHeight, buttonParams, smallDimensions)
+    // }
 
-    p5.windowResized = () => {
-      p5.resizeCanvas(controlsWidth, controlsHeight)
-      setButtonYPositions()
-      p5.redraw()
-    }
-  }
+    // p5.windowResized = () => {
+    //   p5.resizeCanvas(controlsWidth, controlsHeight)
+    //   setButtonYPositions()
+    //   p5.redraw()
+    // }
+  // }
 
   onMount(() => {
-    setButtonYPositions()
+    // setButtonYPositions()
     setButtonParams('size', $sizeProgress, $sizeHover, $sizeValue)
     setButtonParams('pull', $pullProgress, $pullHover, $pullValue)
     setButtonParams('thin', $thinProgress, $thinHover, $thinValue) 
@@ -116,21 +98,15 @@
 
 <style>
   #controls-canvas-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
     min-height: 280px;
     height: 100%;
     width: 300px;
     flex: 1;
     overflow: scroll;
-  }
-    
-  .canvas-button {
-    position: absolute;
-    margin: 0;
-    right: 0;
-    bottom: var(--bottom);
-    width: 60px;
-    height: 70px;
-    opacity: 0;
   }
 
   .canvas-input {
@@ -172,16 +148,10 @@
   id='controls-canvas-container' 
   bind:clientHeight={controlsHeight}
   bind:clientWidth={controlsWidth} >
-  <P5Canvas sketch={sketch}/>
   {#each buttonParams as button, index}
-    <button
-      class='canvas-button'
-      style='--bottom:{(buttonParams.length - 1) * 77 - index * 70}px'
-      on:click={() => {handleClick(button.text)}} 
-      on:mouseover={() => { handleHover(button.text, true) }}
-      on:mouseout={() => { handleHover(button.text, false) }} />
+    <ControlSlider button={button}/>
   {/each}
-  {#if $sizeProgress}
+  <!-- {#if $sizeProgress}
     <input 
       class='canvas-input'
       style='--bottom:258px'
@@ -213,5 +183,5 @@
       type='range'
       min='0' max='1' step='0.01' 
       bind:value={$autoValue} />
-  {/if}
+  {/if} -->
 </div>

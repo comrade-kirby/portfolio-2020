@@ -22,5 +22,5 @@
 <div class='side-panel' transition:fade>
   <HomeButton />
   <InfoButton />
-  <!-- <BackgroundControls /> -->
+  <BackgroundControls />
 </div>
