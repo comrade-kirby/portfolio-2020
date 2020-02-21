@@ -7,63 +7,55 @@ import {
   getOpacity,
   transparentShape,
   transparentText
-} from '../../helpers'
+} from '../../../helpers'
 
-export const drawBackgroundControls = (p5, width, height, buttonParams, smallDimensions) => {
-  const containerWidth = 60
-  const containerX = width - containerWidth
-  eraseArea(p5, 0, width, height)
-  drawContainer(p5, containerWidth, height, containerX)
-
-  buttonParams.forEach(button => {
-    drawControlButton(p5, width, button, smallDimensions)
-  })
+export const drawControlSlider = (p5, width, height, button, smallDimensions) => {
+  const containerWidth = 300
+  drawControlButton(p5, width, button, smallDimensions)
 }
 
-  const drawControlButton = (p5, width, params, smallDimensions) => {
-    const { text, value, yPosition, progress, hover } = params
-    const centerX = width - 30
-    const valueY = yPosition + 5
-    const labelY = yPosition + 30
-    drawLabel(p5, text, centerX, labelY, hover, smallDimensions)
-    
+  const drawControlButton = (p5, width, button, smallDimensions) => {
+    const { text, value, progress, hover } = button
+    const x = 30 + (progress * (width - 60))
+    const valueY = 30
+    const labelY = 60
+    const sliderY = 0
+
+    drawSlider(p5, width, sliderY, progress)
+    drawLabel(p5, text, x, labelY, hover, smallDimensions)
     if (hover && progress) {
-      drawXIcon(p5, centerX, yPosition, true, progress)
+      drawXIcon(p5, x, valueY, true, progress)
     } else if (progress) {
       transparentText(p5, {
         text: (value * 100).toFixed(0),
         textSize: 16,
         horizontalAlignment: p5.CENTER,
-        xPosition: centerX,
+        xPosition: x,
         yPosition: valueY
       })
     }
 
-    drawSlider(p5, width, yPosition, progress)
-    drawIcon(p5, centerX, params)    
+    drawIcon(p5, x, button)    
   }
 
     const drawSlider = (p5, width, y, progress) => {
-      const maxWidth = width - 60
-      const currentWidth = progress * maxWidth
-
-      const backgroundX = maxWidth - currentWidth
-      const backgroundY = y - 25
-      const backgroundHeight = 50
+      const backgroundX = 0
+      const backgroundY = y
+      const backgroundHeight = 70
       const lineX = backgroundX + 20
-      const lineY = y
+      const lineY = y + 35
 
-      eraseArea(p5, backgroundY, maxWidth, backgroundHeight)
-      drawSliderBackground(p5, backgroundX, backgroundY, currentWidth, backgroundHeight, progress)
+      eraseArea(p5, backgroundY, width, backgroundHeight)
+      drawSliderBackground(p5, backgroundX, backgroundY, width, backgroundHeight, progress)
       drawSliderLine(p5, lineX, lineY, width, progress) 
     }
 
-      const drawSliderBackground = (p5, xPosition, yPosition, width, height, progress) => {
-        const maxRadius = 25
+      const drawSliderBackground = (p5, x, y, width, height, progress) => {
+        const maxRadius = 35
         const currentRadius = progress * maxRadius
 
         p5.fill(0, 0, 100, 90)
-        p5.rect(xPosition, yPosition, width, height, currentRadius, 0, 0, currentRadius)
+        p5.rect(x, y, width, height, currentRadius, 0, 0, currentRadius)
       }
 
       const drawSliderLine = (p5, xPosition, yPosition, width, progress) => {
@@ -79,9 +71,10 @@ export const drawBackgroundControls = (p5, width, height, buttonParams, smallDim
         transparentShape(p5, line, lineOptions)
       }
 
-    const drawIcon = (p5, x, params) => {
-      const { text, value, yPosition, progress, hover } = params
+    const drawIcon = (p5, x, button) => {
+      const { text, value, progress, hover } = button
     
+      const yPosition = 35
       const sliderLength = 210
       const sliderPosition = sliderLength - (value * sliderLength)
       const sliderIconPosition = (x) - progress * (40 + sliderPosition)
@@ -236,5 +229,5 @@ export const drawBackgroundControls = (p5, width, height, buttonParams, smallDim
         p5.ellipse(xPosition, yPosition, size + 2, size + 2)
       }
 
-export default drawBackgroundControls
+export default drawControlSlider
   

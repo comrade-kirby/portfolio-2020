@@ -13,6 +13,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    width: 60px;
     height: 100%;
     z-index: 1;
     background-color: red;

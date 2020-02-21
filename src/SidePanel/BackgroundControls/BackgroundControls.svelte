@@ -2,7 +2,6 @@
   import { onMount } from 'svelte'
 
   import ControlSlider from './ControlSlider/ControlSlider.svelte'
-  import drawBackgroundControls from './drawBackgroundControls.js'
   import { setupCanvas, logStiffness, logDamping } from '../../helpers'
   import { 
     circleLocation,
@@ -42,6 +41,7 @@
   }
 
   let buttonParams = [sizeButtonParams, pullButtonParams, thinButtonParams, autoButtonParams]
+  let buttonProgresses = [$sizeProgress, $pullProgress, $thinProgress, $autoProgress]
 
   const setButtonParams = (text, progress, hover, value=null) => {
     const button = buttonParams.find(button => button.text == text)
@@ -51,6 +51,7 @@
     button.progress = progress
   }
 
+  $: buttonProgresses = [$sizeProgress, $pullProgress, $thinProgress, $autoProgress]
   $: setButtonParams('size', $sizeProgress, $sizeHover, $sizeValue)
   $: setButtonParams('pull', $pullProgress, $pullHover, $pullValue)
   $: setButtonParams('thin', $thinProgress, $thinHover, $thinValue)
@@ -88,7 +89,6 @@
   // }
 
   onMount(() => {
-    // setButtonYPositions()
     setButtonParams('size', $sizeProgress, $sizeHover, $sizeValue)
     setButtonParams('pull', $pullProgress, $pullHover, $pullValue)
     setButtonParams('thin', $thinProgress, $thinHover, $thinValue) 
@@ -104,9 +104,9 @@
     align-items: flex-end;
     min-height: 280px;
     height: 100%;
-    width: 300px;
     flex: 1;
-    overflow: scroll;
+    width: 60px;
+    /* overflow: scroll; */
   }
 
   .canvas-input {
@@ -149,7 +149,7 @@
   bind:clientHeight={controlsHeight}
   bind:clientWidth={controlsWidth} >
   {#each buttonParams as button, index}
-    <ControlSlider button={button}/>
+    <ControlSlider button={button} progress={buttonProgresses[index]}/>
   {/each}
   <!-- {#if $sizeProgress}
     <input 
