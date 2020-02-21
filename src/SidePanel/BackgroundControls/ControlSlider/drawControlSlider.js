@@ -99,7 +99,7 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
       
       const drawSizeIcon = (p5, xPosition, yPosition, value, hover) => {
         const maxSize = 25
-        const size = value * maxSize
+        const size = value * maxSize + 5
         drawCircle(p5, xPosition, yPosition, size, hover)
       }
   
