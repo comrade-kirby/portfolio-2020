@@ -77,7 +77,12 @@
     height: 100%;
     flex: 1;
     width: 60px;
-    /* overflow: scroll; */
+  }
+
+  .fill-div {
+    flex-grow: 1;
+    background-color: hsla(0,0%,100%,90%);
+    width: 100%;
   }
 </style>
 
@@ -85,6 +90,7 @@
   id='controls-canvas-container' 
   bind:clientHeight={controlsHeight}
   bind:clientWidth={controlsWidth} >
+  <div class='fill-div'></div>
   <ControlSlider
       button={sizeButtonParams} 
       progress={$sizeProgress}

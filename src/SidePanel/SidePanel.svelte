@@ -16,7 +16,6 @@
     width: 60px;
     height: 100%;
     z-index: 1;
-    background-color: red;
   }
 </style>
 

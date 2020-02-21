@@ -46,7 +46,6 @@
     right: var(--buttonXOffset);
     height: 70px;
     width: 300px;
-    background-color: green;
   }
 
   button {
