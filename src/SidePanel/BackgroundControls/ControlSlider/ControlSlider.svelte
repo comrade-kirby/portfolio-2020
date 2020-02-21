@@ -6,6 +6,9 @@
 
   export let button
   export let progress
+  export let value
+  export let inputCallback
+  
   let hover = false
   let sliderWidth = 300
   let sliderHeight = 70
@@ -49,12 +52,46 @@
   button {
     position: absolute;
     margin: 0;
-    /* right: 0; */
+    right: calc(-1 * var(--buttonXOffset));
     height: 100%;
-    width: 100%;
-    opacity: 0.5;
+    width: 60px;
+    z-index: 1;
+    opacity: 0;
   }
 
+  input {
+    position: absolute;
+    right: 70px;
+    top: 30px;
+    width: 210px;
+    opacity: 0;
+  }
+
+   input[type=range]::-webkit-slider-thumb {
+    height: 35px;
+    width: 35px;
+    border-radius: 15px;
+    cursor: pointer;
+    opacity: 0;
+  }
+
+  input[type=range]::-moz-range-thumb {
+    height: 35px;
+    width: 35px;
+    border-radius: 15px;
+    margin-top: -14px;
+    cursor: pointer;
+    opacity: 0;
+  }
+
+  input[type=range]::-ms-thumb {
+    height: 35px;
+    width: 35px;
+    border-radius: 15px;
+    margin-top: -14px;
+    cursor: pointer;
+    opacity: 0;
+  }
 </style>
 
 <div 
@@ -67,5 +104,11 @@
     on:mouseover={() => {hover = true}}
     on:mouseout={() => {hover = false}} 
   />
+  <input 
+      type='range'
+      min='0' max='1' step='0.01' 
+      on:input={inputCallback}
+      bind:value={value} />
+
   <P5Canvas sketch={sketch} />
 </div>
