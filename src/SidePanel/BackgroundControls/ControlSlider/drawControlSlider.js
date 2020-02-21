@@ -99,59 +99,35 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
       
       const drawSizeIcon = (p5, xPosition, yPosition, value, hover) => {
         const maxSize = 25
-        const size = value * maxSize + 5
+        const minSize = 5
+        const size = value * maxSize + minSize
         drawCircle(p5, xPosition, yPosition, size, hover)
       }
   
-      const drawSpeedIcon = (p5, xPosition, yPosition, value, hover) => {
+      const drawSpeedIcon = (p5, x, y, value, hover) => {
         const maxDistance = 10
-        const distance = (1 - value) * maxDistance
-        
-        const mouseX = xPosition - distance - 2
-        const mouseY = yPosition + distance - 2
-      
-        const circleX = xPosition + distance
-        const circleY = yPosition - distance
-      
-        drawCircle(p5, circleX, circleY, 20, hover)
-        drawMouse(p5, mouseX, mouseY, hover)
+        const minDistance = 2
+        const offset = value * maxDistance + minDistance
+        const circleSize = 20
+
+        drawCircle(p5, x + offset, y, circleSize, hover)
+        drawCircle(p5, x, y, circleSize, hover)
+        drawCircle(p5, x - offset, y, circleSize, hover) 
       }
 
-        const drawMouse = (p5, mouseX, mouseY, hover) => {
-          const opacity = getOpacity(hover)
-        
-          p5.strokeCap(p5.ROUND)
-          p5.strokeJoin(p5.MITER)
-          
-          const pointer = () => {
-            p5.strokeWeight(0)
-            p5.beginShape()
-            p5.vertex(mouseX, mouseY)
-            p5.vertex(mouseX + 9, mouseY + 4)
-            p5.vertex(mouseX + 4, mouseY + 9)
-            p5.endShape(p5.CLOSE)
-            p5.strokeWeight(2)
-            p5.line(mouseX + 7, mouseY + 7, mouseX + 10, mouseY + 10)
-          }
-
-          const options = { stroke: true, fill: true, opacity }
-          transparentShape(p5, pointer, options)
-        }
-
       const drawOpacityIcon = (p5, xPosition, yPosition, value, hover) => {
+        const circleSize = 25
         const maxOpacity = 100
         const opacity = 100 - (value * maxOpacity)
-        drawCircle(p5, xPosition, yPosition, 20, hover, opacity)
+        drawCircle(p5, xPosition, yPosition, circleSize, hover, opacity)
       }
 
       const drawFrequencyIcon = (p5, xPosition, yPosition, value, hover) => {
         const opacity = getOpacity(hover)
       
-        
         drawOutline(p5, xPosition, yPosition, opacity) 
         drawDots(p5, xPosition, yPosition, value, opacity)
         
-      
         if (value == 0) {
           drawSlash(p5, xPosition, yPosition, opacity)
         }
