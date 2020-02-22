@@ -47,23 +47,22 @@ const drawControlTitle = (p5, x, y, hover) => {
 }
 
 const drawTextBox = (p5, width, height, y, progress, smallDimensions) => {
-  const maxWidth = width
   const maxRadius = 25
   const currentRadius = progress * maxRadius
-  const currentWidth = 60 + ((maxWidth - 60) * progress)
-  const x = (maxWidth - 60) * (1 - progress)
-  eraseArea(p5, y, maxWidth, height)
-  drawTextBoxBackground(p5, x, y, currentWidth, height, currentRadius)
+  const x = (width - 60) * (1 - progress)
+  
+  eraseArea(p5, y, width, height)
+  drawTextBoxBackground(p5, x, y, width, height, currentRadius)
   
   if (progress) {
     const textSize = smallDimensions ? 10 : 12
-    const headerWidth = maxWidth - (smallDimensions ? 60 : 90)
-    const labelWidth = maxWidth - (smallDimensions ? 320 : 400)
-    const descriptionWidth = maxWidth - (smallDimensions ? 100 : 180)
+    const headerWidth = width - (smallDimensions ? 60 : 90)
+    const labelWidth = width - (smallDimensions ? 320 : 400)
+    const descriptionWidth = width - (smallDimensions ? 100 : 180)
     
-    const headerX = smallDimensions ? 5 : 20
-    const labelX = smallDimensions ? 25 : 40
-    const descriptionX = smallDimensions ? 80 : 120
+    const headerX = x + (smallDimensions ? 5 : 20)
+    const labelX = x + (smallDimensions ? 25 : 40)
+    const descriptionX = x + (smallDimensions ? 80 : 120)
 
     transparentText(p5, {
       text: "the sliders below modify the animation",

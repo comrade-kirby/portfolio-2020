@@ -47,7 +47,6 @@
   const sketch = (p5) => {
     p5.setup = () => {
       setupCanvas(p5, maxWidth, infoButtonHeight, 'info-button-canvas-container')
-    p5.frameRate(30)
     }
 
     p5.draw = () => {
