@@ -66,9 +66,9 @@
 
   input {
     position: absolute;
-    right: 70px;
+    right: 43px;
     top: 30px;
-    width: 210px;
+    width: 265px;
     opacity: 0;
     pointer-events: all;
   }
