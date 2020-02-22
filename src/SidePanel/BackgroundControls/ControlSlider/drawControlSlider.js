@@ -17,10 +17,13 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
   const drawControlButton = (p5, width, button, smallDimensions) => {
     const { text, value, progress, hover } = button
     const x = width - 30
-    const valueY = 35
-    const labelY = 60
+    const fillX = width - 60
+    const valueY = 25
+    const labelY = 55
     const sliderY = 0
-
+    
+     
+    drawFillRect(p5, fillX)
     drawSlider(p5, width, sliderY, progress)
     drawLabel(p5, text, x, labelY, hover, smallDimensions)
     if (hover && progress) {
@@ -35,14 +38,19 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
       })
     }
 
-    drawIcon(p5, x, button)    
+    drawIcon(p5, x, button)  
   }
-
+  
+    const drawFillRect = (p5, x) => {
+      p5.fill(0, 0, 100, 90)
+      p5.noStroke()
+      p5.rect(x, 50, 60, 25) 
+    }
     const drawSlider = (p5, width, y, progress) => {
       const x = (width - 60) * (1 - progress)
-      const backgroundHeight = 70
+      const backgroundHeight = 50
       const lineX = x + 20
-      const lineY = y + 35
+      const lineY = y + 25
 
       eraseArea(p5, y, width, backgroundHeight)
       drawSliderBackground(p5, x, y, width, backgroundHeight, progress)
@@ -57,13 +65,13 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
         p5.rect(x, y, width, height, currentRadius, 0, 0, currentRadius)
       }
 
-      const drawSliderLine = (p5, xPosition, yPosition, width, progress) => {
+      const drawSliderLine = (p5, x, y, width, progress) => {
         const maxOpacity = getOpacity()
         const currentOpacity = progress * maxOpacity 
         const lineEndX = width - 70
         p5.strokeWeight(2)
         const line = () => {
-          p5.line(xPosition, yPosition, lineEndX, yPosition)
+          p5.line(x, y, lineEndX, y)
         }
   
         const lineOptions = { stroke: true, progress, opacity: currentOpacity }
@@ -73,28 +81,26 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
     const drawIcon = (p5, x, button) => {
       const { text, value, progress, hover } = button
     
-      const yPosition = 35
+      const y = 25
       const sliderLength = 210
       const sliderPosition = sliderLength - (value * sliderLength)
-      const sliderIconPosition = (x) - progress * (40 + sliderPosition)
-      const xPosition = sliderIconPosition
+      x = (x) - progress * (40 + sliderPosition)
     
       switch (text) {
         case 'size':
-          drawSizeIcon(p5, xPosition, yPosition, value, hover)
+          drawSizeIcon(p5, x, y, value, hover)
           break
         case 'speed':
-          drawSpeedIcon(p5, xPosition, yPosition, value, hover)
+          drawSpeedIcon(p5, x, y, value, hover)
           break
         case 'opac':
-          drawOpacityIcon(p5, xPosition, yPosition, value, hover)
+          drawOpacityIcon(p5, x, y, value, hover)
           break
         case 'freq':
-          drawFrequencyIcon(p5, xPosition, yPosition, value, hover)
+          drawFrequencyIcon(p5, x, y, value, hover)
           break
       }
     }
-      
       
       const drawSizeIcon = (p5, xPosition, yPosition, value, hover) => {
         const maxSize = 25
@@ -105,7 +111,7 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
   
       const drawSpeedIcon = (p5, x, y, value, hover) => {
         const maxDistance = 10
-        const minDistance = 2
+        const minDistance = 3
         const offset = value * maxDistance + minDistance
         const circleSize = 20
 
