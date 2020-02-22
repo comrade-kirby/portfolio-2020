@@ -17,7 +17,7 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
   const drawControlButton = (p5, width, button, smallDimensions) => {
     const { text, value, progress, hover } = button
     const x = width - 30
-    const valueY = 30
+    const valueY = 35
     const labelY = 60
     const sliderY = 0
 
