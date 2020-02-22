@@ -84,6 +84,12 @@
     background-color: hsla(0,0%,100%,90%);
     width: 100%;
   }
+
+  .bottom-padding {
+    height: 10px;
+    background-color: hsla(0,0%,100%,90%);
+    width: 100%;
+  }
 </style>
 
 <div 
@@ -108,4 +114,5 @@
       button={frequencyButtonParams} 
       progress={$frequencyProgress}
       bind:value={$frequencyValue}/>
+    <div class='bottom-padding'></div>
 </div>
