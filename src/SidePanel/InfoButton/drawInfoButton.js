@@ -93,7 +93,7 @@ const drawTextBox = (p5, width, height, y, progress, smallDimensions) => {
 
     // descriptions
     transparentText(p5, {
-      text: "size of shapes\nattraction to cursor\nshape transparenty\nfrequency of simulated movement",
+      text: "size of shape\nattraction to cursor\nshape transparency\nfrequency of new cursor location",
       textSize: textSize,
       textLeading: 32,
       horizontalAlignment: p5.LEFT,
