@@ -20,7 +20,7 @@ export const circleHue = tweened(90, {
 })
 
 export const backgroundHue = tweened(270, {
-  duration: 3000,
+  duration: 5000,
   easing: cubicOut
 })
 
