@@ -37,6 +37,8 @@
     align-items: center;
     position: relative;
     z-index: 1;
+    width: 100%;
+    height: 100%;
   }
 
   .content {
@@ -79,7 +81,7 @@
 </style>
 
 <div class='main'>
-  <div class='content' style='--minWidth:{$smallDimensions ? 350 : 700}px; --screenPercentage:{$smallDimensions ? 75 : 50}%'>
+  <div class='content' style='--minWidth:{$smallDimensions ? 350 : 700}px;  --screenPercentage:{$smallDimensions ? 75 : 50}%'>
     <button 
       class='close-button'
       style='--position:{$smallDimensions ? 10 : 30}px'
