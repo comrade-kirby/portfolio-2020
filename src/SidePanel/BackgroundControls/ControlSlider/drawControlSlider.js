@@ -124,15 +124,17 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
 
       const drawFrequencyIcon = (p5, x, y, value, hover) => {
         const opacity = getOpacity(hover)
-        const spacing = (1 - value) * 4 + 2
+        const maxSpacing = 4
+        const minSpacing = 2
+        const spacing = (1 - value) * maxSpacing + minSpacing
         if (value == 0) {
           drawSlash(p5, x, y, opacity)
           return
         }
        
+        x = x - maxSpacing
         const wave = () => {
           p5.beginShape()
-          p5.curveVertex(x - spacing * 4, y+10)
           p5.curveVertex(x - spacing * 3, y+10)
           p5.curveVertex(x - spacing * 2, y-10)
           p5.curveVertex(x - spacing, y+10)
@@ -140,7 +142,7 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
           p5.curveVertex(x + spacing, y+10)
           p5.curveVertex(x + spacing * 2, y-10)
           p5.curveVertex(x + spacing * 3, y+10)
-          p5.curveVertex(x + spacing * 4, y+10)
+          p5.curveVertex(x + spacing * 4, y-10)
           p5.endShape()
         }
   
