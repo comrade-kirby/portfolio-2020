@@ -126,11 +126,18 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
         const maxSpacing = 4
         const minSpacing = 2
         const spacing = (1 - value) * maxSpacing + minSpacing
+        const rectWidth = 25 * (1 - value) + 10
+        const rectX = x - (rectWidth / 2) - 1
+ 
         if (value == 0) {
           drawSlash(p5, x, y, opacity)
           return
         }
-       
+        
+        p5.noStroke()
+        p5.fill(0, 0, 100)
+        p5.rect(rectX, y - 10, rectWidth, 20)
+
         x = x - maxSpacing
         const wave = () => {
           p5.beginShape()
@@ -147,18 +154,20 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
   
         const waveOptions = { stroke: true, opacity }
         transparentShape(p5, wave, waveOptions)
+        
       }
 
-       
-
-        const drawSlash = (p5, xPosition, yPosition, opacity) => {
+        const drawSlash = (p5, x, y, opacity) => {
           p5.strokeWeight(2)
-          const slash = () => {
-            p5.line(xPosition - 5, yPosition + 10, xPosition + 5, yPosition - 10)
+          const slash = (xOffset=0) => {
+            x = x + xOffset
+            p5.line(x - 5, y + 10, x + 5, y - 10)
           }
 
           const options = { stroke: true, opacity }
           transparentShape(p5, slash, options)
+          p5.stroke(0, 0, 100)
+          slash(2)
         }
 
       const drawCircle = (p5, xPosition, yPosition, size, hover, fillOpacity=0) => {
