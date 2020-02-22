@@ -13,22 +13,22 @@ const drawInfoButton = (p5, width, height, infoParams, smallDimensions) => {
   const hover = infoParams.hover
   const progress = infoParams.progress
 
-  const titleX = 30 + (progress * (width - 60))
+  const x = width - 30
   const titleY = 10
   const textBoxY = 1
   const iconY = 170
   const labelY = 200
-  const dividerX = (progress * (width - 60))
+  const dividerX = width - 60
   const dividerY = 219
 
   drawTextBox(p5, width, height, textBoxY, progress, smallDimensions)
-  drawControlTitle(p5, titleX, titleY, hover)
+  drawControlTitle(p5, x, titleY, hover)
   if (progress && hover) {
-    drawXIcon(p5, titleX, iconY, true, progress)
+    drawXIcon(p5, x, iconY, true, progress)
   } else {
-    drawInfoIcon(p5, titleX, iconY, hover)
+    drawInfoIcon(p5, x, iconY, hover)
   }
-  drawLabel(p5, 'info', titleX, labelY, hover, smallDimensions)
+  drawLabel(p5, 'info', x, labelY, hover, smallDimensions)
   drawDivider(p5, dividerX, dividerY, hover)
 }
 
@@ -50,9 +50,10 @@ const drawTextBox = (p5, width, height, y, progress, smallDimensions) => {
   const maxWidth = width
   const maxRadius = 25
   const currentRadius = progress * maxRadius
-  
+  const currentWidth = 60 + ((maxWidth - 60) * progress)
+  const x = (maxWidth - 60) * (1 - progress)
   eraseArea(p5, y, maxWidth, height)
-  drawTextBoxBackground(p5, y, maxWidth, height, currentRadius)
+  drawTextBoxBackground(p5, x, y, currentWidth, height, currentRadius)
   
   if (progress) {
     const textSize = smallDimensions ? 10 : 12
@@ -107,10 +108,10 @@ const drawTextBox = (p5, width, height, y, progress, smallDimensions) => {
   }
 }
 
-const drawTextBoxBackground = (p5, y, currentWidth, height, currentRadius) => {
+const drawTextBoxBackground = (p5, x, y, currentWidth, height, currentRadius) => {
   p5.noStroke()
   p5.fill(0, 0, 100, 90)
-  p5.rect(0, y, currentWidth, height - 3, currentRadius, 0, 0, currentRadius)
+  p5.rect(x, y, currentWidth, height - 3, currentRadius, 0, 0, currentRadius)
 }
 
 const drawInfoIcon = (p5, x, y, hover) => {

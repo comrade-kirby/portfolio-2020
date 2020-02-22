@@ -16,6 +16,7 @@
 
   const controlButtons = [sizeProgress, speedProgress, opacityProgress, frequencyProgress]
 
+  let maxWidth
   let infoButtonWidth = 60
   let infoButtonHeight = 220
   let infoButtonXOffset = 0
@@ -34,8 +35,9 @@
     }
   }
 
-  const setInfoButtonWidth = (smallDimensions) => {
-    infoButtonWidth = smallDimensions ? 375 : 480
+  const setInfoButtonWidth = (smallDimensions, infoProgress) => {
+    maxWidth = smallDimensions ? 375 : 480
+    infoButtonWidth = (maxWidth * infoProgress) || 60
   }
 
   const slideInfoButton = (infoProgress) => {
@@ -44,21 +46,22 @@
 
   const sketch = (p5) => {
     p5.setup = () => {
-      setupCanvas(p5, infoButtonWidth, infoButtonHeight, 'info-button-canvas-container')
+      setupCanvas(p5, maxWidth, infoButtonHeight, 'info-button-canvas-container')
+    p5.frameRate(30)
     }
 
     p5.draw = () => {
-      drawInfoButton(p5, infoButtonWidth, infoButtonHeight, infoParams, $smallDimensions)
+      drawInfoButton(p5, maxWidth, infoButtonHeight, infoParams, $smallDimensions)
     }
   }
 
   $: infoParams.progress = $infoProgress
-  $: setInfoButtonWidth($smallDimensions)
+  $: setInfoButtonWidth($smallDimensions, $infoProgress)
   $: slideInfoButton($infoProgress)
 
   onMount(() => { 
     infoParams.progress = $infoProgress
-    setInfoButtonWidth($smallDimensions)
+    setInfoButtonWidth($smallDimensions, $infoProgress)
     slideInfoButton($infoProgress)
   })
 </script>
@@ -66,9 +69,10 @@
 <style>
   #info-button-canvas-container {
     position: relative;
-    right: var(--infoButtonXOffset);
+    right: 0;
     height: 220px;
-    width: var(--infoButtonWidth);
+    width: var(--maxWidth);
+    pointer-events: none;
   }
 
   .info-button { 
@@ -76,7 +80,8 @@
     top: 0;
     right: 0;
     height: 100%;
-    width: 100%;
+    width: var(--infoButtonWidth);
+    pointer-events: all;
     opacity: 0;
   }
 </style>
@@ -86,6 +91,7 @@
   style='
     --infoButtonWidth:{infoButtonWidth}px; 
     --infoButtonXOffset:{infoButtonXOffset}px;
+    --maxWidth:{maxWidth}px;
   '
 >
   <P5Canvas sketch={sketch}/>
