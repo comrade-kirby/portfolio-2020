@@ -122,57 +122,33 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
         drawCircle(p5, xPosition, yPosition, circleSize, hover, opacity)
       }
 
-      const drawFrequencyIcon = (p5, xPosition, yPosition, value, hover) => {
+      const drawFrequencyIcon = (p5, x, y, value, hover) => {
         const opacity = getOpacity(hover)
-      
-        drawOutline(p5, xPosition, yPosition, opacity) 
-        drawDots(p5, xPosition, yPosition, value, opacity)
-        
+        const spacing = (1 - value) * 4 + 2
         if (value == 0) {
-          drawSlash(p5, xPosition, yPosition, opacity)
+          drawSlash(p5, x, y, opacity)
+          return
         }
+       
+        const wave = () => {
+          p5.beginShape()
+          p5.curveVertex(x - spacing * 4, y+10)
+          p5.curveVertex(x - spacing * 3, y+10)
+          p5.curveVertex(x - spacing * 2, y-10)
+          p5.curveVertex(x - spacing, y+10)
+          p5.curveVertex(x, y-10)
+          p5.curveVertex(x + spacing, y+10)
+          p5.curveVertex(x + spacing * 2, y-10)
+          p5.curveVertex(x + spacing * 3, y+10)
+          p5.curveVertex(x + spacing * 4, y+10)
+          p5.endShape()
+        }
+  
+        const waveOptions = { stroke: true, opacity }
+        transparentShape(p5, wave, waveOptions)
       }
 
-        const drawOutline = (p5, xPosition, yPosition, opacity) => {
-          const rectOutline = () => {
-            p5.rect(xPosition - 12, yPosition - 8, 24, 16)
-          }
-          const options = { stroke: true, opacity }
-          transparentShape(p5, rectOutline, options)
-
-          p5.fill(0, 0, 100, 90)
-          p5.noStroke()
-          p5.rect(xPosition - 11, yPosition - 6, 22, 12) // fill white
-        }
-
-        const drawDots = (p5, xPosition, yPosition, value, opacity) => {
-          const numberOfCircles = Math.ceil(value * 10)
-          const coordinates = [
-            [0, 0],
-            [-8, -4],
-            [6, 6],
-            [3, -6],
-            [-8, 2],
-            [0, 4],
-            [8, -2],
-            [-4, -4],
-            [6, 2],
-            [-6, 6]
-          ]
-
-          for (let i = 0; i < numberOfCircles; i++) {
-            const x = xPosition + coordinates[i][0]
-            const y = yPosition + coordinates[i][1]
-            
-            p5.strokeWeight(5)
-            const dot = () => {
-              p5.point(x, y)
-            }
-
-            const options = { stroke: true, opacity }
-            transparentShape(p5, dot, options)
-          } 
-        }
+       
 
         const drawSlash = (p5, xPosition, yPosition, opacity) => {
           p5.strokeWeight(2)
