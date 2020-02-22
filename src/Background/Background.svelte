@@ -132,6 +132,7 @@
      cursorStyle = 'cell'
     } else {
       setFrequency($frequencyValue)
+      setRandomCircleCoords()
       cursorStyle = 'pointer'
     }
     mousePull = pull
