@@ -29,7 +29,6 @@
   const sketch = (p5) => {
     p5.setup = () => {
       setupCanvas(p5, sliderWidth, sliderHeight, `${button.text}-canvas`)
-      p5.frameRate(10)
     }
 
     p5.draw = () => {
@@ -43,7 +42,6 @@
 <style>
   .control-slider {
     position: relative;
-    right: var(--buttonXOffset);
     height: 70px;
     width: 300px;
   }
@@ -51,11 +49,19 @@
   button {
     position: absolute;
     margin: 0;
-    right: calc(-1 * var(--buttonXOffset));
+    right: 0;
     height: 100%;
     width: 60px;
     z-index: 1;
     opacity: 0;
+    pointer-events: all;
+  }
+
+  .pointer-screen {
+    position: absolute;
+    pointer-events: all;
+    width: 100%;
+    height: 100%;
   }
 
   input {
@@ -64,6 +70,7 @@
     top: 30px;
     width: 210px;
     opacity: 0;
+    pointer-events: all;
   }
 
    input[type=range]::-webkit-slider-thumb {
@@ -98,16 +105,18 @@
   class='control-slider'
   style='--buttonXOffset:{buttonXOffset}px'
   >
+  {#if button.progress}
+    <div class='pointer-screen'></div>
+    <input 
+        type='range'
+        min='0' max='1' step='0.01' 
+        on:input={inputCallback}
+        bind:value={value} />
+  {/if}
   <button 
     on:click={handleClick}
     on:mouseover={() => {hover = true}}
     on:mouseout={() => {hover = false}} 
   />
-  <input 
-      type='range'
-      min='0' max='1' step='0.01' 
-      on:input={inputCallback}
-      bind:value={value} />
-
   <P5Canvas sketch={sketch} />
 </div>

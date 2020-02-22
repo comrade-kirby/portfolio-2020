@@ -76,19 +76,20 @@
     min-height: 280px;
     height: 100%;
     flex: 1;
-    width: 60px;
+    width: 300px;
+    pointer-events: none;
   }
 
   .fill-div {
     flex-grow: 1;
     background-color: hsla(0,0%,100%,90%);
-    width: 100%;
+    width: 60px;
   }
 
   .bottom-padding {
     height: 10px;
     background-color: hsla(0,0%,100%,90%);
-    width: 100%;
+    width: 60px;
   }
 </style>
 

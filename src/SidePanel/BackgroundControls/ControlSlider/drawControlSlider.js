@@ -16,7 +16,7 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
 
   const drawControlButton = (p5, width, button, smallDimensions) => {
     const { text, value, progress, hover } = button
-    const x = 30 + (progress * (width - 60))
+    const x = width - 30
     const valueY = 30
     const labelY = 60
     const sliderY = 0
@@ -39,14 +39,13 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
   }
 
     const drawSlider = (p5, width, y, progress) => {
-      const backgroundX = 0
-      const backgroundY = y
+      const x = (width - 60) * (1 - progress)
       const backgroundHeight = 70
-      const lineX = backgroundX + 20
+      const lineX = x + 20
       const lineY = y + 35
 
-      eraseArea(p5, backgroundY, width, backgroundHeight)
-      drawSliderBackground(p5, backgroundX, backgroundY, width, backgroundHeight, progress)
+      eraseArea(p5, y, width, backgroundHeight)
+      drawSliderBackground(p5, x, y, width, backgroundHeight, progress)
       drawSliderLine(p5, lineX, lineY, width, progress) 
     }
 
