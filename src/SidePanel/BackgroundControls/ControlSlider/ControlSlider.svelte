@@ -67,7 +67,7 @@
   input {
     position: absolute;
     right: 43px;
-    top: 30px;
+    top: 20px;
     width: 265px;
     opacity: 0;
     pointer-events: all;
