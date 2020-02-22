@@ -22,9 +22,9 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
     const labelY = 55
     const sliderY = 0
     
-     
-    drawFillRect(p5, fillX)
+    
     drawSlider(p5, width, sliderY, progress)
+    drawFillRect(p5, fillX)
     drawLabel(p5, text, x, labelY, hover, smallDimensions)
     if (hover && progress) {
       drawXIcon(p5, x, valueY, true, progress)
@@ -37,30 +37,31 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
         yPosition: valueY
       })
     }
-
     drawIcon(p5, x, button)  
   }
   
     const drawFillRect = (p5, x) => {
       p5.fill(0, 0, 100, 90)
       p5.noStroke()
-      p5.rect(x, 50, 60, 25) 
+      p5.rect(x, 0, 60, 70) 
     }
+
     const drawSlider = (p5, width, y, progress) => {
       const x = (width - 60) * (1 - progress)
       const backgroundHeight = 50
       const lineX = x + 20
       const lineY = y + 25
-
-      eraseArea(p5, y, width, backgroundHeight)
-      drawSliderBackground(p5, x, y, width, backgroundHeight, progress)
+      const sliderWidth = (width - 60) * progress
+      const eraseWidth = width - 60
+      eraseArea(p5, y, eraseWidth, backgroundHeight)
+      drawSliderBackground(p5, x, y, sliderWidth, backgroundHeight, progress)
       drawSliderLine(p5, lineX, lineY, width, progress) 
     }
 
       const drawSliderBackground = (p5, x, y, width, height, progress) => {
         const maxRadius = 35
         const currentRadius = progress * maxRadius
-
+        // const currentWidth
         p5.fill(0, 0, 100, 90)
         p5.rect(x, y, width, height, currentRadius, 0, 0, currentRadius)
       }
@@ -198,4 +199,3 @@ export const drawControlSlider = (p5, width, height, button, smallDimensions) =>
       }
 
 export default drawControlSlider
-  
