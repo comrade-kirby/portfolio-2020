@@ -21,9 +21,8 @@
 	let canvasHeight
 	let canvasWidth
 	let loaded = false
-
+ 
 	window.onload = (event) => {
-		console.log('page is fully loaded')
 		loaded = true
 	}
 
@@ -68,7 +67,7 @@
 	bind:clientWidth={canvasWidth}
 
 >
-	<!-- {#if loaded}
+	{#if loaded}
 		{#if $open}
 			<Main />
 		{/if}
@@ -76,7 +75,6 @@
 			<SidePanel />
 		{/if}
 		<Background />
-	{:else} -->
-		<Loader />
-	<!-- {/if} -->
+	{/if}
+	<Loader loaded={loaded}/>
 </div>
