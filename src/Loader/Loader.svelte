@@ -1,5 +1,6 @@
 <script>
   import { tweened } from 'svelte/motion'
+  import { longestScreenDimension } from '../stores.js'
   
   const loaderProgress = tweened(0, { duration: 5000 })
   loaderProgress.set(360)
@@ -11,16 +12,14 @@
 </script>
 
 <style>
-  .loader {
-    }
-
   svg {
-    height: 100%;
+    height: var(--dimension);
+    width: var(--dimension);
   }
 </style>
 
-<div class='loader'>
-  <svg viewBox="0 0 100 100">
+<div>
+  <svg viewBox="0 0 100 100" style="--dimension:{$longestScreenDimension}px">
     <defs>
       <mask id="circleMask">
         <rect height="100" width="100" fill="hsl(0,0%,10%)"/>
