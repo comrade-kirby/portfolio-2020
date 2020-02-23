@@ -4,6 +4,8 @@
 	import Background from './Background/Background.svelte'
 	import Main from './Main/Main.svelte'
 	import SidePanel from './SidePanel/SidePanel.svelte'
+	import Loader from './Loader/Loader.svelte'
+
 	import { 
 		frequencyInterval,
 		frequencyValue,
@@ -18,7 +20,13 @@
 
 	let canvasHeight
 	let canvasWidth
-	
+	let loaded = false
+
+	window.onload = (event) => {
+		console.log('page is fully loaded')
+		loaded = true
+	}
+
 	afterUpdate(() => {
 		screenHeight.set(canvasHeight)	 
 		screenWidth.set(canvasWidth)	 
@@ -52,6 +60,7 @@
     overflow: hidden;
 	}
 
+	
 </style>
 
 <div 
@@ -59,11 +68,15 @@
 	bind:clientWidth={canvasWidth}
 
 >
-  {#if $open}
-		<Main />
-	{/if}
-	{#if !$mobileLayout || !$open}
-    <SidePanel />
-  {/if}
-	<Background />
+	<!-- {#if loaded}
+		{#if $open}
+			<Main />
+		{/if}
+		{#if !$mobileLayout || !$open}
+			<SidePanel />
+		{/if}
+		<Background />
+	{:else} -->
+		<Loader />
+	<!-- {/if} -->
 </div>

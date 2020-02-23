@@ -1,6 +1,4 @@
 <script>
-  import { fade } from 'svelte/transition'
-
   import Home from './Home/Home.svelte'
   import About from './About/About.svelte'
   import Contact from './Contact/Contact.svelte'
@@ -39,6 +37,7 @@
     z-index: 1;
     width: 100%;
     height: 100%;
+    pointer-events: none;
   }
 
   .content {
@@ -47,6 +46,7 @@
     min-height: 500px;
     width: var(--screenPercentage);
     height: 50%;
+    pointer-events: all;
   }
 
   .close-button {
@@ -63,6 +63,8 @@
     display: flex;
     justify-content: space-evenly;
     width: 50%;
+    pointer-events: all;
+
   }
 
   .nav-button {
