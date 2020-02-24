@@ -7,16 +7,15 @@
   
   export let loaded
   let animationComplete = false
-  const loaderProgress = tweened(0, { duration: 5000 })
+  const loaderProgress = tweened(0, { duration: 3000 })
   const circleRadius = tweened(8)
   const maskTransparency = tweened(100)
   loaderProgress.set(360)
     
   const loadedAnimation = () => {
-    loaderProgress.set($loaderProgress + 360, { duration: 2000, easing: cubicIn })
-    circleRadius.set(0, { delay: 1500, duration: 500, easing: backIn })
-    maskTransparency.set(0, { delay: 1300, duration: 500, easing: cubicIn })
-    setTimeout(() => { animationComplete = true }, 2100)
+    circleRadius.set(0, { delay: 400, duration: 500, easing: backIn })
+    maskTransparency.set(0, { delay: 300, duration: 500, easing: cubicIn })
+    setTimeout(() => { animationComplete = true }, 1100)
   }
 
   setInterval(() => {
@@ -24,7 +23,7 @@
       loaderProgress.set(0, { duration: 0 })
 		  loaderProgress.set(360)
     }
-  }, 5000)
+  }, 3000)
   
   $: if (loaded) { loadedAnimation() }
 </script>
@@ -33,35 +32,47 @@
   div {
     position: absolute;
     z-index: 2;
-    background-color: white;
+    background-color:hsl(0,0%,100%,var(--transparency));
   }
   svg {
     height: var(--dimension);
     width: var(--dimension);
   }
+
+  circle {
+    fill: hsl(0,0%,100%,calc(var(--transparency) + 30%));
+  }
+
+  path {
+    stroke: hsl(0,0%,0%,var(--transparency));
+    fill: none;
+    stroke-linecap: square;
+    stroke-width: .5 ;
+    stroke-miterlimit: 3;
+  }
+
   stop {
-    stop-color: hsl(calc(var(--progress) + var(--startHue)),100%,85%);
+    stop-color: hsl(calc(var(--progress) + var(--startHue)),100%,85%,var(--transparency));
   }
 </style>
 
 {#if !animationComplete }
-  <div transition:fade>
-    <svg viewBox="0 0 100 100" style="--dimension:{$longestScreenDimension}px;">
+  <div transition:fade 
+    style="
+      --transparency:{$maskTransparency}%;
+      --dimension:{$longestScreenDimension}px;
+      --progress:{$loaderProgress};
+    "
+  >
+    <svg viewBox="0 0 100 100" style="">
       <defs>
         <mask id="circleMask">
           <rect height="100" width="100" fill="hsl(0,0%,10%)"/>
-          <circle cx="50" cy="50" r="{$circleRadius}" fill="hsl(0,0%,100%,{$maskTransparency + 30}%" />
-          <path d="M46 55 L46 45 L50 52 L54 45 L54 55 L46 55" 		
-            stroke-linecap="square" 
-            stroke-width=".5" 
-            stroke="hsl(0,0%,0%,{$maskTransparency}%" 
-            fill="none" />
-          <path d="M45 44.5 L55 44.5" fill="none" stroke="hsl(0,0%,100%,{$maskTransparency}%" />
-          <path d="M48 52.5 L52 52.5" fill="none" stroke="hsl(0,0%,100%,{$maskTransparency}%" />
+          <circle cx="50" cy="50" r="{$circleRadius}" />
+          <path d="M46 55 L46 45 L50 52 L54 45 L54 55 L46 55" />
         </mask>
         <radialGradient id="GradientReflect"
           cx="0.5" cy="0.5" r="0.4" fx="0.75" fy="0.75"
-          style="--progress:{$loaderProgress};"
           spreadMethod="reflect">
           <stop offset="0%" style="--startHue:0"/>
           <stop offset="10%" style="--startHue:36"/>
