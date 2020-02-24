@@ -19,8 +19,6 @@
     frequencyHover
   } from '../../stores.js'
 
-  let controlsHeight, controlsWidth
-
   let sizeButtonParams = {
     text: 'size',
     progressWritable: sizeProgress,
@@ -68,7 +66,7 @@
 </script>
 
 <style>
-  #controls-canvas-container {
+  .background-controls {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -93,27 +91,24 @@
   }
 </style>
 
-<div 
-  id='controls-canvas-container' 
-  bind:clientHeight={controlsHeight}
-  bind:clientWidth={controlsWidth} >
+<div class="background-controls" >
   <div class='fill-div'></div>
   <ControlSlider
       button={sizeButtonParams} 
       progress={$sizeProgress}
       bind:value={$sizeValue}/>
-    <ControlSlider
-      button={speedButtonParams} 
-      progress={$speedProgress}
-      inputCallback={setCircleSpeed}
-      bind:value={$speedValue}/>
-    <ControlSlider
-      button={opacityButtonParams} 
-      progress={$opacityProgress}
-      bind:value={$opacityValue}/>
-    <ControlSlider
-      button={frequencyButtonParams} 
-      progress={$frequencyProgress}
-      bind:value={$frequencyValue}/>
-    <div class='bottom-padding'></div>
+  <ControlSlider
+    button={speedButtonParams} 
+    progress={$speedProgress}
+    inputCallback={setCircleSpeed}
+    bind:value={$speedValue}/>
+  <ControlSlider
+    button={opacityButtonParams} 
+    progress={$opacityProgress}
+    bind:value={$opacityValue}/>
+  <ControlSlider
+    button={frequencyButtonParams} 
+    progress={$frequencyProgress}
+    bind:value={$frequencyValue}/>
+  <div class='bottom-padding'></div>
 </div>

@@ -17,10 +17,17 @@
     height: 100%;
     z-index: 1;
   }
+  
+  .controls-container {
+    height: 100%;
+    overflow: scroll;
+  }
 </style>
 
 <div class='side-panel' transition:fade>
   <HomeButton />
   <InfoButton />
-  <BackgroundControls />
+  <div class='controls-container'>
+    <BackgroundControls />
+  </div>
 </div>
