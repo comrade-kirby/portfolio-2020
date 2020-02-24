@@ -9,7 +9,7 @@ import {
   transparentText
 } from '../../helpers'
 
-const drawInfoButton = (p5, width, height, infoParams, smallDimensions) => {
+const drawInfoButton = (p5, width, height, infoParams, smallDimensions, touch) => {
   const hover = infoParams.hover
   const progress = infoParams.progress
 
@@ -21,7 +21,7 @@ const drawInfoButton = (p5, width, height, infoParams, smallDimensions) => {
   const dividerX = width - 60
   const dividerY = height - 1
 
-  drawTextBox(p5, width, height, textBoxY, progress, smallDimensions)
+  drawTextBox(p5, width, height, textBoxY, progress, smallDimensions, touch)
   drawControlTitle(p5, x, titleY, hover)
   if (progress && hover) {
     drawXIcon(p5, x, iconY, true, progress)
@@ -46,31 +46,48 @@ const drawControlTitle = (p5, x, y, hover) => {
   })
 }
 
-const drawTextBox = (p5, width, height, y, progress, smallDimensions) => {
+const drawTextBox = (p5, width, height, y, progress, smallDimensions, touch) => {
   const maxRadius = 25
   const currentRadius = progress * maxRadius
   const x = (width - 60) * (1 - progress)
-  
+  const pointer = touch ? 'touch' : 'mouse'
+  const verb = touch ? 'press' : 'click'
+
   eraseArea(p5, y, width, height)
   drawTextBoxBackground(p5, x, y, width, height, currentRadius)
   
   if (progress) {
     const textSize = smallDimensions ? 10 : 12
+
+    const infoWidth = width - (smallDimensions ? 80 : 80)
     const labelWidth = width - (smallDimensions ? 300 : 400)
     const descriptionWidth = width - (smallDimensions ? 100 : 180)
     
-    const labelX = x + (smallDimensions ? 5 : 40)
-    const descriptionX = x + (smallDimensions ? 80 : 120)
+    const infoX = x + (smallDimensions ? 25 : 30)
+    const labelX = x + (smallDimensions ? 15 : 40)
+    const descriptionX = x + (smallDimensions ? 90 : 120)
 
+    transparentText(p5, {
+      text: `the animation behind moves for itself\n\nit reacts to your ${pointer} and can be modified with the controls below`,
+      textSize: textSize,
+      textLeading: 20,
+      horizontalAlignment: p5.LEFT,
+      verticalAlignment: p5.TOP,
+      xPosition: infoX,
+      yPosition: 30,
+      width: infoWidth,
+      height: height - 30,
+      progress: progress
+    })
     // labels
     transparentText(p5, {
-      text: "size -\nspeed -\nopac -\nfreq -\n\nclick -\nr -",
+      text: "size -\nspeed -\nopac -\nfreq -",
       textSize: textSize,
       textLeading: 30,
       horizontalAlignment: p5.RIGHT,
       verticalAlignment: p5.TOP,
       xPosition: labelX,
-      yPosition: 35,
+      yPosition: 125,
       width: labelWidth,
       height: height - 30,
       progress: progress
@@ -78,15 +95,28 @@ const drawTextBox = (p5, width, height, y, progress, smallDimensions) => {
 
     // descriptions
     transparentText(p5, {
-      text: "size of shape\nattraction to cursor\nshape transparency\nfrequency of new cursor location\n\npull towards cursor/touch\nreset",
+      text: "size of shape\nrate of movement\nshape transparency\nfrequency of direction change",
       textSize: textSize,
       textLeading: 30,
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.TOP,
       xPosition: descriptionX,
-      yPosition: 35,
+      yPosition: 125,
       width: descriptionWidth,
       height: height - 40,
+      progress: progress
+    })
+
+    transparentText(p5, {
+      text: `${verb} and hold to pull towards ${pointer}`,
+      textSize: textSize,
+      textLeading: 20,
+      horizontalAlignment: p5.LEFT,
+      verticalAlignment: p5.TOP,
+      xPosition: infoX,
+      yPosition: 250,
+      width: infoWidth,
+      height: height - 30,
       progress: progress
     })
   }

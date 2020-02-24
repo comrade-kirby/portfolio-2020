@@ -15,7 +15,8 @@
 		reset,
 		screenHeight,
 		screenWidth,
-		smallDimensions
+		smallDimensions,
+		touch
 	} from './stores.js'
 
 	let canvasHeight
@@ -32,6 +33,9 @@
 		}
 	}
 	
+	const touched = () => {
+		touch.set(true)
+	}
 	afterUpdate(() => {
 		screenHeight.set(canvasHeight)	 
 		screenWidth.set(canvasWidth)	 
@@ -67,7 +71,10 @@
 	
 </style>
 
-<svelte:window on:keydown={handleKeydown}/>
+<svelte:window 
+	on:keydown={handleKeydown}
+	on:touchstart|once={touched}
+	/>
 <div 
 	bind:clientHeight={canvasHeight}
 	bind:clientWidth={canvasWidth}

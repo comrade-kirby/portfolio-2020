@@ -6,7 +6,7 @@
   export let button
   export let progress
   export let value
-  export let inputCallback
+  export let inputCallback = null
   
   let hover = false
   let sliderWidth = 300

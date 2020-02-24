@@ -185,6 +185,8 @@
   style='--backgroundHue:{$backgroundHue}; --cursorStyle:{cursorStyle};'
   on:mousedown={() => setMousePull(true)}
   on:mouseup={() => setMousePull(false)}
+  on:touchstart={() => setMousePull(true)}
+  on:touchend={() => setMousePull(false)}
   on:mousemove={handleMousemove}
 >
   <P5Canvas sketch={sketch} />

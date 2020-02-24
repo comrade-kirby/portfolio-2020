@@ -14,6 +14,7 @@ export const closedOnce = writable(false)
 export const mobileLayout = writable(true)
 export const smallDimensions = writable(true)
 export const reset = writable(false)
+export const touch = writable(false)
 
 export const circleHue = tweened(90, {
   duration: 3000,

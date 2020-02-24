@@ -8,6 +8,7 @@
     infoProgress,
     open,
     smallDimensions,
+    touch,
     sizeProgress,
     speedProgress,
     opacityProgress,
@@ -50,7 +51,7 @@
     }
 
     p5.draw = () => {
-      drawInfoButton(p5, maxWidth, infoButtonHeight, infoParams, $smallDimensions)
+      drawInfoButton(p5, maxWidth, infoButtonHeight, infoParams, $smallDimensions, $touch)
     }
   }
 
