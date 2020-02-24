@@ -7,7 +7,7 @@ import {
   eraseArea
 } from '../../helpers'
 
-const drawHomeButton = (p5, width, height, hover, smallDimensions) => {
+const drawHomeButton = (p5, width, height, hover) => {
   const iconX = width / 2
   const iconY = 25
   const labelX = width / 2
@@ -18,7 +18,7 @@ const drawHomeButton = (p5, width, height, hover, smallDimensions) => {
   eraseArea(p5, 0, width, height)
   drawContainer(p5, width, height)
   drawMaximizeIcon(p5, iconX, iconY, hover)
-  drawLabel(p5, 'home', labelX, labelY, hover, smallDimensions)
+  drawLabel(p5, 'home', labelX, labelY, hover)
   drawDivider(p5, dividerX, dividerY, hover)
 }
 

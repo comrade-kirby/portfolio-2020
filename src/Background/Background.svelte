@@ -4,15 +4,16 @@
   import { setupCanvas } from '../helpers.js'
   import P5Canvas from '../P5Canvas.svelte'
   import { 
-    screenHeight,
-    screenWidth,
-    longestScreenDimension,
-    circleLocation,
     backgroundHue,
     circleHue,
-    sizeValue,
+    circleLocation,
+    frequencyValue,
+    longestScreenDimension,
     opacityValue,
-    frequencyValue
+    reset,
+    screenHeight,
+    screenWidth,
+    sizeValue
   } from '../stores.js'
 
   const hueMaxValue = 360
@@ -99,8 +100,12 @@
 	  }
 
 	  p5.draw = () => {
+      if ($reset) { 
+        p5.clear() 
+        setCircleCenter()
+        reset.set(false) 
+      }
       const coordinates = generateCoordinates(p5)
-
       drawShape(p5, coordinates)
     }
 
@@ -114,10 +119,14 @@
     const randomNum = () => { return Math.random() * divisions }
     const xPosition = $screenWidth / divisions * randomNum()
     const yPosition = $screenHeight / divisions * randomNum()
-
     circleLocation.set({ x: xPosition, y: yPosition })
   }
   
+  const setCircleCenter = () => {
+    circleLocation.set({ x: $screenWidth / 2, y: $screenHeight / 2 }, {
+      hard: true
+    })
+  }
   const setFrequency = (frequencyValue) => {
     clearInterval(interval)
     if (frequencyValue == 0) { return }
@@ -145,10 +154,7 @@
 
   onMount(async () => {
     await $screenWidth && $screenHeight
-
-    circleLocation.set({ x: $screenWidth / 2, y: $screenHeight / 2 }, {
-      hard: true
-    })
+    setCircleCenter()
   })
 
   setInterval(() => {

@@ -1,6 +1,5 @@
 <script>  
   import P5Canvas from '../../../P5Canvas.svelte'
-  import { smallDimensions } from '../../../stores'
   import { setupCanvas } from '../../../helpers'
   import drawControlSlider from './drawControlSlider'
 
@@ -32,7 +31,7 @@
     }
 
     p5.draw = () => {
-      drawControlSlider(p5, sliderWidth, sliderHeight, button, smallDimensions)
+      drawControlSlider(p5, sliderWidth, button)
     }
   }
   $: button.hover = hover

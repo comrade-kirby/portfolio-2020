@@ -2,6 +2,7 @@
   import { onMount } from 'svelte'
 
   import ControlSlider from './ControlSlider/ControlSlider.svelte'
+  import ResetButton from './ResetButton/ResetButton.svelte'
   import { setupCanvas, logStiffness, logDamping } from '../../helpers'
   import { 
     circleLocation,
@@ -13,10 +14,6 @@
     speedProgress,
     opacityProgress,
     frequencyProgress,
-    sizeHover,
-    speedHover,
-    opacityHover,
-    frequencyHover
   } from '../../stores.js'
 
   let sizeButtonParams = {
@@ -38,7 +35,7 @@
 
   let buttonParams = [sizeButtonParams, speedButtonParams, opacityButtonParams, frequencyButtonParams]
 
-  const setButtonParams = (text, progress, hover, value=null) => {
+  const setButtonParams = (text, progress, value=null) => {
     const button = buttonParams.find(button => button.text == text)
     
     button.text = text
@@ -46,10 +43,10 @@
     button.progress = progress
   }
 
-  $: setButtonParams('size', $sizeProgress, $sizeHover, $sizeValue)
-  $: setButtonParams('speed', $speedProgress, $speedHover, $speedValue)
-  $: setButtonParams('opac', $opacityProgress, $opacityHover, $opacityValue)
-  $: setButtonParams('freq', $frequencyProgress, $frequencyHover, $frequencyValue)
+  $: setButtonParams('size', $sizeProgress, $sizeValue)
+  $: setButtonParams('speed', $speedProgress, $speedValue)
+  $: setButtonParams('opac', $opacityProgress, $opacityValue)
+  $: setButtonParams('freq', $frequencyProgress, $frequencyValue)
 
   const setCircleSpeed = (e) => {
     const value = e.target.value
@@ -58,10 +55,10 @@
   }
 
   onMount(() => {
-    setButtonParams('size', $sizeProgress, $sizeHover, $sizeValue)
-    setButtonParams('speed', $speedProgress, $speedHover, $speedValue)
-    setButtonParams('opac', $opacityProgress, $opacityHover, $opacityValue) 
-    setButtonParams('freq', $frequencyProgress, $frequencyHover, $frequencyValue)
+    setButtonParams('size', $sizeProgress, $sizeValue)
+    setButtonParams('speed', $speedProgress, $speedValue)
+    setButtonParams('opac', $opacityProgress, $opacityValue) 
+    setButtonParams('freq', $frequencyProgress, $frequencyValue)
   })
 </script>
 
@@ -71,7 +68,7 @@
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
-    min-height: 280px;
+    min-height: 350px;
     height: 100%;
     flex: 1;
     width: 300px;
@@ -93,6 +90,7 @@
 
 <div class="background-controls" >
   <div class='fill-div'></div>
+  <ResetButton />
   <ControlSlider
       button={sizeButtonParams} 
       progress={$sizeProgress}

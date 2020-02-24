@@ -9,10 +9,10 @@
 	import { 
 		frequencyInterval,
 		frequencyValue,
-		circleLocation,
 		longestScreenDimension,
 		mobileLayout,
 		open,
+		reset,
 		screenHeight,
 		screenWidth,
 		smallDimensions
@@ -26,6 +26,12 @@
 		loaded = true
 	}
 
+	const handleKeydown = (e) => {
+		if (!$open) {
+			if (e.code == "KeyR") { reset.set(true) }
+		}
+	}
+	
 	afterUpdate(() => {
 		screenHeight.set(canvasHeight)	 
 		screenWidth.set(canvasWidth)	 
@@ -58,10 +64,10 @@
 		align-items: center;
     overflow: hidden;
 	}
-
 	
 </style>
 
+<svelte:window on:keydown={handleKeydown}/>
 <div 
 	bind:clientHeight={canvasHeight}
 	bind:clientWidth={canvasWidth}

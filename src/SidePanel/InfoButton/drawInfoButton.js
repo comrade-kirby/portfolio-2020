@@ -28,7 +28,7 @@ const drawInfoButton = (p5, width, height, infoParams, smallDimensions) => {
   } else {
     drawInfoIcon(p5, x, iconY, hover)
   }
-  drawLabel(p5, 'info', x, labelY, hover, smallDimensions)
+  drawLabel(p5, 'info', x, labelY, hover)
   drawDivider(p5, dividerX, dividerY, hover)
 }
 
@@ -64,7 +64,7 @@ const drawTextBox = (p5, width, height, y, progress, smallDimensions) => {
 
     // labels
     transparentText(p5, {
-      text: "size -\nspeed -\nopac -\nfreq -\n\nclick -\n space -\nr -",
+      text: "size -\nspeed -\nopac -\nfreq -\n\nclick -\nr -",
       textSize: textSize,
       textLeading: 30,
       horizontalAlignment: p5.RIGHT,
@@ -78,7 +78,7 @@ const drawTextBox = (p5, width, height, y, progress, smallDimensions) => {
 
     // descriptions
     transparentText(p5, {
-      text: "size of shape\nattraction to cursor\nshape transparency\nfrequency of new cursor location\n\npull towards cursor/touch\npause\nreset",
+      text: "size of shape\nattraction to cursor\nshape transparency\nfrequency of new cursor location\n\npull towards cursor/touch\nreset",
       textSize: textSize,
       textLeading: 30,
       horizontalAlignment: p5.LEFT,
