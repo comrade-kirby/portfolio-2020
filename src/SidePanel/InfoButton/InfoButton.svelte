@@ -18,7 +18,7 @@
 
   let maxWidth
   let infoButtonWidth = 60
-  let infoButtonHeight = 220
+  let infoButtonHeight = 290
   let infoButtonXOffset = 0
 
   let infoParams = {
@@ -69,7 +69,7 @@
   #info-button-canvas-container {
     position: relative;
     right: 0;
-    height: 220px;
+    height: var(--height);
     width: var(--maxWidth);
     pointer-events: none;
   }
@@ -90,6 +90,7 @@
   style='
     --infoButtonWidth:{infoButtonWidth}px; 
     --infoButtonXOffset:{infoButtonXOffset}px;
+    --height:{infoButtonHeight}px;
     --maxWidth:{maxWidth}px;
   '
 >

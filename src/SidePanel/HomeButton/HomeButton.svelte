@@ -42,10 +42,8 @@
 
 <style>
   #home-button-canvas-container {
-    position: relative;
-    height: 100%;
     width: 60px;
-    height: 70px;
+    min-height: 70px;
   }
   
   .home-button { 

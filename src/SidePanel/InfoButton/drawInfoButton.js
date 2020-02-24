@@ -16,10 +16,10 @@ const drawInfoButton = (p5, width, height, infoParams, smallDimensions) => {
   const x = width - 30
   const titleY = 10
   const textBoxY = 1
-  const iconY = 170
-  const labelY = 200
+  const iconY = height - 50
+  const labelY = height - 20
   const dividerX = width - 60
-  const dividerY = 219
+  const dividerY = height - 1
 
   drawTextBox(p5, width, height, textBoxY, progress, smallDimensions)
   drawControlTitle(p5, x, titleY, hover)
@@ -33,7 +33,7 @@ const drawInfoButton = (p5, width, height, infoParams, smallDimensions) => {
 }
 
 const drawControlTitle = (p5, x, y, hover) => {
-  const verticalText = [...'canvas'].map(letter => letter + '\n').join('')
+  const verticalText = [...'animation'].map(letter => letter + '\n').join('')
   transparentText(p5, {
     text: verticalText,
     textSize: 24,
@@ -56,50 +56,35 @@ const drawTextBox = (p5, width, height, y, progress, smallDimensions) => {
   
   if (progress) {
     const textSize = smallDimensions ? 10 : 12
-    const headerWidth = width - (smallDimensions ? 60 : 90)
-    const labelWidth = width - (smallDimensions ? 320 : 400)
+    const labelWidth = width - (smallDimensions ? 300 : 400)
     const descriptionWidth = width - (smallDimensions ? 100 : 180)
     
-    const headerX = x + (smallDimensions ? 5 : 20)
-    const labelX = x + (smallDimensions ? 25 : 40)
+    const labelX = x + (smallDimensions ? 5 : 40)
     const descriptionX = x + (smallDimensions ? 80 : 120)
-
-    transparentText(p5, {
-      text: "the sliders below modify the animation",
-      textSize: textSize,
-      textLeading: 32,
-      horizontalAlignment: p5.CENTER,
-      verticalAlignment: p5.TOP,
-      xPosition: headerX,
-      yPosition: 40,
-      width: headerWidth,
-      height: 80,
-      progress: progress
-    })
 
     // labels
     transparentText(p5, {
-      text: "size -\nspeed -\nopac -\nfreq -",
+      text: "size -\nspeed -\nopac -\nfreq -\n\nclick -\n space -\nr -",
       textSize: textSize,
-      textLeading: 32,
+      textLeading: 30,
       horizontalAlignment: p5.RIGHT,
       verticalAlignment: p5.TOP,
       xPosition: labelX,
-      yPosition: 75,
+      yPosition: 35,
       width: labelWidth,
-      height: height - 40,
+      height: height - 30,
       progress: progress
     })
 
     // descriptions
     transparentText(p5, {
-      text: "size of shape\nattraction to cursor\nshape transparency\nfrequency of new cursor location",
+      text: "size of shape\nattraction to cursor\nshape transparency\nfrequency of new cursor location\n\npull towards cursor/touch\npause\nreset",
       textSize: textSize,
-      textLeading: 32,
+      textLeading: 30,
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.TOP,
       xPosition: descriptionX,
-      yPosition: 75,
+      yPosition: 35,
       width: descriptionWidth,
       height: height - 40,
       progress: progress
