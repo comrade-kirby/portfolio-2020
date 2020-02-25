@@ -2,89 +2,11 @@
   import { fade } from 'svelte/transition'
   
   import P5Canvas from '../../P5Canvas.svelte'
-  import { closeHover, smallDimensions } from '../../stores.js'
-  import { 
-    closeButtonMargin,
-    drawContainer,
-    drawXIcon,
-    eraseArea,
-    transparentText,
-    transparentTitle,
-    setupCanvas
-  } from '../../helpers.js'
+  import drawAbout from './drawAbout'
+  import { closeHover, screenSize } from '../../stores.js'
+  import { setupCanvas } from '../../helpers.js'
   
   let aboutHeight, aboutWidth
-
-  const drawContent = (p5) => {
-    const textSize = $smallDimensions ? 12 : 16
-    const margin = $smallDimensions ? 20 : 40
-    const leftX = $smallDimensions ? 50 : 100
-    const rightX = $smallDimensions ? 100 : 160
-
-    const leftWidth = $smallDimensions ? aboutWidth - 80 : aboutWidth - 140
-    const rightWidth = $smallDimensions ? aboutWidth - 110 : aboutWidth - 200
-
-    transparentText(p5, {
-      text: "i create for the web",
-      textSize: textSize,
-      horizontalAlignment: p5.LEFT,
-      verticalAlignment: p5.CENTER,
-      xPosition: leftX,
-      yPosition: aboutHeight - margin - 380,
-      width: leftWidth,
-      height: 20
-    })
-    transparentText(p5, {
-      text: "i leverage animation and interaction design to build visually informative and joyful applications",
-      textSize: textSize,
-      horizontalAlignment: p5.LEFT,
-      verticalAlignment: p5.CENTER,
-      xPosition: rightX,
-      yPosition: aboutHeight - margin - 340,
-      width: rightWidth,
-      height: 60
-    })
-    transparentText(p5, {
-      text: "i value transparency, compassion, and curiosity",
-      textSize: textSize,
-      horizontalAlignment: p5.LEFT,
-      verticalAlignment: p5.CENTER,
-      xPosition: leftX,
-      yPosition: aboutHeight - margin - 270,
-      width: leftWidth,
-      height: 40
-    })
-    transparentText(p5, {
-      text: "i am passionate about designing inovative and interactive experiences and work to make the internet more fun, more accessible, more human",
-      textSize: textSize,
-      horizontalAlignment: p5.LEFT,
-      verticalAlignment: p5.CENTER,
-      xPosition: rightX,
-      yPosition: aboutHeight - margin - 220,
-      width: rightWidth,
-      height: 90
-    })
-    transparentText(p5, {
-      text: "call on me for technical experience, creative direction, and software consulting",
-      textSize: textSize,
-      horizontalAlignment: p5.LEFT,
-      verticalAlignment: p5.CENTER,
-      xPosition: leftX,
-      yPosition: aboutHeight - margin -110,
-      width: leftWidth,
-      height: 60
-    })
-    transparentText(p5, {
-      text: "together we can build a better web :)",
-      textSize: textSize,
-      horizontalAlignment: p5.RIGHT,
-      verticalAlignment: p5.CENTER,
-      xPosition: rightX,
-      yPosition: aboutHeight - margin - 40,
-      width: rightWidth,
-      height: 40
-    })
-  }
 
   const sketch = (p5) => {
 	  p5.setup = () => {
@@ -93,12 +15,7 @@
     }
     
     p5.draw = () => {
-      eraseArea(p5, 0, aboutWidth, aboutHeight)
-      drawContainer(p5, aboutWidth, aboutHeight)
-      transparentTitle(p5, "who aM i? asking for a friend", $smallDimensions)
-      drawContent(p5)
-      const margin = closeButtonMargin($smallDimensions)
-      drawXIcon(p5, aboutWidth - margin, margin, $closeHover)
+      drawAbout(p5, aboutWidth, aboutHeight, $screenSize, $closeHover)
     }
 
     p5.windowResized = () => {

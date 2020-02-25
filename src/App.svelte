@@ -16,7 +16,7 @@
 		reset,
 		screenHeight,
 		screenWidth,
-		smallDimensions,
+		screenSize,
 		touch
 	} from './stores.js'
 
@@ -41,7 +41,9 @@
 		screenHeight.set(canvasHeight)	 
 		screenWidth.set(canvasWidth)	 
 		canvasWidth < 1000 ? mobileLayout.set(true) : mobileLayout.set(false)
-		canvasWidth < 750 ? smallDimensions.set(true) : smallDimensions.set(false)
+		if (canvasWidth < 650) { screenSize.set('small') }
+		else if (canvasWidth < 750) { screenSize.set('medium') }
+		else { screenSize.set('large') }
 
 		const longestDimension = $screenWidth >= $screenHeight ? $screenWidth : $screenHeight
 		longestScreenDimension.set(longestDimension)

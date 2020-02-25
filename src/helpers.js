@@ -35,9 +35,9 @@ export const transparentText = (p5, options) => {
   p5.text(text, xPosition, yPosition, width, height)
 }
 
-export const transparentTitle = (p5, text, smallDimensions) => {
-  const size = smallDimensions ? 11 : 20
-  const margin = smallDimensions ? 20 : 40
+export const transparentTitle = (p5, text, screenSize) => {
+  const size = screenSize == 'large' ? 20 : 11
+  const margin = screenSize == 'large' ? 40 : 20
 
   transparentText(p5, {
     text: text,
@@ -136,8 +136,8 @@ export const logDamping = (value) => {
   return 10 ** ((1 - value) * dampingMinPower)
 }
 
-export const closeButtonMargin = (smallDimensions) => {
-  return smallDimensions ? 30 : 50
+export const closeButtonMargin = (screenSize) => {
+  return screenSize == 'large' ? 50 : 30
 }
 
 export const openControlButtons = (controlButtons) => {

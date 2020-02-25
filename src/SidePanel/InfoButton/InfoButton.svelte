@@ -7,7 +7,7 @@
     closedOnce,
     infoProgress,
     open,
-    smallDimensions,
+    screenSize,
     touch,
     sizeProgress,
     speedProgress,
@@ -36,8 +36,8 @@
     }
   }
 
-  const setInfoButtonWidth = (smallDimensions, infoProgress) => {
-    maxWidth = smallDimensions ? 375 : 480
+  const setInfoButtonWidth = (screenSize, infoProgress) => {
+    maxWidth = screenSize = 'large' ? 480 : 375
     infoButtonWidth = (maxWidth * infoProgress) || 60
   }
 
@@ -51,17 +51,17 @@
     }
 
     p5.draw = () => {
-      drawInfoButton(p5, maxWidth, infoButtonHeight, infoParams, $smallDimensions, $touch)
+      drawInfoButton(p5, maxWidth, infoButtonHeight, infoParams, $screenSize, $touch)
     }
   }
 
   $: infoParams.progress = $infoProgress
-  $: setInfoButtonWidth($smallDimensions, $infoProgress)
+  $: setInfoButtonWidth($screenSize, $infoProgress)
   $: slideInfoButton($infoProgress)
 
   onMount(() => { 
     infoParams.progress = $infoProgress
-    setInfoButtonWidth($smallDimensions, $infoProgress)
+    setInfoButtonWidth($screenSize, $infoProgress)
     slideInfoButton($infoProgress)
   })
 </script>

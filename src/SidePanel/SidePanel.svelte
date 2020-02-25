@@ -3,7 +3,6 @@
   import BackgroundControls from './BackgroundControls/BackgroundControls.svelte'
   import HomeButton from './HomeButton/HomeButton.svelte'
   import InfoButton from './InfoButton/InfoButton.svelte'
-  import { smallDimensions } from '../stores.js'
 </script>
 
 <style>

@@ -2,7 +2,7 @@
   import { fade } from 'svelte/transition'
 
   import P5Canvas from '../../P5Canvas.svelte'
-  import { closeHover, smallDimensions } from '../../stores.js'
+  import { closeHover, screenSize } from '../../stores.js'
   import {
     closeButtonMargin,
     drawContainer,
@@ -35,9 +35,9 @@
   const drawLabels = (p5) => {
     const textWidthLarge = contactWidth * 0.30 - 45
     const textWidthSmall = contactWidth * 0.30 - 20
-    const textWidth = $smallDimensions ? textWidthSmall : textWidthLarge
-    const yOffset = $smallDimensions ? 158: 174
-    const textSize = $smallDimensions ? 12 : 20
+    const textWidth = $screenSize == 'large' ? textWidthLarge : textWidthSmall
+    const yOffset = $screenSize == 'large' ? 174 : 158
+    const textSize = $screenSize == 'large' ? 20 : 12
     p5.textSize(textSize)
     p5.textAlign(p5.RIGHT, p5.CENTER)
     
@@ -65,8 +65,8 @@
   }
   
   const drawSubmitButton = (p5) => {
-    const textSize = $smallDimensions ? 12 : 20
-    const margin = $smallDimensions ? 20 : 40
+    const textSize = $screenSize == 'large' ? 20 : 212
+    const margin = $screenSize == 'large' ? 40 : 20
     const rectWidth = contactWidth * 0.70
     const rectHeight = 32
     const xPosition = contactWidth - rectWidth - margin
@@ -112,8 +112,8 @@
     p5.draw = () => {
       eraseArea(p5, 0, contactWidth, contactHeight)
       drawContainer(p5, contactWidth, contactHeight)
-      transparentTitle(p5, 'how Might we.. work together? :)', $smallDimensions)
-      const margin = closeButtonMargin($smallDimensions)
+      transparentTitle(p5, 'how Might we.. work together? :)', $screenSize)
+      const margin = closeButtonMargin($screenSize)
       drawXIcon(p5, contactWidth - margin, margin, $closeHover)
       if (!messageSent) {
         drawLabels(p5)
@@ -207,7 +207,7 @@
 	bind:clientWidth={contactWidth}
 >
   {#if !messageSent}
-    <form style='--margin:{$smallDimensions ? 20 : 40}px'>
+    <form style='--margin:{$screenSize == 'large' ? 40 : 20}px'>
         <input bind:value={name} type='text' name='name'>
         <input bind:value={email} type='email' name='email'>
         <input bind:value={honeypot} type="hidden" name='honeypot'>

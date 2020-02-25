@@ -10,7 +10,7 @@
     currentView,
     mobileLayout,
     open,
-    smallDimensions,
+    screenSize,
     sizeProgress,
     speedProgress,
     opacityProgress,
@@ -82,10 +82,10 @@
 </style>
 
 <div class='main'>
-  <div class='content' style='--minWidth:{$smallDimensions ? 350 : 700}px;  --screenPercentage:{$smallDimensions ? 75 : 50}%'>
+  <div class='content' style='--minWidth:{$screenSize == 'large' ? 700 : 350}px;  --screenPercentage:{$screenSize == 'large' ? 50 : 75}%'>
     <button 
       class='close-button'
-      style='--position:{$smallDimensions ? 10 : 30}px'
+      style='--position:{$screenSize == 'large' ? 30 : 10}px'
       on:click={handleClose} 
       on:mouseover={() => { $closeHover = true }}
       on:mouseout={() => { $closeHover = false }} />
@@ -97,7 +97,7 @@
       <Contact />
     {/if}
   </div>
-  <div class='buttons' style='--size:{ $smallDimensions ? 18 : 24 }px'>
+  <div class='buttons' style='--size:{ $screenSize == 'large' ? 24 : 18 }px'>
     <button class='nav-button' class:active={$currentView == 'home'} on:click={() => $currentView = 'home'}>home</button>
     <button class='nav-button' class:active={$currentView == 'about'} on:click={() => $currentView = 'about'}>about</button>
     <button class='nav-button' class:active={$currentView == 'contact'} on:click={() => $currentView = 'contact'}>contact</button>

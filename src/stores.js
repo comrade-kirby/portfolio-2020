@@ -12,7 +12,7 @@ export const closeHover = writable(false)
 export const currentView = writable('home')
 export const closedOnce = writable(false)
 export const mobileLayout = writable(true)
-export const smallDimensions = writable(true)
+export const screenSize = writable('small')
 export const reset = writable(false)
 export const touch = writable(false)
 export const active = writable(true)
@@ -28,7 +28,7 @@ export const backgroundHue = tweened(270, {
 })
 
 const configs = [
-  // [0.9, 0.1, 0.93, 0.5],
+  [0.9, 0.1, 0.93, 0.5],
   // [0.12, 0.78, 0.45, 0.60],
   // [0.19, 0.66, 0.23, 0.65],
   // [0.37, 0.27, 0.93, 0.96],
@@ -41,7 +41,7 @@ const configs = [
   // [0.06, 0.75, 0.12, 0.50],
   // [0.03, 0.72, 0.21, 0.98],
   // [0.40, 0.27, 0.70, 0.8],
-  [0.15, 0.20, 0.30, 0.80]
+  // [0.15, 0.20, 0.30, 0.80]
 ]
 
 const autoConfig = configs[Math.floor(Math.random() * configs.length)]

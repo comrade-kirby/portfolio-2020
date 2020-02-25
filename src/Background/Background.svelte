@@ -128,6 +128,7 @@
       hard: true
     })
   }
+  
   const setFrequency = (frequencyValue) => {
     clearInterval(interval)
     if (frequencyValue == 0) { return }

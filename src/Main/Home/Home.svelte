@@ -1,7 +1,7 @@
 <script>
   import { fade } from 'svelte/transition'
   import P5Canvas from '../../P5Canvas.svelte'
-  import { closeHover, smallDimensions } from '../../stores.js'
+  import { closeHover, screenSize } from '../../stores.js'
   import {
     closeButtonMargin,
     drawContainer,
@@ -15,8 +15,8 @@
   let homeHeight, homeWidth
 
   const drawName = (p5) => {
-    const textSize = $smallDimensions ? 36 : 48
-    const margin = $smallDimensions ? 20 : 40
+    const textSize = $screenSize == 'large' ? 48 : 36
+    const margin = $screenSize == 'large' ? 40 : 20
     p5.textAlign(p5.RIGHT, p5.BOTTOM)
     transparentText(p5, { 
       text: 'Max\nhouston\noppenheiMer', 
@@ -37,9 +37,9 @@
     p5.draw = () => {
       eraseArea(p5, 0, homeWidth, homeHeight)
       drawContainer(p5, homeWidth, homeHeight)
-      transparentTitle(p5, 'developMent | design | consulting', $smallDimensions)
+      transparentTitle(p5, 'developMent | design | consulting', $screenSize)
       drawName(p5)
-      const margin = closeButtonMargin($smallDimensions)
+      const margin = closeButtonMargin($screenSize)
       drawXIcon(p5, homeWidth - margin, margin, $closeHover)
     }
 

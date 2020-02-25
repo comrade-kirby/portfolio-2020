@@ -9,7 +9,7 @@ import {
   transparentText
 } from '../../helpers'
 
-const drawInfoButton = (p5, width, height, infoParams, smallDimensions, touch) => {
+const drawInfoButton = (p5, width, height, infoParams, screenSize, touch) => {
   const hover = infoParams.hover
   const progress = infoParams.progress
 
@@ -21,7 +21,7 @@ const drawInfoButton = (p5, width, height, infoParams, smallDimensions, touch) =
   const dividerX = width - 60
   const dividerY = height - 1
 
-  drawTextBox(p5, width, height, textBoxY, progress, smallDimensions, touch)
+  drawTextBox(p5, width, height, textBoxY, progress, screenSize, touch)
   drawControlTitle(p5, x, titleY, hover)
   if (progress && hover) {
     drawXIcon(p5, x, iconY, true, progress)
@@ -46,7 +46,7 @@ const drawControlTitle = (p5, x, y, hover) => {
   })
 }
 
-const drawTextBox = (p5, width, height, y, progress, smallDimensions, touch) => {
+const drawTextBox = (p5, width, height, y, progress, screenSize, touch) => {
   const maxRadius = 25
   const currentRadius = progress * maxRadius
   const x = (width - 60) * (1 - progress)
@@ -57,15 +57,12 @@ const drawTextBox = (p5, width, height, y, progress, smallDimensions, touch) => 
   drawTextBoxBackground(p5, x, y, width, height, currentRadius)
   
   if (progress) {
-    const textSize = smallDimensions ? 10 : 12
+    const textSize = screenSize == 'large' ? 12 : 10
 
-    const infoWidth = width - (smallDimensions ? 80 : 80)
-    const labelWidth = width - (smallDimensions ? 300 : 400)
-    const descriptionWidth = width - (smallDimensions ? 100 : 180)
-    
-    const infoX = x + (smallDimensions ? 25 : 30)
-    const labelX = x + (smallDimensions ? 15 : 40)
-    const descriptionX = x + (smallDimensions ? 90 : 120)
+    const infoWidth = width - (screenSize == 'large' ? 80 : 80)
+    const infoX = x + (screenSize == 'large' ? 30 : 25)
+    const labelX = x + (screenSize == 'large' ? 110 : 80)
+    const descriptionX = x + (screenSize == 'large' ? 120 : 90)
 
     transparentText(p5, {
       text: `the animation behind moves for itself\n\nit reacts to your ${pointer} and can be modified with the controls below`,
@@ -76,7 +73,6 @@ const drawTextBox = (p5, width, height, y, progress, smallDimensions, touch) => 
       xPosition: infoX,
       yPosition: 30,
       width: infoWidth,
-      height: height - 30,
       progress: progress
     })
     // labels
@@ -88,8 +84,6 @@ const drawTextBox = (p5, width, height, y, progress, smallDimensions, touch) => 
       verticalAlignment: p5.TOP,
       xPosition: labelX,
       yPosition: 125,
-      width: labelWidth,
-      height: height - 30,
       progress: progress
     })
 
@@ -102,8 +96,6 @@ const drawTextBox = (p5, width, height, y, progress, smallDimensions, touch) => 
       verticalAlignment: p5.TOP,
       xPosition: descriptionX,
       yPosition: 125,
-      width: descriptionWidth,
-      height: height - 40,
       progress: progress
     })
 
@@ -115,8 +107,6 @@ const drawTextBox = (p5, width, height, y, progress, smallDimensions, touch) => 
       verticalAlignment: p5.TOP,
       xPosition: infoX,
       yPosition: 250,
-      width: infoWidth,
-      height: height - 30,
       progress: progress
     })
   }

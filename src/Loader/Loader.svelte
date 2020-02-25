@@ -48,7 +48,7 @@
     fill: none;
     stroke-linecap: square;
     stroke-width: .5 ;
-    stroke-miterlimit: 3;
+    stroke-miterlimit: 2;
   }
 
   stop {
