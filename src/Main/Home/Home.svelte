@@ -15,14 +15,17 @@
   let homeHeight, homeWidth
 
   const drawName = (p5) => {
-    const textSize = smallDimensions ? 36 : 40
-    const margin = smallDimensions ? 20 : 40
-    
-    p5.textSize(textSize)
+    const textSize = $smallDimensions ? 36 : 48
+    const margin = $smallDimensions ? 20 : 40
     p5.textAlign(p5.RIGHT, p5.BOTTOM)
-    transparentText(p5, { text: 'Max', xPosition: homeWidth - margin, yPosition: homeHeight - margin - 80 })
-    transparentText(p5, { text: 'houston', xPosition: homeWidth - margin, yPosition: homeHeight - margin - 40 })
-    transparentText(p5, { text: 'oppenheiMer', xPosition: homeWidth - margin, yPosition: homeHeight - margin })
+    transparentText(p5, { 
+      text: 'Max\nhouston\noppenheiMer', 
+      textSize,
+      horizontalAlignment: p5.RIGHT,
+      verticalAlignment: p5.BOTTOM,
+      xPosition: homeWidth - margin, 
+      yPosition: homeHeight - margin 
+    })
   }
 
   const sketch = (p5) => {
