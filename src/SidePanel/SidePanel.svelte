@@ -20,6 +20,7 @@
   .controls-container {
     height: 100%;
     overflow: scroll;
+    pointer-events: none;
   }
 </style>
 
