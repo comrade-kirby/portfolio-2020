@@ -4,6 +4,7 @@
   import { setupCanvas } from '../helpers.js'
   import P5Canvas from '../P5Canvas.svelte'
   import { 
+    active,
     backgroundHue,
     circleHue,
     circleLocation,
@@ -159,7 +160,10 @@
 
   setInterval(() => {
     circleHue.set(hueMaxValue * $circleLocation.x / $screenWidth)
-    backgroundHue.set(hueMaxValue * $circleLocation.y / $screenHeight)
+    
+    if ($active) { //prevents glitchy background on refocus
+      backgroundHue.set(hueMaxValue * $circleLocation.y / $screenHeight)
+    }
   }, 1000);
 
   setInterval(() => {

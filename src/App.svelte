@@ -7,6 +7,7 @@
 	import Loader from './Loader/Loader.svelte'
 
 	import { 
+		active,
 		frequencyInterval,
 		frequencyValue,
 		longestScreenDimension,
@@ -74,6 +75,8 @@
 <svelte:window 
 	on:keydown={handleKeydown}
 	on:touchstart|once={touched}
+	on:blur={() => {active.set(false)}}
+	on:focus={() => {active.set(true)}}
 	/>
 <div 
 	bind:clientHeight={canvasHeight}

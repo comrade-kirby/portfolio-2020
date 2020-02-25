@@ -15,6 +15,7 @@ export const mobileLayout = writable(true)
 export const smallDimensions = writable(true)
 export const reset = writable(false)
 export const touch = writable(false)
+export const active = writable(true)
 
 export const circleHue = tweened(90, {
   duration: 3000,
@@ -40,7 +41,7 @@ const configs = [
   // [0.06, 0.75, 0.12, 0.50],
   // [0.03, 0.72, 0.21, 0.98],
   // [0.40, 0.27, 0.70, 0.8],
-  [0.15, 0.20, 0.30, 1.00]
+  [0.15, 0.20, 0.30, 0.80]
 ]
 
 const autoConfig = configs[Math.floor(Math.random() * configs.length)]
