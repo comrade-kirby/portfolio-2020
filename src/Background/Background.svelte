@@ -138,7 +138,6 @@
   }
 
   const setMousePull = (pull) => {
-    // console.log(pull)
     if (pull) {
      setFrequency(0)
      cursorStyle = 'cell'
