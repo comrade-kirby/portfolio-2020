@@ -138,6 +138,7 @@
   }
 
   const setMousePull = (pull) => {
+    // console.log(pull)
     if (pull) {
      setFrequency(0)
      cursorStyle = 'cell'
@@ -150,8 +151,13 @@
   }
 
   const handleMousemove = (e) => {
-    mouseLocation.x = e.clientX
-    mouseLocation.y = e.clientY
+    if (e.type == 'touchmove') {
+      mouseLocation.x = e.touches[0].clientX
+      mouseLocation.y = e.touches[0].clientY
+    } else {
+      mouseLocation.x = e.clientX
+      mouseLocation.y = e.clientY
+    }
   }
 
   onMount(async () => {
@@ -192,6 +198,7 @@
   on:mouseup={() => setMousePull(false)}
   on:touchstart={() => setMousePull(true)}
   on:touchend={() => setMousePull(false)}
+  on:touchmove={handleMousemove}
   on:mousemove={handleMousemove}
 >
   <P5Canvas sketch={sketch} />
