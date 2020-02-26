@@ -68,14 +68,13 @@
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
-    min-height: 350px;
     height: 100%;
     flex: 1;
     pointer-events: none;
   }
 
   .fill-div {
-    flex-grow: 1;
+    height: 100%;
     background-color: hsla(0,0%,100%,90%);
     width: 60px;
   }
