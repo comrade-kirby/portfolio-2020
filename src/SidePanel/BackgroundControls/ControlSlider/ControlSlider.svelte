@@ -10,7 +10,7 @@
   
   let hover = false
   let sliderWidth = 300
-  let sliderHeight = 70
+  let sliderHeight
   let buttonXOffset
 
   const handleClick = () => {

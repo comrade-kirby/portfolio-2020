@@ -7,7 +7,7 @@
   import { reset, screenSize } from '../../../stores'
 
   let hover = false
-  const buttonHeight = 70
+  let buttonHeight
   const buttonWidth = 60
   const rotation = tweened(0, { duration: 500, easing: cubicIn })
 
@@ -26,13 +26,21 @@
     p5.draw = () => {
       drawResetButton(p5, buttonWidth, buttonHeight, hover, $rotation, $screenSize)
     }
+
+    p5.windowResized = () => {
+      p5.clear()
+      p5.resizeCanvas(buttonWidth, buttonHeight)
+      p5.redraw()
+    }
   }
+
+  $: buttonHeight = $screenSize == 'small' ? 50 : 70
 </script>
 
 <style>
   .reset-button {
-    position: relative;
-    height: 70px;
+    position: relative;   
+    height: var(--height);
     width: 60px;
   }
 
@@ -40,6 +48,9 @@
     position: absolute;
     height: 100%;
     width: 100%;
+    margin: 0;
+    border: 0;
+    padding: 0;
     z-index: 1;
     opacity: 0;
     pointer-events: all;
@@ -49,6 +60,7 @@
 <div 
   id='reset-button-canvas' 
   class='reset-button'
+  style='--height:{buttonHeight}px'
 >
   <button 
     aria-label="reset button"
