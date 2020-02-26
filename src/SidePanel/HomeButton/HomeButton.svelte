@@ -13,7 +13,8 @@
     frequencyProgress 
   } from '../../stores'
 
-  let homeButtonWidth, homeButtonHeight
+  let homeButtonWidth
+  const homeButtonHeight = 70
   let homeHover = false
   let buttonProgresses = [
     infoProgress,
@@ -37,13 +38,20 @@
     p5.draw = () => {
       drawHomeButton(p5, homeButtonWidth, homeButtonHeight, homeHover, $screenSize)
     }
+
+    p5.windowResized = () => {
+      p5.clear()
+      p5.resizeCanvas(homeButtonWidth, homeButtonHeight)
+      p5.redraw()
+    }
   }
+
 </script> 
 
 <style>
   #home-button-canvas-container {
     width: 60px;
-    min-height: 70px;
+    min-height: var(--height);
   }
   
   .home-button { 
@@ -57,8 +65,9 @@
 
 <div 
   id='home-button-canvas-container'
-  bind:clientHeight={homeButtonHeight}
-  bind:clientWidth={homeButtonWidth}>
+  bind:clientWidth={homeButtonWidth}
+  style='--height:{homeButtonHeight}px'
+>
   <P5Canvas sketch={sketch}/>
 </div>
 <button

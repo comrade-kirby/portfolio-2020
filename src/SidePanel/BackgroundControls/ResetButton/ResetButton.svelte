@@ -17,7 +17,6 @@
     reset.set(true)
   }
 
-
   const sketch = (p5) => {
     p5.setup = () => {
       setupCanvas(p5, buttonWidth, buttonHeight, 'reset-button-canvas')

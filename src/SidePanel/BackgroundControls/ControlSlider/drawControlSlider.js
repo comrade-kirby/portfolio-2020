@@ -1,7 +1,6 @@
 import {
   drawLabel,
   drawXIcon,
-  eraseArea,
   getOpacity,
   transparentShape,
   transparentText
