@@ -31,6 +31,10 @@
     })
   }
 
+  const margin = () => {
+    return $screenSize == 'large' ? 40 : 20
+  }
+
   const drawLabels = (p5) => {
     const textWidthLarge = contactWidth * 0.30 - 45
     const textWidthSmall = contactWidth * 0.30 - 20
@@ -64,12 +68,12 @@
   }
   
   const drawSubmitButton = (p5) => {
-    const textSize = $screenSize == 'large' ? 20 : 212
-    const margin = $screenSize == 'large' ? 40 : 20
+    const textSize = $screenSize == 'large' ? 20 : 12
+    
     const rectWidth = contactWidth * 0.70
     const rectHeight = 32
-    const xPosition = contactWidth - rectWidth - margin
-    const yPosition = contactHeight - margin - 34
+    const xPosition = contactWidth - rectWidth - margin()
+    const yPosition = contactHeight - margin() - 34
     const opacity = getOpacity(hover)
     p5.erase()
     p5.rect(xPosition, yPosition, rectWidth, rectHeight)
@@ -89,14 +93,16 @@
 
   const drawErrorMessage = (p5) => {
     const rectWidth = contactWidth * 0.70
-  
+    const textSize = $screenSize == 'large' ? 12 : 10
+    const yPosition = contactHeight - ($screenSize == 'large' ? 35 : 28)
+
     transparentText(p5, {
       text: errorMessage,
-      textSize: 12,
+      textSize,
       horizontalAlignment: p5.CENTER,
       verticalAlignment: p5.CENTER,
-      xPosition: contactWidth - rectWidth - 40,
-      yPosition: contactHeight - 35,
+      xPosition: contactWidth - rectWidth - margin(),
+      yPosition,
       width: contactWidth * 0.70,
       height: 32
     })
