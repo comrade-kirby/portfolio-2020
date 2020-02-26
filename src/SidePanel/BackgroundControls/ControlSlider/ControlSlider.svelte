@@ -33,7 +33,15 @@
     p5.draw = () => {
       drawControlSlider(p5, sliderWidth, button, $screenSize)
     }
+
+    p5.windowResized = () => {
+      p5.clear()
+      p5.resizeCanvas(sliderWidth, sliderHeight)
+      p5.redraw()
+    }
   }
+
+  $: sliderHeight = $screenSize == 'small' ? 50 : 70
   $: button.hover = hover
   $: slideSlider(progress)
 </script>
@@ -41,7 +49,7 @@
 <style>
   .control-slider {
     position: relative;
-    height: 70px;
+    height: var(--height);
     width: 300px;
   }
 
@@ -102,8 +110,11 @@
 <div 
   id='{button.text}-canvas' 
   class='control-slider'
-  style='--buttonXOffset:{buttonXOffset}px'
-  >
+  style='
+    --buttonXOffset:{buttonXOffset}px;
+    --height:{sliderHeight}px;    
+  '
+>
   {#if button.progress}
     <div class='pointer-screen'></div>
     <label class='screen-reader-content' for={button.text}>{button.text}</label>

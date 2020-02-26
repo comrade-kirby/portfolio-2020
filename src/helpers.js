@@ -105,15 +105,6 @@ export const drawDivider = (p5, x, y, hover) => {
   transparentShape(p5, divider, options)
 }
 
-export const eraseArea = (p5, y, width, height) => {
-  const x = 0
-  const sliderArea = () => {
-    p5.rect(x, y, width, height)
-  } 
-  const sliderOptions = { fill: true, opacity: 0 }
-  transparentShape(p5, sliderArea, sliderOptions)
-}
-
 export const drawXIcon = (p5, x, y, hover, progress=1) => {
   const opacity = getOpacity(hover) * progress
 
