@@ -64,8 +64,8 @@ const drawTextBox = (p5, width, height, y, progress, screenSize, touch) => {
     const textSize = large ? 12 : 10
     const infoWidth = width - (large ? 80 : 80)
     const infoX = x + 30
-    const labelX = x + 110
-    const descriptionX = x + 120
+    const labelX = x + (large ? 110 : 90)
+    const descriptionX = x + (large ? 120 : 100)
     const controlsLeading = small ? 20 : 30
     const controlsY = small ? 100 : 125
     const pullY = small ? 190 : 250

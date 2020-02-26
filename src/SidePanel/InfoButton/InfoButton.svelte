@@ -40,7 +40,7 @@
   }
 
   const setInfoButtonWidth = (screenSize, infoProgress) => {
-    maxWidth = screenSize = 'large' ? 480 : 375
+    maxWidth = screenSize == 'large' ? 480 : 375
     infoButtonWidth = (maxWidth * infoProgress) || 60
   }
 
@@ -71,7 +71,6 @@
 
   onMount(() => { 
     infoParams.progress = $infoProgress
-    // setInfoButtonHeight($screenSize)
     setInfoButtonWidth($screenSize, $infoProgress)
     slideInfoButton($infoProgress)
   })
