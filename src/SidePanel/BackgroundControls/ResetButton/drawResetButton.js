@@ -1,11 +1,11 @@
 import { drawLabel, drawContainer, getOpacity, transparentShape } from '../../../helpers'
 
-export const drawResetButton = (p5, width, height, hover, rotation) => {
+export const drawResetButton = (p5, width, height, hover, rotation, screenSize) => {
   const text = 'reset'
   const x = width - 30
   const y = 55
   drawContainer(p5, width, height)
-  drawLabel(p5, text, x, y, hover)
+  drawLabel(p5, text, x, y, hover, screenSize)
   drawResetIcon(p5, x, hover, rotation) 
 }
   

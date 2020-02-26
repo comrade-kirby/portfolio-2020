@@ -71,7 +71,6 @@
     min-height: 350px;
     height: 100%;
     flex: 1;
-    width: 300px;
     pointer-events: none;
   }
 

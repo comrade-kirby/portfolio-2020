@@ -4,7 +4,7 @@
   import P5Canvas from '../../../P5Canvas.svelte'
   import { setupCanvas } from '../../../helpers'
   import drawResetButton from './drawResetButton'
-  import { reset } from '../../../stores'
+  import { reset, screenSize } from '../../../stores'
 
   let hover = false
   const buttonHeight = 70
@@ -24,7 +24,7 @@
     }
 
     p5.draw = () => {
-      drawResetButton(p5, buttonWidth, buttonHeight, hover, $rotation)
+      drawResetButton(p5, buttonWidth, buttonHeight, hover, $rotation, $screenSize)
     }
   }
 </script>

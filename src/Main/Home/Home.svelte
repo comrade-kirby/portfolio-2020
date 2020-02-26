@@ -6,7 +6,6 @@
     closeButtonMargin,
     drawContainer,
     drawXIcon,
-    eraseArea,
     setupCanvas,
     transparentText,
     transparentTitle
@@ -35,7 +34,7 @@
     }
     
     p5.draw = () => {
-      eraseArea(p5, 0, homeWidth, homeHeight)
+      p5.clear()
       drawContainer(p5, homeWidth, homeHeight)
       transparentTitle(p5, 'developMent | design | consulting', $screenSize)
       drawName(p5)

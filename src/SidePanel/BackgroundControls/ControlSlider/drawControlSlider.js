@@ -7,7 +7,7 @@ import {
   transparentText
 } from '../../../helpers'
 
-export const drawControlSlider = (p5, width, button) => {
+export const drawControlSlider = (p5, width, button, screenSize) => {
   const { text, value, progress, hover } = button
   const x = width - 30
   const fillX = width - 60
@@ -17,7 +17,7 @@ export const drawControlSlider = (p5, width, button) => {
   
   drawSlider(p5, width, sliderY, progress)
   drawFillRect(p5, fillX)
-  drawLabel(p5, text, x, labelY, hover)
+  drawLabel(p5, text, x, labelY, hover, screenSize)
   if (hover && progress) {
     drawXIcon(p5, x, valueY, true, progress)
   } else if (progress) {
@@ -45,6 +45,7 @@ export const drawControlSlider = (p5, width, button) => {
     const lineY = y + 25
     const sliderWidth = (width - 60) * progress
     const eraseWidth = width - 60
+    // p5.clear()
     eraseArea(p5, y, eraseWidth, backgroundHeight)
     drawSliderBackground(p5, x, y, sliderWidth, backgroundHeight, progress)
     drawSliderLine(p5, lineX, lineY, width, progress) 

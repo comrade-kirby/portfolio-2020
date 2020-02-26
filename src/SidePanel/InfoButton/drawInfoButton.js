@@ -3,7 +3,6 @@ import {
   drawDivider,
   drawLabel,
   drawXIcon,
-  eraseArea,
   getOpacity,
   transparentShape,
   transparentText
@@ -12,32 +11,34 @@ import {
 const drawInfoButton = (p5, width, height, infoParams, screenSize, touch) => {
   const hover = infoParams.hover
   const progress = infoParams.progress
-
+  const small = screenSize == 'small'
   const x = width - 30
-  const titleY = 10
+  const titleY = small ? 20 : 10
   const textBoxY = 1
-  const iconY = height - 50
+  const iconY = height - (small ? 40 : 50)
   const labelY = height - 20
   const dividerX = width - 60
   const dividerY = height - 1
 
   drawTextBox(p5, width, height, textBoxY, progress, screenSize, touch)
-  drawControlTitle(p5, x, titleY, hover)
+  drawControlTitle(p5, x, titleY, hover, screenSize)
   if (progress && hover) {
     drawXIcon(p5, x, iconY, true, progress)
   } else {
-    drawInfoIcon(p5, x, iconY, hover)
+    drawInfoIcon(p5, x, iconY, hover, screenSize)
   }
-  drawLabel(p5, 'info', x, labelY, hover)
+  drawLabel(p5, 'info', x, labelY, hover, screenSize)
   drawDivider(p5, dividerX, dividerY, hover)
 }
 
-const drawControlTitle = (p5, x, y, hover) => {
+const drawControlTitle = (p5, x, y, hover, screenSize) => {
+  const textSize = screenSize == 'small' ? 16 : 24
+  const textLeading = screenSize == 'small' ? 16 : 22
   const verticalText = [...'animation'].map(letter => letter + '\n').join('')
   transparentText(p5, {
     text: verticalText,
-    textSize: 24,
-    textLeading: 22,
+    textSize,
+    textLeading,
     verticalAlignment: p5.TOP,
     horizontalAlignment: p5.CENTER,
     xPosition: x,
@@ -53,21 +54,26 @@ const drawTextBox = (p5, width, height, y, progress, screenSize, touch) => {
   const pointer = touch ? 'touch' : 'mouse'
   const verb = touch ? 'press' : 'click'
 
-  eraseArea(p5, y, width, height)
+  p5.clear()
   drawTextBoxBackground(p5, x, y, width, height, currentRadius)
   
   if (progress) {
-    const textSize = screenSize == 'large' ? 12 : 10
+    const large = screenSize == 'large'
+    const small = screenSize == 'small'
 
-    const infoWidth = width - (screenSize == 'large' ? 80 : 80)
-    const infoX = x + (screenSize == 'large' ? 30 : 25)
-    const labelX = x + (screenSize == 'large' ? 110 : 80)
-    const descriptionX = x + (screenSize == 'large' ? 120 : 90)
+    const textSize = large ? 12 : 10
+    const infoWidth = width - (large ? 80 : 80)
+    const infoX = x + 30
+    const labelX = x + 110
+    const descriptionX = x + 120
+    const controlsLeading = small ? 20 : 30
+    const controlsY = small ? 100 : 125
+    const pullY = small ? 190 : 250
 
     transparentText(p5, {
       text: `the animation behind moves for itself\n\nit reacts to your ${pointer} and can be modified with the controls below`,
       textSize: textSize,
-      textLeading: 20,
+      textLeading: small ? 14 : 20,
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.TOP,
       xPosition: infoX,
@@ -79,11 +85,11 @@ const drawTextBox = (p5, width, height, y, progress, screenSize, touch) => {
     transparentText(p5, {
       text: "size -\nspeed -\nopac -\nfreq -",
       textSize: textSize,
-      textLeading: 30,
+      textLeading : controlsLeading,
       horizontalAlignment: p5.RIGHT,
       verticalAlignment: p5.TOP,
       xPosition: labelX,
-      yPosition: 125,
+      yPosition: controlsY,
       progress: progress
     })
 
@@ -91,22 +97,22 @@ const drawTextBox = (p5, width, height, y, progress, screenSize, touch) => {
     transparentText(p5, {
       text: "size of shape\nrate of movement\nshape transparency\nfrequency of direction change",
       textSize: textSize,
-      textLeading: 30,
+      textLeading: controlsLeading,
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.TOP,
       xPosition: descriptionX,
-      yPosition: 125,
+      yPosition: controlsY,
       progress: progress
     })
 
+    //click to pull
     transparentText(p5, {
       text: `${verb} and hold to pull towards ${pointer}`,
       textSize: textSize,
-      textLeading: 20,
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.TOP,
       xPosition: infoX,
-      yPosition: 250,
+      yPosition: pullY,
       progress: progress
     })
   }
@@ -118,9 +124,9 @@ const drawTextBoxBackground = (p5, x, y, currentWidth, height, currentRadius) =>
   p5.rect(x, y, currentWidth, height - 3, currentRadius, 0, 0, currentRadius)
 }
 
-const drawInfoIcon = (p5, x, y, hover) => {
+const drawInfoIcon = (p5, x, y, hover, screenSize) => {
   const opacity = getOpacity(hover)
-  const size = 25
+  const size = screenSize == 'small' ? 20 : 25
   
   const circle = () => {
     p5.ellipse(x, y, size, size)

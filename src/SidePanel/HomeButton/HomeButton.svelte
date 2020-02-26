@@ -5,6 +5,7 @@
   import {
     open,
     currentView,
+    screenSize,
     infoProgress,
     sizeProgress,
     speedProgress,
@@ -34,7 +35,7 @@
     }
 
     p5.draw = () => {
-      drawHomeButton(p5, homeButtonWidth, homeButtonHeight, homeHover)
+      drawHomeButton(p5, homeButtonWidth, homeButtonHeight, homeHover, $screenSize)
     }
   }
 </script> 

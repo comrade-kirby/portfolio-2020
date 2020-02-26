@@ -17,9 +17,12 @@
 
   const controlButtons = [sizeProgress, speedProgress, opacityProgress, frequencyProgress]
 
+  const largeHeight = 290
+  const smallHeight = 230
+
   let maxWidth
+  let infoButtonHeight
   let infoButtonWidth = 60
-  let infoButtonHeight = 290
   let infoButtonXOffset = 0
 
   let infoParams = {
@@ -53,14 +56,22 @@
     p5.draw = () => {
       drawInfoButton(p5, maxWidth, infoButtonHeight, infoParams, $screenSize, $touch)
     }
+
+    p5.windowResized = () => {
+      p5.clear()
+      p5.resizeCanvas(maxWidth, infoButtonHeight)
+      p5.redraw()
+    }
   }
 
+  $: infoButtonHeight = $screenSize == 'small' ? smallHeight : largeHeight
   $: infoParams.progress = $infoProgress
   $: setInfoButtonWidth($screenSize, $infoProgress)
   $: slideInfoButton($infoProgress)
 
   onMount(() => { 
     infoParams.progress = $infoProgress
+    // setInfoButtonHeight($screenSize)
     setInfoButtonWidth($screenSize, $infoProgress)
     slideInfoButton($infoProgress)
   })

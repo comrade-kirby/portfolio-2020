@@ -81,10 +81,11 @@ export const transparentShape = (p5, shapeCallback, options) => {
   shapeCallback()
 }
 
-export const drawLabel = (p5, text, x, y, hover) => {
+export const drawLabel = (p5, text, x, y, hover, screenSize) => {
+  const textSize = screenSize == 'small' ? 10 : 14
   transparentText(p5, {
     text: text,
-    textSize: 14,
+    textSize,
     verticalAlignment: p5.CENTER,
     horizontalAlignment: p5.CENTER,
     xPosition: x,

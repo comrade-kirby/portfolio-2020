@@ -7,7 +7,6 @@
     closeButtonMargin,
     drawContainer,
     drawXIcon,
-    eraseArea,
     getOpacity,
     transparentText,
     transparentTitle,
@@ -110,7 +109,7 @@
 	  }
 
     p5.draw = () => {
-      eraseArea(p5, 0, contactWidth, contactHeight)
+      p5.clear()
       drawContainer(p5, contactWidth, contactHeight)
       transparentTitle(p5, 'how Might we.. work together? :)', $screenSize)
       const margin = closeButtonMargin($screenSize)

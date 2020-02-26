@@ -2,13 +2,12 @@ import {
   closeButtonMargin,
   drawContainer,
   drawXIcon,
-  eraseArea,
   transparentText,
   transparentTitle,
 } from '../../helpers.js'
 
 const drawAbout = (p5, aboutWidth, aboutHeight, screenSize, closeHover) => {
-  eraseArea(p5, 0, aboutWidth, aboutHeight)
+  p5.clear()
   drawContainer(p5, aboutWidth, aboutHeight)
   transparentTitle(p5, "who aM i? what is this?", screenSize)
   drawContent(p5, aboutWidth, aboutHeight, screenSize)

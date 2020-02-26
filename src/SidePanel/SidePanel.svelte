@@ -19,7 +19,8 @@
   
   .controls-container {
     height: 100%;
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
     pointer-events: none;
   }
 </style>
