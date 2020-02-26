@@ -6,6 +6,7 @@
   import { setupCanvas, logStiffness, logDamping } from '../../helpers'
   import { 
     circleLocation,
+    screenSize,
     sizeValue,
     speedValue,
     opacityValue,
@@ -80,7 +81,7 @@
   }
 
   .bottom-padding {
-    height: 10px;
+    height: var(--height);
     background-color: hsla(0,0%,100%,90%);
     width: 60px;
   }
@@ -106,5 +107,7 @@
     button={frequencyButtonParams} 
     progress={$frequencyProgress}
     bind:value={$frequencyValue}/>
-  <div class='bottom-padding'></div>
+  <div 
+    class='bottom-padding' 
+    style='--height:{$screenSize == 'small' ? 30 : 10 }px'></div>
 </div>
