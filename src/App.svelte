@@ -8,8 +8,6 @@
 
 	import { 
 		active,
-		frequencyInterval,
-		frequencyValue,
 		longestScreenDimension,
 		mobileLayout,
 		open,

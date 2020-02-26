@@ -47,7 +47,7 @@
     stroke: hsl(0,0%,0%,var(--transparency));
     fill: none;
     stroke-linecap: square;
-    stroke-width: .5 ;
+    stroke-width: 0.5 ;
     stroke-miterlimit: 2;
   }
 
