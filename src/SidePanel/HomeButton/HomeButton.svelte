@@ -60,7 +60,8 @@
   bind:clientWidth={homeButtonWidth}>
   <P5Canvas sketch={sketch}/>
 </div>
-<button 
+<button
+  aria-label='home button'
   class='home-button'
   on:click={handleOpen} 
   on:mouseover={() => { homeHover = true }}

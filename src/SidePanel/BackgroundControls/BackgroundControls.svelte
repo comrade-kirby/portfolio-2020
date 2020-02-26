@@ -88,13 +88,13 @@
   }
 </style>
 
-<div class="background-controls" >
+<div class="background-controls" aria-label="background controls">
   <div class='fill-div'></div>
   <ResetButton />
   <ControlSlider
-      button={sizeButtonParams} 
-      progress={$sizeProgress}
-      bind:value={$sizeValue}/>
+    button={sizeButtonParams} 
+    progress={$sizeProgress}
+    bind:value={$sizeValue}/>
   <ControlSlider
     button={speedButtonParams} 
     progress={$speedProgress}

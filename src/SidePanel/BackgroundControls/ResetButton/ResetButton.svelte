@@ -51,9 +51,11 @@
   class='reset-button'
 >
   <button 
+    aria-label="reset button"
     on:click={handleClick}
     on:mouseover={() => {hover = true}}
-    on:mouseout={() => {hover = false}} 
-  />
+    on:mouseout={() => {hover = false}}>
+    reset
+  </button>
   <P5Canvas sketch={sketch} />
 </div>

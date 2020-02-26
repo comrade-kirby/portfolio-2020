@@ -31,7 +31,7 @@ const drawAbout = (p5, aboutWidth, aboutHeight, screenSize, closeHover) => {
       
     const y = aboutWidth < 400 ? 50 : 90
     
-    const iAmText = "i am:\n\t- an engineer, artist, and designer\n\t- transparent, compassionate, curious\n\t- passionate about:\n\t\t- empowerment\n\t\t- accessibilty\n\t\t- education\n\t- human and need money to survive\n\t- working to find balance"
+    const iAmText = "i am:\n\t- an engineer, artist, and designer\n\t- transparent, compassionate, curious\n\t- passionate about:\n\t\t- empowerment\n\t\t- accessibilty\n\t\t- education\n\t- human and need money to survive\n\t- working to create balance"
     const thisIsText = "\n\nthis is:"
     const thisIsL1P1 = "\n\t- a generative art experience"
     const thisIsL1P2 = "and portfolio"

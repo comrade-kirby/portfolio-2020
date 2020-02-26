@@ -64,5 +64,9 @@
   bind:clientHeight={homeHeight}
   bind:clientWidth={homeWidth}
 >
+  <div class='screen-reader-content'>
+    <h2>Development, Design, Consulting</h2>
+    <h1>Max Houston Oppenheimer</h1>
+  </div>
   <P5Canvas sketch={sketch} />
 </div>

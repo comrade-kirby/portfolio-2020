@@ -97,8 +97,20 @@
 >
   <P5Canvas sketch={sketch}/>
   <button
+    aria-label='animation info button'
     class='info-button'
     on:click={handleClick} 
     on:mouseover={() => { infoParams.hover = true }}
     on:mouseout={() => { infoParams.hover = false }} />
+  {#if $infoProgress}
+    <div class='screen-reader-content'>
+      <h3>animation info</h3>
+      <p>The animation behind moves for itsel. It reacts to your mouse and can be modified with the controls below</p>
+      <p>size - size of shape</p>
+      <p>speed - rate of movement</p>
+      <p>opac - shape transparency</p>
+      <p>freq - frequency of direction change</p>
+      <p>click and hold to pull towards mouse</p>
+    </div>
+  {/if}
 </div>

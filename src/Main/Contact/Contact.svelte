@@ -97,7 +97,7 @@
       horizontalAlignment: p5.CENTER,
       verticalAlignment: p5.CENTER,
       xPosition: contactWidth - rectWidth - 40,
-      yPosition: contactHeight - 45,
+      yPosition: contactHeight - 35,
       width: contactWidth * 0.70,
       height: 32
     })
@@ -206,19 +206,29 @@
   bind:clientHeight={contactHeight}
 	bind:clientWidth={contactWidth}
 >
+  <div class='screen-reader-content'>
+    <h2>How might we.. work together?</h2>
+  </div>
   {#if !messageSent}
     <form style='--margin:{$screenSize == 'large' ? 40 : 20}px'>
-        <input bind:value={name} type='text' name='name'>
-        <input bind:value={email} type='email' name='email'>
+        <label for='name' class='screen-reader-content'>Name</label>
+        <input id='name' bind:value={name} type='text' name='name'>
+        <label for='email' class='screen-reader-content'>Email</label>
+        <input id='email' bind:value={email} type='email' name='email'>
+        <p class='screen-reader-content'>Warning: do not fill in value for 'honeypot' input. It is designed to prevent bots. Leave blank.</p>
         <input bind:value={honeypot} type="hidden" name='honeypot'>
-        <textarea bind:value={message} name='message'></textarea>
-      <button 
+        <label for='message' class='screen-reader-content'>Message</label>
+        <textarea id='message' bind:value={message} name='message'></textarea>
+      <button type='submit' name='submit'
         on:click|preventDefault={submitForm}
         on:mouseover={() => { hover = true }}
         on:mouseout={() => { hover = false }}
       >
         submit
       </button>
+      {#if errorMessage}
+        <p class='screen-reader-content'>{errorMessage}</p>
+      {/if}
     </form>
   {/if}
   <P5Canvas sketch={sketch} />

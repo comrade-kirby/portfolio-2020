@@ -63,6 +63,15 @@
 		cursor: pointer;
 	}
 
+	:global(.screen-reader-content) {
+		position:absolute;
+		left:-10000px;
+		top:auto;
+		width:1px;
+		height:1px;
+		overflow:hidden;
+	}
+
 	div {
 		height: 100%;
 		width: 100%;

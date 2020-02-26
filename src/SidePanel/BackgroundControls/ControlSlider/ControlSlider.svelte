@@ -106,13 +106,18 @@
   >
   {#if button.progress}
     <div class='pointer-screen'></div>
+    <label class='screen-reader-content' for={button.text}>{button.text}</label>
     <input 
-        type='range'
-        min='0' max='1' step='0.01' 
-        on:input={inputCallback}
-        bind:value={value} />
+      id={button.text}
+      type='range'
+      min='0' max='1' step='0.01' 
+      aria-valuemin='0' aria-valuemax='1' aria-valuenow='{value}'
+      on:input={inputCallback}
+      bind:value={value} />
+    <output class='screen-reader-content' for={button.text}>{value}</output>
   {/if}
   <button 
+    aria-label='toggle {button.text} slider input'
     on:click={handleClick}
     on:mouseover={() => {hover = true}}
     on:mouseout={() => {hover = false}} 

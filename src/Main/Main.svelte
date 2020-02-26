@@ -83,12 +83,6 @@
 
 <div class='main'>
   <div class='content' style='--minWidth:{$screenSize == 'large' ? 700 : 350}px;  --screenPercentage:{$screenSize == 'large' ? 50 : 75}%'>
-    <button 
-      class='close-button'
-      style='--position:{$screenSize == 'large' ? 30 : 10}px'
-      on:click={handleClose} 
-      on:mouseover={() => { $closeHover = true }}
-      on:mouseout={() => { $closeHover = false }} />
     {#if $currentView == 'home'}
       <Home />
     {:else if $currentView == 'about'}
@@ -96,10 +90,41 @@
     {:else }
       <Contact />
     {/if}
+    <button 
+      aria-label='close window button'
+      class='close-button'
+      style='--position:{$screenSize == 'large' ? 30 : 10}px'
+      on:click={handleClose} 
+      on:mouseover={() => { $closeHover = true }}
+      on:mouseout={() => { $closeHover = false }}>
+      close
+    </button>
   </div>
-  <div class='buttons' style='--size:{ $screenSize == 'large' ? 24 : 18 }px'>
-    <button class='nav-button' class:active={$currentView == 'home'} on:click={() => $currentView = 'home'}>home</button>
-    <button class='nav-button' class:active={$currentView == 'about'} on:click={() => $currentView = 'about'}>about</button>
-    <button class='nav-button' class:active={$currentView == 'contact'} on:click={() => $currentView = 'contact'}>contact</button>
-  </div>
+  <nav 
+    class='buttons' 
+    style='--size:{ $screenSize == 'large' ? 24 : 18 }px'
+    role='navigation'
+  >
+    <button 
+      aria-label='home button'
+      class='nav-button' 
+      class:active={$currentView == 'home'} 
+      on:click={() => $currentView = 'home'}>
+      home
+    </button>
+    <button
+      aria-label='about button'
+      class='nav-button'
+      class:active={$currentView == 'about'}
+      on:click={() => $currentView = 'about'}>
+      about
+    </button>
+    <button 
+      aria-label='contact button'
+      class='nav-button' 
+      class:active={$currentView == 'contact'} 
+      on:click={() => $currentView = 'contact'}>
+      contact
+    </button>
+  </nav>
 </div>
