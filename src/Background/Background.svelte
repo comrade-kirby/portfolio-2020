@@ -87,26 +87,14 @@
     }
 
     p5.windowResized = () => {
-      p5.erase()
-      p5.resizeCanvas(p5.windowWidth, p5.windowHeight)
-      p5.redraw()
+      p5.resizeCanvas($screenWidth, $screenHeight)
     }
   }
 
-  setInterval(() => {
-    circleHue.set(hueMaxValue * $circleLocation.x / $screenWidth)
-    
-    if ($active) { //prevents glitchy background on refocus
-      backgroundHue.set(hueMaxValue * $circleLocation.y / $screenHeight)
-    }
-  }, 1000)
+  $: backgroundHue.set(hueMaxValue * $circleLocation.y / $screenHeight)
+  $: circleHue.set(hueMaxValue * $circleLocation.x / $screenWidth)
+  $: circleLocation.set(mouseLocation)
   
-  setInterval(() => {
-    if (mousePull) {
-      circleLocation.set(mouseLocation)
-    }
-  }, 10)
-
   onMount(async () => {
     await $screenWidth && $screenHeight
     setCircleCenter()
