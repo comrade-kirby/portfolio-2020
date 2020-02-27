@@ -86,7 +86,7 @@
   const sketch = (p5) => {
 	  p5.setup = () => {
       setupCanvas(p5, p5.windowWidth, p5.windowHeight, 'background-holder')
-      p5.frameRate(10)
+      p5.frameRate(30)
 	  }
 
 	  p5.draw = () => {
