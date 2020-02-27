@@ -8,7 +8,6 @@
     closeHover,
     closedOnce,
     currentView,
-    mobileLayout,
     open,
     screenSize,
     sizeProgress,

@@ -7,7 +7,6 @@
 	import Loader from './Loader/Loader.svelte'
 
 	import { 
-		active,
 		longestScreenDimension,
 		mobileLayout,
 		open,
@@ -39,7 +38,7 @@
 	afterUpdate(() => {
 		screenHeight.set(canvasHeight)	 
 		screenWidth.set(canvasWidth)	 
-		canvasWidth < 1000 ? mobileLayout.set(true) : mobileLayout.set(false)
+		canvasWidth < 1300 ? mobileLayout.set(true) : mobileLayout.set(false)
 		if (canvasWidth < 650) { screenSize.set('small') }
 		else if (canvasWidth < 750) { screenSize.set('medium') }
 		else { screenSize.set('large') }
@@ -89,8 +88,6 @@
 <svelte:window 
 	on:keydown={handleKeydown}
 	on:touchstart|once={touched}
-	on:blur={() => {active.set(false)}}
-	on:focus={() => {active.set(true)}}
 	/>
 <div 
 	bind:clientHeight={canvasHeight}

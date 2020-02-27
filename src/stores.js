@@ -15,7 +15,6 @@ export const mobileLayout = writable(true)
 export const screenSize = writable('small')
 export const reset = writable(false)
 export const touch = writable(false)
-export const active = writable(true)
 
 export const circleHue = tweened(90, {
   duration: 3000,

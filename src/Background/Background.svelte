@@ -4,7 +4,6 @@
   import { setupCanvas } from '../helpers'
   import P5Canvas from '../P5Canvas.svelte'
   import { 
-    active,
     backgroundHue,
     circleHue,
     circleLocation,
