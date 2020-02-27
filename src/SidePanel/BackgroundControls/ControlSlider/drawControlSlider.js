@@ -49,9 +49,10 @@ export const drawControlSlider = (p5, width, button, screenSize, touch, panelWid
     const lineX = x + (small ? 25 : 20)
     const lineY = y + (small ? 20 : 25)
     const sliderWidth = (width - panelWidth) * progress
+    const lineWidth = width - panelWidth
     p5.clear()
     drawSliderBackground(p5, x, y, sliderWidth, backgroundHeight, progress)
-    drawSliderLine(p5, lineX, lineY, sliderWidth, progress) 
+    drawSliderLine(p5, lineX, lineY, lineWidth, progress) 
   }
 
     const drawSliderBackground = (p5, x, y, width, height, progress) => {
