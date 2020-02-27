@@ -61,6 +61,10 @@
 		cursor: pointer;
 	}
 
+  :global(button::-moz-focus-inner) {
+		border: 0;
+	}
+	
 	:global(.screen-reader-content) {
 		position:absolute;
 		left:-10000px;
