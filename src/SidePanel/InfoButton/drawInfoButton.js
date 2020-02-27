@@ -23,7 +23,12 @@ const drawInfoButton = (p5, width, height, infoParams, screenSize, touch) => {
 
   drawTextBox(p5, width, height, textBoxY, progress, screenSize, touch)
   drawControlTitle(p5, x, titleY, hover, screenSize)
-  if (progress && (hover || !large)) {
+
+  const xCriteria = touch 
+    ? progress && progress != 1
+    : progress && hover
+
+  if (xCriteria) {
     drawXIcon(p5, x, iconY, true, screenSize, progress)
   } else {
     drawInfoIcon(p5, x, iconY, hover, screenSize)

@@ -2,7 +2,7 @@
   import P5Canvas from '../../../P5Canvas.svelte'
   import { setupCanvas } from '../../../helpers'
   import drawControlSlider from './drawControlSlider'
-  import { screenSize } from '../../../stores'
+  import { screenSize, touch } from '../../../stores'
   export let button
   export let progress
   export let value
@@ -31,7 +31,7 @@
     }
 
     p5.draw = () => {
-      drawControlSlider(p5, sliderWidth, button, $screenSize)
+      drawControlSlider(p5, sliderWidth, button, $screenSize, $touch)
     }
 
     p5.windowResized = () => {

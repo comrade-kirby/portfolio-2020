@@ -6,7 +6,7 @@ import {
   transparentText
 } from '../../../helpers'
 
-export const drawControlSlider = (p5, width, button, screenSize) => {
+export const drawControlSlider = (p5, width, button, screenSize, touch) => {
   const { text, value, progress, hover } = button
   const small = screenSize == 'small'
   const large = screenSize == 'large'
@@ -18,9 +18,9 @@ export const drawControlSlider = (p5, width, button, screenSize) => {
   drawSlider(p5, width, progress, small)
   drawFillRect(p5, fillX)
   drawLabel(p5, text, x, labelY, hover, screenSize)
-  const xCriteria = large 
-    ? progress && hover 
-    : progress && progress != 1
+  const xCriteria = touch 
+    ? progress && progress != 1
+    : progress && hover
     
   if (xCriteria) {
     drawXIcon(p5, x, valueY, true, screenSize, progress)
