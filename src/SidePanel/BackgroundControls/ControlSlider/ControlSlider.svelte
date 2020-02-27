@@ -13,6 +13,8 @@
   let sliderWidth = 300
   let sliderHeight
   let buttonXOffset
+  let pointerScreenHeight
+  let pointerScreenTop
 
   const handleClick = () => {
     if (progress == 0) {
@@ -42,6 +44,8 @@
     }
   }
   
+  $: pointerScreenHeight = $screenSize == 'small' ? 40 : 50
+  $: pointerScreenTop = $screenSize == 'small' ? 5 : 0
   $: sliderHeight = $screenSize == 'small' ? 50 : 70
   $: button.hover = hover
   $: slideSlider(progress)
@@ -69,7 +73,8 @@
     position: absolute;
     pointer-events: all;
     width: 100%;
-    height: 100%;
+    top: var(--pointerScreenTop);
+    height: var(--pointerScreenHeight);
   }
 
   input {
@@ -118,7 +123,13 @@
   '
 >
   {#if button.progress}
-    <div class='pointer-screen'></div>
+    <div 
+      class='pointer-screen' 
+      style='
+        --pointerScreenHeight:{pointerScreenHeight}px;
+        --pointerScreenTop:{pointerScreenTop}px
+      '
+    ></div>
     <label class='screen-reader-content' for={button.text}>{button.text}</label>
     <input 
       id={button.text}

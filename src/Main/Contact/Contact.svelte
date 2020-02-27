@@ -20,7 +20,7 @@
 
   const drawThankyou = (p5) => {
     transparentText(p5, {
-      text: "Thanks! We'll reach out soon :)",
+      text: "thanks! talk soon :)",
       textSize: 18,
       horizontalAlignment: p5.RIGHT,
       verticalAlignment: p5.BOTTOM,
