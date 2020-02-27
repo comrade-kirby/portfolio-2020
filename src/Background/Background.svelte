@@ -49,27 +49,25 @@
     interval = setInterval(() => { setRandomCircleCoords() }, milliseconds)
   }
 
-  const setMousePull = (pull) => {
-    if (pull) {
-     setFrequency(0)
-     cursorStyle = 'cell'
-    } else {
-      setFrequency($frequencyValue)
-      setRandomCircleCoords()
-      cursorStyle = 'pointer'
-    }
-    mousePull = pull
+  const handleDown = (e) => {
+    setFrequency(0)
+    cursorStyle = 'cell'
+    mouseLocation.x = e.clientX || e.touches[0].clientX
+    mouseLocation.y = e.clientY || e.touches[0].clientY
+    mousePull = true
+  }
+
+  const handleUp = (e) => {
+    setFrequency($frequencyValue)
+    setRandomCircleCoords()
+    cursorStyle = 'pointer'
+    mousePull = false
   }
 
   const handleMousemove = (e) => {
     if (mousePull) {
-      if (e.type == 'touchmove') {
-        mouseLocation.x = e.touches[0].clientX
-        mouseLocation.y = e.touches[0].clientY
-      } else {
-        mouseLocation.x = e.clientX
-        mouseLocation.y = e.clientY
-      }
+      mouseLocation.x = e.clientX || e.touches[0].clientX
+      mouseLocation.y = e.clientY || e.touches[0].clientY
     }
   }
 
@@ -118,10 +116,10 @@
 <div
   id='background-holder'
   style='--backgroundHue:{$backgroundHue}; --cursorStyle:{cursorStyle};'
-  on:mousedown={() => setMousePull(true)}
-  on:mouseup={() => setMousePull(false)}
-  on:touchstart={() => setMousePull(true)}
-  on:touchend={() => setMousePull(false)}
+  on:mousedown={handleDown}
+  on:mouseup={handleUp}
+  on:touchstart={handleDown}
+  on:touchend={handleUp}
   on:touchmove={handleMousemove}
   on:mousemove={handleMousemove}
 >
