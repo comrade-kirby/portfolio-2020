@@ -12,6 +12,7 @@ const drawInfoButton = (p5, width, height, infoParams, screenSize, touch) => {
   const hover = infoParams.hover
   const progress = infoParams.progress
   const small = screenSize == 'small'
+  const large = screenSize == 'large'
   const x = width - 30
   const titleY = small ? 20 : 10
   const textBoxY = 1
@@ -22,7 +23,7 @@ const drawInfoButton = (p5, width, height, infoParams, screenSize, touch) => {
 
   drawTextBox(p5, width, height, textBoxY, progress, screenSize, touch)
   drawControlTitle(p5, x, titleY, hover, screenSize)
-  if (progress && hover) {
+  if (progress && (hover || !large)) {
     drawXIcon(p5, x, iconY, true, screenSize, progress)
   } else {
     drawInfoIcon(p5, x, iconY, hover, screenSize)

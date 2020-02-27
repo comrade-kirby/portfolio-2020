@@ -9,6 +9,7 @@ import {
 export const drawControlSlider = (p5, width, button, screenSize) => {
   const { text, value, progress, hover } = button
   const small = screenSize == 'small'
+  const large = screenSize == 'large'
   const x = width - 30
   const fillX = width - 60
   const valueY = 25
@@ -17,7 +18,11 @@ export const drawControlSlider = (p5, width, button, screenSize) => {
   drawSlider(p5, width, progress, small)
   drawFillRect(p5, fillX)
   drawLabel(p5, text, x, labelY, hover, screenSize)
-  if (hover && progress) {
+  const xCriteria = large 
+    ? progress && hover 
+    : progress && progress != 1
+    
+  if (xCriteria) {
     drawXIcon(p5, x, valueY, true, screenSize, progress)
   } else if (progress) {
     transparentText(p5, {
