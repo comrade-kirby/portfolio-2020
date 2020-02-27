@@ -71,6 +71,19 @@
     }
   }
 
+  const setBackgroundHue = (circleY, screenHeight) => {
+    const newHue = hueMaxValue * (circleY / $screenHeight)
+    if (newHue >= 0 && newHue <= 360) {
+      backgroundHue.set(newHue)
+    }
+  }
+  const setCircleHue = (circleX, screenWidth) => {
+    const newHue = hueMaxValue * (circleX / $screenWidth)
+    if (newHue >= 0 && newHue <= 360) {
+      circleHue.set(newHue)
+    }
+  }
+
   const sketch = (p5) => {
 	  p5.setup = () => {
       setupCanvas(p5, p5.windowWidth, p5.windowHeight, 'background-holder')
@@ -91,8 +104,8 @@
     }
   }
 
-  $: backgroundHue.set(hueMaxValue * $circleLocation.y / $screenHeight)
-  $: circleHue.set(hueMaxValue * $circleLocation.x / $screenWidth)
+  $: setBackgroundHue($circleLocation.y, $screenHeight)
+  $: setCircleHue($circleLocation.x, $screenWidth)
   $: circleLocation.set(mouseLocation)
   
   onMount(async () => {
