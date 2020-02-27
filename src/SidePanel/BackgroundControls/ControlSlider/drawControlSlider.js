@@ -18,7 +18,7 @@ export const drawControlSlider = (p5, width, button, screenSize) => {
   drawFillRect(p5, fillX)
   drawLabel(p5, text, x, labelY, hover, screenSize)
   if (hover && progress) {
-    drawXIcon(p5, x, valueY, true, progress)
+    drawXIcon(p5, x, valueY, true, screenSize, progress)
   } else if (progress) {
     transparentText(p5, {
       text: (value * 100).toFixed(0),

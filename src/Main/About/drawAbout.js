@@ -10,12 +10,12 @@ const drawAbout = (p5, aboutWidth, aboutHeight, screenSize, closeHover) => {
   p5.clear()
   drawContainer(p5, aboutWidth, aboutHeight)
   transparentTitle(p5, "who aM i? what is this?", screenSize)
-  drawContent(p5, aboutWidth, aboutHeight, screenSize)
+  drawContent(p5, aboutWidth, screenSize)
   const margin = closeButtonMargin(screenSize)
-  drawXIcon(p5, aboutWidth - margin, margin, closeHover)
+  drawXIcon(p5, aboutWidth - margin, margin, closeHover, screenSize)
 }
 
-  const drawContent = (p5, aboutWidth, aboutHeight, screenSize) => {
+  const drawContent = (p5, aboutWidth, screenSize) => {
     let textSize, x
     if (screenSize == 'large') { 
       textSize = 16 

@@ -39,7 +39,7 @@
       transparentTitle(p5, 'developMent | design | consulting', $screenSize)
       drawName(p5)
       const margin = closeButtonMargin($screenSize)
-      drawXIcon(p5, homeWidth - margin, margin, $closeHover)
+      drawXIcon(p5, homeWidth - margin, margin, $closeHover, $screenSize)
     }
 
     p5.windowResized = () => {

@@ -1,5 +1,5 @@
-const primaryOpacity = 30
-const hoverOpacity = 50
+const primaryOpacity = 40
+const hoverOpacity = 60
 
 export const transparentText = (p5, options) => {
   const { 
@@ -105,13 +105,13 @@ export const drawDivider = (p5, x, y, hover) => {
   transparentShape(p5, divider, options)
 }
 
-export const drawXIcon = (p5, x, y, hover, progress=1) => {
+export const drawXIcon = (p5, x, y, hover, screenSize, progress=1,) => {
   const opacity = getOpacity(hover) * progress
-
+  const length = screenSize == 'small' ? 7 : 10
   p5.strokeWeight(2)
   const xIcon = () => {
-    p5.line(x - 10, y - 10, x + 10, y + 10)
-    p5.line(x - 10, y + 10, x + 10, y - 10)
+    p5.line(x - length, y - length, x + length, y + length)
+    p5.line(x - length, y + length, x + length, y - length)
   }
 
   const options = { stroke: true, opacity }

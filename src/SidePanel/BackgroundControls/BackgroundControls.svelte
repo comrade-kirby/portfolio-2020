@@ -109,5 +109,5 @@
     bind:value={$frequencyValue}/>
   <div 
     class='bottom-padding' 
-    style='--height:{$screenSize == 'small' ? 30 : 10 }px'></div>
+    style='--height:{$screenSize == 'small' ? 50 : 10 }px'></div>
 </div>

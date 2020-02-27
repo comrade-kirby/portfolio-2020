@@ -119,7 +119,7 @@
       drawContainer(p5, contactWidth, contactHeight)
       transparentTitle(p5, 'how Might we.. work together? :)', $screenSize)
       const margin = closeButtonMargin($screenSize)
-      drawXIcon(p5, contactWidth - margin, margin, $closeHover)
+      drawXIcon(p5, contactWidth - margin, margin, $closeHover, $screenSize)
       if (!messageSent) {
         drawLabels(p5)
         drawSubmitButton(p5)
