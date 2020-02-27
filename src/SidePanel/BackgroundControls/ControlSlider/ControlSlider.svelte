@@ -3,6 +3,7 @@
   import { setupCanvas } from '../../../helpers'
   import drawControlSlider from './drawControlSlider'
   import { screenSize, touch } from '../../../stores'
+  export let panelWidth
   export let button
   export let progress
   export let value
@@ -22,7 +23,7 @@
   }
 
   const slideSlider = (progress) => {
-    buttonXOffset = (60 - sliderWidth) * (1 - progress)
+    buttonXOffset = (panelWidth - sliderWidth) * (1 - progress)
   }
 
   const sketch = (p5) => {
@@ -31,7 +32,7 @@
     }
 
     p5.draw = () => {
-      drawControlSlider(p5, sliderWidth, button, $screenSize, $touch)
+      drawControlSlider(p5, sliderWidth, button, $screenSize, $touch, panelWidth)
     }
 
     p5.windowResized = () => {
@@ -40,7 +41,7 @@
       p5.redraw()
     }
   }
-
+  
   $: sliderHeight = $screenSize == 'small' ? 50 : 70
   $: button.hover = hover
   $: slideSlider(progress)
@@ -58,7 +59,7 @@
     margin: 0;
     right: 0;
     height: 100%;
-    width: 60px;
+    width: var(--width);
     z-index: 1;
     opacity: 0;
     pointer-events: all;
@@ -73,7 +74,7 @@
 
   input {
     position: absolute;
-    right: 43px;
+    right: calc(var(--width) - (var(--width) / 4));
     top: 20px;
     width: 265px;
     opacity: 0;
@@ -112,7 +113,8 @@
   class='control-slider'
   style='
     --buttonXOffset:{buttonXOffset}px;
-    --height:{sliderHeight}px;    
+    --height:{sliderHeight}px;   
+    --width:{panelWidth}px; 
   '
 >
   {#if button.progress}

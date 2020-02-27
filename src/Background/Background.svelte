@@ -62,12 +62,14 @@
   }
 
   const handleMousemove = (e) => {
-    if (e.type == 'touchmove') {
-      mouseLocation.x = e.touches[0].clientX
-      mouseLocation.y = e.touches[0].clientY
-    } else {
-      mouseLocation.x = e.clientX
-      mouseLocation.y = e.clientY
+    if (mousePull) {
+      if (e.type == 'touchmove') {
+        mouseLocation.x = e.touches[0].clientX
+        mouseLocation.y = e.touches[0].clientY
+      } else {
+        mouseLocation.x = e.clientX
+        mouseLocation.y = e.clientY
+      }
     }
   }
 

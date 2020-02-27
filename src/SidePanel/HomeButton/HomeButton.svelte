@@ -13,7 +13,7 @@
     frequencyProgress 
   } from '../../stores'
 
-  let homeButtonWidth
+  export let panelWidth
   const homeButtonHeight = 70
   let homeHover = false
   let buttonProgresses = [
@@ -32,16 +32,16 @@
 
   const sketch = (p5) => {
     p5.setup = () => {
-      setupCanvas(p5, homeButtonWidth, homeButtonHeight, 'home-button-canvas-container')
+      setupCanvas(p5, panelWidth, homeButtonHeight, 'home-button-canvas-container')
     }
 
     p5.draw = () => {
-      drawHomeButton(p5, homeButtonWidth, homeButtonHeight, homeHover, $screenSize)
+      drawHomeButton(p5, panelWidth, homeButtonHeight, homeHover, $screenSize)
     }
 
     p5.windowResized = () => {
       p5.clear()
-      p5.resizeCanvas(homeButtonWidth, homeButtonHeight)
+      p5.resizeCanvas(panelWidth, homeButtonHeight)
       p5.redraw()
     }
   }
@@ -50,29 +50,30 @@
 
 <style>
   #home-button-canvas-container {
-    width: 60px;
+    width: var(--width);
     min-height: var(--height);
   }
   
   .home-button { 
     position: absolute;
     top: 0;
-    height: 70px;
-    width: 60px;
+    height: var(--height);
+    width: var(--width);
     opacity: 0;
   }
 </style>
 
 <div 
   id='home-button-canvas-container'
-  bind:clientWidth={homeButtonWidth}
-  style='--height:{homeButtonHeight}px'
+  style='
+    --height:{homeButtonHeight}px;
+    --width:{panelWidth}px;'
 >
   <P5Canvas sketch={sketch}/>
+  <button
+    aria-label='home button'
+    class='home-button'
+    on:click={handleOpen} 
+    on:mouseover={() => { homeHover = true }}
+    on:mouseout={() => { homeHover = false }} />
 </div>
-<button
-  aria-label='home button'
-  class='home-button'
-  on:click={handleOpen} 
-  on:mouseover={() => { homeHover = true }}
-  on:mouseout={() => { homeHover = false }} />

@@ -6,17 +6,17 @@ import {
   transparentText
 } from '../../../helpers'
 
-export const drawControlSlider = (p5, width, button, screenSize, touch) => {
+export const drawControlSlider = (p5, width, button, screenSize, touch, panelWidth) => {
   const { text, value, progress, hover } = button
   const small = screenSize == 'small'
   const large = screenSize == 'large'
-  const x = width - 30
-  const fillX = width - 60
+  const x = width - (panelWidth / 2)
+  const fillX = width - panelWidth
   const valueY = 25
   const labelY = small ? 45 : 55
   
-  drawSlider(p5, width, progress, small)
-  drawFillRect(p5, fillX)
+  drawSlider(p5, width, progress, small, panelWidth)
+  drawFillRect(p5, fillX, panelWidth)
   drawLabel(p5, text, x, labelY, hover, screenSize)
   const xCriteria = touch 
     ? progress && progress != 1
@@ -36,22 +36,22 @@ export const drawControlSlider = (p5, width, button, screenSize, touch) => {
   drawIcon(p5, x, button, small)  
 }
  
-  const drawFillRect = (p5, x) => {
+  const drawFillRect = (p5, x, panelWidth) => {
     p5.fill(0, 0, 100, 90)
     p5.noStroke()
-    p5.rect(x, 0, 60, 70) 
+    p5.rect(x, 0, panelWidth, 70) 
   }
 
-  const drawSlider = (p5, width, progress, small) => {
+  const drawSlider = (p5, width, progress, small, panelWidth) => {
     const y = small ? 5 : 0
-    const x = (width - 60) * (1 - progress)
+    const x = (width - panelWidth) * (1 - progress)
     const backgroundHeight = small ? 40 : 50
-    const lineX = x + 20
+    const lineX = x + (small ? 25 : 20)
     const lineY = y + (small ? 20 : 25)
-    const sliderWidth = (width - 60) * progress
+    const sliderWidth = (width - panelWidth) * progress
     p5.clear()
     drawSliderBackground(p5, x, y, sliderWidth, backgroundHeight, progress)
-    drawSliderLine(p5, lineX, lineY, width, progress) 
+    drawSliderLine(p5, lineX, lineY, sliderWidth, progress) 
   }
 
     const drawSliderBackground = (p5, x, y, width, height, progress) => {
@@ -65,7 +65,7 @@ export const drawControlSlider = (p5, width, button, screenSize, touch) => {
     const drawSliderLine = (p5, x, y, width, progress) => {
       const maxOpacity = getOpacity()
       const currentOpacity = progress * maxOpacity 
-      const lineEndX = width - 70
+      const lineEndX = width - 15
       p5.strokeWeight(2)
       const line = () => {
         p5.line(x, y, lineEndX, y)

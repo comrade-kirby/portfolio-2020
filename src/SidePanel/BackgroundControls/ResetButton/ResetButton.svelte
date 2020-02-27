@@ -6,9 +6,10 @@
   import drawResetButton from './drawResetButton'
   import { reset, screenSize } from '../../../stores'
 
+  export let panelWidth
   let hover = false
   let buttonHeight
-  const buttonWidth = 60
+  
   const rotation = tweened(0, { duration: 500, easing: cubicIn })
 
   const handleClick = () => {
@@ -19,16 +20,16 @@
 
   const sketch = (p5) => {
     p5.setup = () => {
-      setupCanvas(p5, buttonWidth, buttonHeight, 'reset-button-canvas')
+      setupCanvas(p5, panelWidth, buttonHeight, 'reset-button-canvas')
     }
 
     p5.draw = () => {
-      drawResetButton(p5, buttonWidth, buttonHeight, hover, $rotation, $screenSize)
+      drawResetButton(p5, panelWidth, buttonHeight, hover, $rotation, $screenSize)
     }
 
     p5.windowResized = () => {
       p5.clear()
-      p5.resizeCanvas(buttonWidth, buttonHeight)
+      p5.resizeCanvas(panelWidth, buttonHeight)
       p5.redraw()
     }
   }
@@ -40,7 +41,7 @@
   .reset-button {
     position: relative;   
     height: var(--height);
-    width: 60px;
+    width: var(--width);
   }
 
   button {
@@ -59,7 +60,10 @@
 <div 
   id='reset-button-canvas' 
   class='reset-button'
-  style='--height:{buttonHeight}px'
+  style='
+    --height:{buttonHeight}px;
+    --width:{panelWidth}px;
+  '
 >
   <button 
     aria-label="reset button"

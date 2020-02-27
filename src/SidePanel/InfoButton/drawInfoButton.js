@@ -8,20 +8,20 @@ import {
   transparentText
 } from '../../helpers'
 
-const drawInfoButton = (p5, width, height, infoParams, screenSize, touch) => {
+const drawInfoButton = (p5, width, height, infoParams, screenSize, touch, panelWidth) => {
   const hover = infoParams.hover
   const progress = infoParams.progress
   const small = screenSize == 'small'
   const large = screenSize == 'large'
-  const x = width - 30
+  const x = width - (panelWidth / 2)
   const titleY = small ? 20 : 10
   const textBoxY = 1
   const iconY = height - (small ? 40 : 50)
   const labelY = height - 20
-  const dividerX = width - 60
+  const dividerX = width - panelWidth
   const dividerY = height - 1
 
-  drawTextBox(p5, width, height, textBoxY, progress, screenSize, touch)
+  drawTextBox(p5, width, height, textBoxY, progress, screenSize, touch, panelWidth)
   drawControlTitle(p5, x, titleY, hover, screenSize)
 
   const xCriteria = touch 
@@ -53,10 +53,10 @@ const drawControlTitle = (p5, x, y, hover, screenSize) => {
   })
 }
 
-const drawTextBox = (p5, width, height, y, progress, screenSize, touch) => {
+const drawTextBox = (p5, width, height, y, progress, screenSize, touch, panelWidth) => {
   const maxRadius = 25
   const currentRadius = progress * maxRadius
-  const x = (width - 60) * (1 - progress)
+  const x = (width - panelWidth) * (1 - progress)
   const pointer = touch ? 'touch' : 'mouse'
   const verb = touch ? 'press' : 'click'
 

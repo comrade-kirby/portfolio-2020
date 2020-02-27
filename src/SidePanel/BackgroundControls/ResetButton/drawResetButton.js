@@ -3,7 +3,7 @@ import { drawLabel, drawContainer, getOpacity, transparentShape } from '../../..
 export const drawResetButton = (p5, width, height, hover, rotation, screenSize) => {
   const small = screenSize == 'small'
   const text = 'reset'
-  const x = width - 30
+  const x = width / 2
   const y = small ? 45 : 55
   p5.clear()
   drawContainer(p5, width, height)

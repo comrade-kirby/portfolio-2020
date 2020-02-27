@@ -17,6 +17,8 @@
     frequencyProgress,
   } from '../../stores.js'
 
+  export let panelWidth 
+
   let sizeButtonParams = {
     text: 'size',
     progressWritable: sizeProgress,
@@ -77,33 +79,41 @@
   .fill-div {
     height: 100%;
     background-color: hsla(0,0%,100%,90%);
-    width: 60px;
+    width: var(--width);
   }
 
   .bottom-padding {
     height: var(--height);
     background-color: hsla(0,0%,100%,90%);
-    width: 60px;
+    width: var(--width);
   }
 </style>
 
-<div class="background-controls" aria-label="background controls">
+<div 
+  class="background-controls" 
+  style='--width:{panelWidth}px'
+  aria-label="background controls"
+>
   <div class='fill-div'></div>
-  <ResetButton />
+  <ResetButton panelWidth={panelWidth} />
   <ControlSlider
+    panelWidth={panelWidth}
     button={sizeButtonParams} 
     progress={$sizeProgress}
     bind:value={$sizeValue}/>
   <ControlSlider
+    panelWidth={panelWidth}
     button={speedButtonParams} 
     progress={$speedProgress}
     inputCallback={setCircleSpeed}
     bind:value={$speedValue}/>
   <ControlSlider
+    panelWidth={panelWidth}
     button={opacityButtonParams} 
     progress={$opacityProgress}
     bind:value={$opacityValue}/>
   <ControlSlider
+    panelWidth={panelWidth}
     button={frequencyButtonParams} 
     progress={$frequencyProgress}
     bind:value={$frequencyValue}/>

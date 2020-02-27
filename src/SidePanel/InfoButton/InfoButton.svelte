@@ -15,14 +15,14 @@
     frequencyProgress
   } from '../../stores.js'
 
+  export let panelWidth
   const controlButtons = [sizeProgress, speedProgress, opacityProgress, frequencyProgress]
-
   const largeHeight = 290
   const smallHeight = 230
 
   let maxWidth
   let infoButtonHeight
-  let infoButtonWidth = 60
+  let infoButtonWidth
   let infoButtonXOffset = 0
 
   let infoParams = {
@@ -41,11 +41,11 @@
 
   const setInfoButtonWidth = (screenSize, infoProgress) => {
     maxWidth = screenSize == 'large' ? 480 : 375
-    infoButtonWidth = (maxWidth * infoProgress) || 60
+    infoButtonWidth = (maxWidth * infoProgress) || panelWidth
   }
 
   const slideInfoButton = (infoProgress) => {
-    infoButtonXOffset = (60 - infoButtonWidth) * (1 - infoProgress) 
+    infoButtonXOffset = (panelWidth - infoButtonWidth) * (1 - infoProgress) 
   }
 
   const sketch = (p5) => {
@@ -54,7 +54,7 @@
     }
 
     p5.draw = () => {
-      drawInfoButton(p5, maxWidth, infoButtonHeight, infoParams, $screenSize, $touch)
+      drawInfoButton(p5, maxWidth, infoButtonHeight, infoParams, $screenSize, $touch, panelWidth)
     }
 
     p5.windowResized = () => {

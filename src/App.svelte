@@ -35,6 +35,7 @@
 	const touched = () => {
 		touch.set(true)
 	}
+	
 	afterUpdate(() => {
 		screenHeight.set(canvasHeight)	 
 		screenWidth.set(canvasWidth)	 

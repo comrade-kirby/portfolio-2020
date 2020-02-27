@@ -3,6 +3,9 @@
   import BackgroundControls from './BackgroundControls/BackgroundControls.svelte'
   import HomeButton from './HomeButton/HomeButton.svelte'
   import InfoButton from './InfoButton/InfoButton.svelte'
+  import { screenSize } from '../stores'
+
+  $: panelWidth = $screenSize == 'small' ? 45 : 60
 </script>
 
 <style>
@@ -12,7 +15,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    width: 60px;
+    width: var(--width);
     height: 100%;
     z-index: 1;
   }
@@ -23,10 +26,14 @@
   }
 </style>
 
-<div class='side-panel' transition:fade>
-  <HomeButton />
-  <InfoButton />
+<div 
+  class='side-panel' 
+  style='--width:{panelWidth}px;'
+  transition:fade
+>
+  <HomeButton panelWidth={panelWidth} />
+  <InfoButton panelWidth={panelWidth} />
   <div class='controls-container'>
-    <BackgroundControls />
+    <BackgroundControls panelWidth={panelWidth} />
   </div>
 </div>
