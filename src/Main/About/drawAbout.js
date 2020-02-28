@@ -17,6 +17,7 @@ const drawAbout = (p5, aboutWidth, aboutHeight, screenSize, closeHover) => {
 
   const drawContent = (p5, aboutWidth, screenSize) => {
     let textSize, x
+    let bold = false
     if (screenSize == 'large') { 
       textSize = 16 
       x = 85
@@ -26,6 +27,7 @@ const drawAbout = (p5, aboutWidth, aboutHeight, screenSize, closeHover) => {
     } else { 
       textSize = 10 
       x = 30
+      bold = true
     }
       
     const y = aboutWidth < 400 ? 50 : 90
@@ -46,6 +48,7 @@ const drawAbout = (p5, aboutWidth, aboutHeight, screenSize, closeHover) => {
       text: text,
       textSize: textSize,
       textLeading: 24,
+      bold,
       horizontalAlignment: p5.LEFT,
       verticalAlignment: p5.TOP,
       xPosition: x,

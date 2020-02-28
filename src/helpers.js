@@ -6,6 +6,7 @@ export const transparentText = (p5, options) => {
     text,
     textSize,
     textLeading,
+    bold,
     horizontalAlignment,
     verticalAlignment,
     xPosition,
@@ -21,6 +22,7 @@ export const transparentText = (p5, options) => {
 
   erase = progress ? erase * progress : erase
   opacity = progress ? opacity * progress : opacity
+  p5.textStyle(bold ? p5.BOLD: p5.NORMAL)
   p5.textSize(textSize)
   p5.textLeading(textLeading)
   p5.textAlign(horizontalAlignment, verticalAlignment)
@@ -42,6 +44,7 @@ export const transparentTitle = (p5, text, screenSize) => {
   transparentText(p5, {
     text: text,
     textSize: size,
+    bold: true,
     horizontalAlignment: p5.LEFT,
     verticalAlignment: p5.TOP,
     xPosition: margin,
