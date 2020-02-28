@@ -60,8 +60,10 @@
   .buttons {
     display: flex;
     justify-content: space-evenly;
-    width: 50%;
+    min-width: var(--minWidth);
+    width: var(--screenPercentage);
     pointer-events: all;
+    background: hsl(0,0%,0%,40%);
 
   }
 
@@ -69,20 +71,33 @@
     background: none;
     color: white;
     border: none;
+    margin: 0;
     font-size: var(--size);
     text-shadow: 1px 1px 1px hsl(0, 0%, 0%, 40%);
     z-index: 1;
   }
 
+  .nav-button:hover {
+    position: relative;
+    bottom: 1px;
+    text-decoration: underline dotted hsl(0, 0%, 100%, 70%);
+    text-decoration-thickness: 2px;
+  }
   .active {
     font-weight: 600;
-    text-decoration: underline wavy;
+    text-decoration: underline dotted;
     text-decoration-thickness: 2px;
   }
 </style>
 
-<div class='main'>
-  <div class='content' style='--minWidth:{$screenSize == 'large' ? 700 : 350}px;  --screenPercentage:{$screenSize == 'large' ? 50 : 75}%'>
+<div 
+  class='main' 
+  style='
+    --minWidth:{$screenSize == 'large' ? 700 : 350}px;
+    --screenPercentage:{$screenSize == 'large' ? 50 : 75}%
+  '
+>
+  <div class='content' >
     {#if $currentView == 'home'}
       <Home />
     {:else if $currentView == 'about'}
@@ -102,7 +117,7 @@
   </div>
   <nav 
     class='buttons' 
-    style='--size:{ $screenSize == 'large' ? 24 : 18 }px'
+    style='--size:{ $screenSize == 'large' ? 18 : 14 }px'
     role='navigation'
   >
     <button 

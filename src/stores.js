@@ -27,7 +27,7 @@ export const backgroundHue = tweened(270, {
 })
 
 const configs = [
-  [0.9, 0.15, 0.05, 0.5]
+  [0.9, 0.12, 0.05, 0.5]
 ]
 
 const autoConfig = configs[Math.floor(Math.random() * configs.length)]
