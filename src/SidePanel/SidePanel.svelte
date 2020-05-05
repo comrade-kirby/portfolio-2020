@@ -21,8 +21,9 @@
   }
   
   .controls-container {
-    height: 100%;
+    flex: 1;
     pointer-events: none;
+    overflow: scroll;
   }
 </style>
 
