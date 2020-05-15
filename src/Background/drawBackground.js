@@ -50,10 +50,10 @@ const generateCoordinates = (p5, sizeValue, circleLocation, longestScreenDimensi
 }
 
 const drawShape = (p5, coordinates, opacity, backgroundHue, circleHue) => {
-  const saturation = 100
-  const strokeLightness = 97
-  const strokeAlpha = 100
-  const fillLightness = 85
+  const saturation = 50
+  const strokeLightness = 90
+  const strokeAlpha = 90
+  const fillLightness = 50
   const fillAlpha = opacity * 100
 
   p5.stroke(backgroundHue, saturation, strokeLightness, strokeAlpha);

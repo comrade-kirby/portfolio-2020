@@ -77,8 +77,10 @@
     }
   }
   const setCircleHue = (circleX, screenWidth) => {
-    const newHue = hueMaxValue * (circleX / $screenWidth)
-    if (newHue >= 0 && newHue <= 360) {
+    let hue = 300
+    let newHue = (hue * (circleX / $screenWidth)) + 100
+    if (newHue >= 100 && newHue <= 400) {
+      if (newHue > 360) { newHue = newHue - 360}
       circleHue.set(newHue)
     }
   }
